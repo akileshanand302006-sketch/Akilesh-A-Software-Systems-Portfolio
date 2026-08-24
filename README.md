@@ -1,8 +1,8 @@
 
-# ✦ Akilesh A — Premium Full-Stack Developer Portfolio
+# ✦ Akilesh A — Software Systems Portfolio
 
 <p align="center">
-  <strong>Software Systems Student • Full-Stack Developer • Problem Solver</strong>
+  <strong>Integrated MSc Software Systems Student • Full-Stack Developer • Problem Solver</strong>
 </p>
 
 <p align="center">
