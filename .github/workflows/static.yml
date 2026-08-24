@@ -31,8 +31,7 @@ jobs:
 
       - name: Build production bundle
         env:
-           VITE_API_URL:
-           https://akilesh-portfolio-api.onrender.com/api
+          VITE_API_URL: https://akilesh-portfolio-api.onrender.com/api
         run: npm run build
 
       - name: Setup Pages
