@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { Download, Eye, Sparkles, Code2, Database, FileText } from 'lucide-react';
 import { analyticsService } from '../../services/analyticsService';
 import './Resume.css';
+const BASE = import.meta.env.BASE_URL || '/';
+const cleanBase = BASE.endsWith('/') ? BASE : `${BASE}/`;
 
 const resumes = [
   {
@@ -17,8 +19,8 @@ const resumes = [
       'Databases (PostgreSQL, PostGIS, MySQL)',
       'Algorithmic Problem Solving (LeetCode)',
     ],
-    pdfUrl: '/resumes/Akilesh_A_SDE_Resume.pdf',
-    docxUrl: '/resumes/Akilesh_A_SDE_Resume.docx',
+    pdfUrl: `${cleanBase}resumes/Akilesh_A_SDE_Resume.pdf`,
+    docxUrl: `${cleanBase}resumes/Akilesh_A_SDE_Resume.docx`,
   },
   {
     id: 'data',
@@ -33,10 +35,11 @@ const resumes = [
       'Data Visualization & Desktop Analytics (FinvisIQ)',
       'API Integration & Geospatial Discovery (RouteVeda)',
     ],
-    pdfUrl: '/resumes/Akilesh_A_Data_Resume.pdf',
-    docxUrl: '/resumes/Akilesh_A_Data_Resume.docx',
+    pdfUrl: `${cleanBase}resumes/Akilesh_A_Data_Resume.pdf`,
+    docxUrl: `${cleanBase}resumes/Akilesh_A_Data_Resume.docx`,
   },
 ];
+
 
 export default function Resume() {
   const handleTrack = (type, id) => {
