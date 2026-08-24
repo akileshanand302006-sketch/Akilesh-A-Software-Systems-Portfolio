@@ -1,4 +1,3 @@
-
 # ✦ Akilesh A — Software Systems Portfolio
 
 <p align="center">
@@ -8,6 +7,16 @@
 <p align="center">
   A cinematic, interactive developer portfolio built with modern web technologies,
   premium Liquid Glass UI, 3D experiences, and a cloud-backed architecture.
+</p>
+
+<p align="center">
+  <a href="https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀%20LIVE%20DEMO-Visit%20Portfolio-0A84FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live Demo">
+  </a>
+  &nbsp;
+  <a href="https://github.com/akileshanand302006-sketch/Akilesh-A-Software-Systems-Portfolio" target="_blank">
+    <img src="https://img.shields.io/badge/💻%20SOURCE%20CODE-GitHub-111827?style=for-the-badge&logo=github&logoColor=white" alt="Source Code">
+  </a>
 </p>
 
 <p align="center">
@@ -42,6 +51,18 @@ Instead of a traditional static portfolio, it provides a cinematic interface fea
 - Cloud-backed portfolio data
 - Working contact system
 - Responsive design across devices
+
+---
+
+### 🌐 Explore the Portfolio
+
+<p align="center">
+  <a href="https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/">
+    <img src="https://img.shields.io/badge/✨%20EXPLORE%20MY%20PORTFOLIO-Click%20to%20Visit%20→-2563EB?style=for-the-badge&labelColor=0F172A" alt="Explore Portfolio">
+  </a>
+</p>
+
+> **Live:** [Akilesh A — Software Systems Portfolio](https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/)
 
 ---
 
