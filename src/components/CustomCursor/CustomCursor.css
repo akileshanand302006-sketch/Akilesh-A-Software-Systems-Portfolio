@@ -1,0 +1,39 @@
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  box-shadow: 0 0 10px var(--accent-glow-strong);
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: calc(var(--z-cursor) - 1);
+  opacity: 0.5;
+  transition: opacity var(--transition-fast), border-color var(--transition-fast);
+}
+
+.cursor-ring.hovered {
+  opacity: 0.8;
+  border-color: var(--accent-cyan);
+  background: rgba(59, 130, 246, 0.08);
+}
+
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}

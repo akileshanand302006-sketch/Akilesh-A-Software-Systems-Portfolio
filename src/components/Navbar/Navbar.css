@@ -1,0 +1,295 @@
+/* ============================================================
+   NAVBAR STYLES — LIQUID GLASS CAPSULE
+   ============================================================ */
+
+.navbar-float {
+  position: fixed;
+  top: 16px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: var(--z-navbar);
+  border-radius: var(--radius-pill);
+  padding: 0 8px;
+  width: fit-content;
+  max-width: min(92vw, 1100px);
+  box-shadow: var(--shadow-md), var(--shadow-inner-light);
+  transition: all var(--transition-base);
+}
+
+.navbar-float.scrolled {
+  box-shadow: var(--shadow-lg), var(--shadow-glow), var(--shadow-inner-light);
+}
+
+[data-theme="light"] .navbar-float {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+}
+
+[data-theme="light"] .navbar-float.scrolled {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 14px 40px rgba(37, 99, 235, 0.12), 0 0 20px rgba(2, 132, 199, 0.1), inset 0 1px 0 #ffffff;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 56px;
+  padding: 0 12px;
+}
+
+/* ── Logo ── */
+.navbar-logo {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
+}
+
+.navbar-logo:hover {
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--accent-glow);
+}
+
+.logo-bracket {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.logo-name {
+  color: var(--text-primary);
+}
+
+/* ── Nav Links ── */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: rgba(56, 189, 248, 0.08);
+}
+
+[data-theme="light"] .nav-link:hover {
+  color: var(--accent);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.nav-link.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.nav-active-indicator {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 3px;
+  background: var(--accent-gradient);
+  border-radius: 3px;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* ── Actions ── */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ── Mobile ── */
+.navbar-mobile-actions {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+}
+
+.mobile-menu-btn:hover {
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.08);
+}
+
+/* ── Mobile Overlay ── */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-navbar) + 10);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.mobile-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(320px, 85vw);
+  height: 100vh;
+  border-radius: 0;
+  border-left: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+[data-theme="light"] .mobile-menu {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border-left: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: -10px 0 30px rgba(37, 99, 235, 0.1);
+}
+
+.mobile-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.mobile-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  transition: all var(--transition-base);
+}
+
+.mobile-close-btn:hover {
+  color: var(--accent);
+}
+
+.mobile-nav-links {
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-nav-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  text-align: left;
+  width: 100%;
+  transition: all var(--transition-base);
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.08);
+}
+
+[data-theme="light"] .mobile-nav-link:hover,
+[data-theme="light"] .mobile-nav-link.active {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.mobile-menu-footer {
+  padding: 20px;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-contact-btn {
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .navbar-links,
+  .navbar-actions {
+    display: none;
+  }
+
+  .navbar-mobile-actions {
+    display: flex;
+  }
+
+  .navbar-float {
+    max-width: calc(100vw - 32px);
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-float {
+    top: 10px;
+    padding: 0 4px;
+  }
+  
+  .navbar-container {
+    padding: 0 8px;
+    height: 50px;
+  }
+}

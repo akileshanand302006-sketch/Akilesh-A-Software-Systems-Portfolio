@@ -1,0 +1,268 @@
+.resume-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+.resume-dual-card {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.resume-dual-card:hover {
+  box-shadow: var(--shadow-lg), 0 0 35px var(--resume-accent, var(--accent-glow));
+  border-color: var(--resume-accent, var(--glass-border-hover));
+  transform: translateY(-3px);
+}
+
+/* ── Header ── */
+.rdc-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.rdc-icon-wrap {
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.15);
+}
+
+.rdc-badge-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rdc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  border: 1px solid;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rdc-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.rdc-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* ── Highlights ── */
+.rdc-highlights {
+  background: rgba(56, 189, 248, 0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-inner-light);
+}
+
+[data-theme="light"] .rdc-highlights {
+  background: rgba(37, 99, 235, 0.04);
+  border: 1px solid rgba(37, 99, 235, 0.15);
+}
+
+.rdc-hl-title {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.rdc-hl-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rdc-hl-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.rdc-bullet {
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ── Impressive Action Buttons ── */
+.rdc-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.rdc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-primary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 12px 18px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm), var(--shadow-inner-light);
+  transform: translateZ(0);
+}
+
+/* 1. Primary Button: View PDF */
+.rdc-btn-primary {
+  background: var(--accent-gradient);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff !important;
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.rdc-btn-primary:hover {
+  box-shadow: 0 6px 28px rgba(56, 189, 248, 0.45), inset 0 1px 0 #ffffff;
+  transform: translate3d(0, -2px, 0);
+  color: #ffffff;
+}
+
+[data-theme="light"] .rdc-btn-primary {
+  background: linear-gradient(135deg, #1d4ed8 0%, #0284c7 100%);
+  box-shadow: 0 4px 18px rgba(37, 99, 235, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* 2. Secondary Button: Download PDF */
+.rdc-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--resume-accent, rgba(56, 189, 248, 0.4));
+  color: var(--text-primary) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.rdc-btn-secondary:hover {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: var(--resume-accent, var(--accent));
+  box-shadow: 0 4px 20px var(--resume-accent, rgba(56, 189, 248, 0.25));
+  transform: translate3d(0, -2px, 0);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .rdc-btn-secondary {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1.5px solid var(--accent);
+  color: var(--text-primary) !important;
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.08);
+}
+
+[data-theme="light"] .rdc-btn-secondary:hover {
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2);
+}
+
+/* 3. Prominent Word DOCX Button */
+.rdc-btn-docx {
+  grid-column: span 2;
+  background: rgba(30, 58, 138, 0.25);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #f8fafc !important;
+  font-weight: 600;
+  font-size: 0.86rem;
+  letter-spacing: 0.2px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.rdc-docx-icon {
+  color: #38bdf8;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5));
+}
+
+.rdc-btn-docx:hover {
+  background: rgba(37, 99, 235, 0.35);
+  border-color: #38bdf8;
+  box-shadow: 0 6px 24px rgba(56, 189, 248, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translate3d(0, -2px, 0);
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .rdc-btn-docx {
+  background: rgba(239, 246, 255, 0.95);
+  border: 1.5px solid #2563eb;
+  color: #1e3a8a !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.1), inset 0 1px 0 #ffffff;
+}
+
+[data-theme="light"] .rdc-docx-icon {
+  color: #2563eb;
+}
+
+[data-theme="light"] .rdc-btn-docx:hover {
+  background: #ffffff;
+  border-color: #1d4ed8;
+  box-shadow: 0 6px 22px rgba(37, 99, 235, 0.25);
+  color: #1d4ed8 !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .resume-grid {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+  }
+
+  .resume-dual-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rdc-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .rdc-btn-docx {
+    grid-column: span 1;
+  }
+}

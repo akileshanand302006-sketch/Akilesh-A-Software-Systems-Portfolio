@@ -1,0 +1,124 @@
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--glass-border), transparent);
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 0 40px 40px;
+}
+
+.timeline-item.left {
+  left: 0;
+  padding-right: 50px;
+}
+
+.timeline-item.right {
+  left: 50%;
+  padding-left: 50px;
+}
+
+.timeline-dot {
+  position: absolute;
+  top: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  z-index: 2;
+  box-shadow: var(--shadow-glow);
+}
+
+.timeline-item.left .timeline-dot {
+  right: -18px;
+}
+
+.timeline-item.right .timeline-dot {
+  left: -18px;
+}
+
+.timeline-card {
+  padding: 24px;
+}
+
+.timeline-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.timeline-period {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.timeline-org {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+.timeline-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.timeline-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.timeline-techs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .timeline-line {
+    left: 20px;
+  }
+
+  .timeline-item,
+  .timeline-item.left,
+  .timeline-item.right {
+    width: 100%;
+    left: 0;
+    padding-left: 56px;
+    padding-right: 0;
+  }
+
+  .timeline-dot,
+  .timeline-item.left .timeline-dot,
+  .timeline-item.right .timeline-dot {
+    left: 2px;
+    right: auto;
+  }
+}

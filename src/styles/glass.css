@@ -1,0 +1,326 @@
+/* ============================================================
+   PREMIUM LIQUID GLASS DESIGN SYSTEM
+   3-Level Hierarchy, Specular Reflection, & Edge Lighting
+   Dual-Theme (Obsidian Dark & Crystal Light)
+   High Performance GPU Composited
+   ============================================================ */
+
+/* ── Base Glass (Level 1 — Subtle) ── */
+.glass,
+.glass-level-1 {
+  background: var(--glass-1);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm), var(--shadow-inner-light);
+  transition: var(--transition-base);
+  position: relative;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.glass:hover,
+.glass-level-1:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+/* ── Glass Card (Level 2 — Medium) ── */
+.glass-card,
+.glass-level-2 {
+  background: var(--glass-2);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md), var(--shadow-inner-light);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Specular Top Edge Light */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--glass-border-highlight) 30%, 
+    var(--accent-light) 50%, 
+    var(--glass-border-highlight) 70%, 
+    transparent 100%
+  );
+  opacity: 0.7;
+  transition: opacity var(--transition-base), height var(--transition-base);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Diagonal Moving Reflection Sheen */
+.glass-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 220%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.08) 48%,
+    rgba(56, 189, 248, 0.15) 50%,
+    rgba(255, 255, 255, 0.08) 52%,
+    transparent 58%
+  );
+  transform: rotate(0deg);
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+  pointer-events: none;
+  z-index: 1;
+}
+
+[data-theme="light"] .glass-card::after {
+  background: linear-gradient(
+    60deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.4) 48%,
+    rgba(37, 99, 235, 0.12) 50%,
+    rgba(255, 255, 255, 0.4) 52%,
+    transparent 58%
+  );
+}
+
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-strong);
+  transform: translate3d(0, -3px, 0);
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+  height: 2px;
+}
+
+.glass-card:hover::after {
+  opacity: 1;
+  animation: liquid-sheen 1.8s ease-in-out;
+}
+
+/* ── Glass Panel (Level 3 — Prominent / Deep Surfaces) ── */
+.glass-panel,
+.glass-level-3 {
+  background: var(--glass-3);
+  backdrop-filter: blur(var(--glass-blur-heavy)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur-heavy)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  box-shadow: var(--shadow-lg), var(--shadow-inner-light);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--glass-border-highlight) 25%,
+    var(--accent) 50%,
+    var(--glass-border-highlight) 75%,
+    transparent 100%
+  );
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* ── Glass Navigation Capsule ── */
+.glass-nav,
+.glass-navbar {
+  background: var(--glass-3);
+  backdrop-filter: blur(var(--glass-blur-heavy)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur-heavy)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md), var(--shadow-inner-light);
+  transition: all var(--transition-base);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.glass-nav:hover {
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+/* ── Glass Button ── */
+.glass-button {
+  background: var(--glass-2);
+  backdrop-filter: blur(14px) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(14px) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 10px 22px;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-sm), var(--shadow-inner-light);
+  transform: translateZ(0);
+}
+
+.glass-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-button:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--accent-light);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+  transform: translate3d(0, -2px, 0);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.glass-button:hover::before {
+  left: 120%;
+}
+
+.glass-button:active {
+  transform: translate3d(0, 0, 0);
+}
+
+/* ── Primary Accent Button ── */
+.glass-button-primary {
+  background: var(--accent-gradient);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+.glass-button-primary:hover {
+  box-shadow: var(--shadow-lg), var(--shadow-glow-strong);
+  border-color: #ffffff;
+  transform: translate3d(0, -2px, 0);
+}
+
+/* ── Glass Pill & Badge ── */
+.glass-pill,
+.glass-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--glass-1);
+  backdrop-filter: blur(12px) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(12px) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-inner-light);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transform: translateZ(0);
+}
+
+.glass-pill:hover,
+.glass-badge:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-sm), var(--shadow-glow);
+}
+
+/* ── Glowing Border Effects ── */
+.glow-border {
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glow);
+  transition: all var(--transition-base);
+}
+
+.glow-border:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-glow-strong);
+}
+
+/* ── Gradient Text ── */
+.gradient-text {
+  background: var(--accent-gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+/* ── Section Title & Labels ── */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glass-1);
+  border: 1px solid var(--glass-border);
+  padding: 5px 16px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-inner-light);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-size: 1.02rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 620px;
+}
