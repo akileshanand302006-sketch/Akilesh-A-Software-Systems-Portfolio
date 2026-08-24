@@ -1,52 +1,59 @@
 .profile-image-container {
   position: relative;
-  width: 260px;
-  height: 260px;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s ease-out;
   cursor: pointer;
+  transform-style: preserve-3d;
 }
 
-/* ── Glow Ring ── */
 .profile-glow-ring {
   position: absolute;
-  inset: -10px;
+  inset: -12px;
   border-radius: 50%;
-  border: 2px solid rgba(59, 130, 246, 0.35);
-  box-shadow: 0 0 35px var(--accent-glow-strong), inset 0 0 25px rgba(59, 130, 246, 0.15);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(34, 211, 238, 0.15) 50%, transparent 70%);
+  filter: blur(14px);
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* ── Orbit Ring ── */
 .profile-orbit-ring {
   position: absolute;
-  inset: -20px;
+  inset: -6px;
   border-radius: 50%;
-  border: 1.5px dashed rgba(6, 182, 212, 0.3);
+  border: 1.5px dashed rgba(56, 189, 248, 0.45);
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* ── Frame ── */
 .profile-frame {
-  width: 220px;
-  height: 220px;
+  width: 210px;
+  height: 210px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid rgba(59, 130, 246, 0.45);
-  box-shadow: var(--shadow-lg), var(--shadow-glow-strong);
-  background: var(--glass-bg);
   position: relative;
   z-index: 2;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.3), inset 0 0 15px rgba(0, 0, 0, 0.2);
+  background: #0f172a;
+}
+
+[data-theme="light"] .profile-frame {
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
 }
 
 .profile-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 22%;
+  object-position: center top;
   display: block;
-  transition: transform 0.4s ease;
 }
+
 
 .profile-image-container:hover .profile-img {
   transform: scale(1.06);
