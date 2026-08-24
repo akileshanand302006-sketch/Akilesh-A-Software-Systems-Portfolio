@@ -194,10 +194,6 @@ GitHub Repository
    React Application
 ````
 
-> **Note:** GitHub Pages hosts the frontend only. MongoDB Atlas is accessed securely through the separately deployed Node.js/Express backend API. Database credentials are never exposed to the browser.
-
----
-
 ## 🗄️ MongoDB Atlas
 
 Portfolio application data is stored in **MongoDB Atlas** instead of static JSON files.
