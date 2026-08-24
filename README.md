@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <a href="https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/" target="_blank">
-    <img src="https://img.shields.io/badge/🚀%20LIVE%20DEMO-Visit%20Portfolio-0A84FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live Demo">
+  <a href="https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/">
+    <img src="https://img.shields.io/badge/🚀%20EXPLORE%20MY%20PORTFOLIO-2563EB?style=for-the-badge&labelColor=0F172A" alt="Explore Portfolio"/>
   </a>
   &nbsp;
   <a href="https://github.com/akileshanand302006-sketch/Akilesh-A-Software-Systems-Portfolio" target="_blank">
