@@ -1,7 +1,8 @@
 /* ============================================================
    PROFILE — Personal & Academic Information
    ============================================================ */
-
+const BASE = import.meta.env.BASE_URL || '/';
+const cleanBase = BASE.endsWith('/') ? BASE : `${BASE}/`;
 const profile = {
   /* ── Identity ── */
   name: 'Akilesh A',
@@ -11,10 +12,10 @@ const profile = {
   college: 'Coimbatore Institute of Technology, Coimbatore, Tamil Nadu, India',
   degree: 'M.Sc Software Systems (3rd Year - Integrated 5-Year Master\'s Degree)',
   tagline: 'Pursuing M.Sc Software Systems at CIT Coimbatore • Building thoughtful full-stack platforms, Core Java systems, and intelligent digital solutions.',
-  
+
   /* ── Detailed Bio for About Section ── */
   bio: `I am currently pursuing my 3rd year of M.Sc Software Systems (Integrated 5-Year Master's Degree) at Coimbatore Institute of Technology (CIT), Coimbatore, Tamil Nadu, India. As an aspiring software systems and full-stack engineer, I specialize in translating complex algorithmic, architectural, and database challenges into practical, high-performance software. My technical experience spans low-level systems (8086 Assembly), enterprise Java applications (FinvisIQ), intelligent geospatial platforms (RouteVeda), and reactive modern web technologies.`,
-  
+
   /* ── About Highlights ── */
   highlights: [
     'M.Sc Software Systems (3rd Year)',
@@ -47,11 +48,8 @@ const profile = {
   location: 'Coimbatore, Tamil Nadu, India',
   availability: 'Open to Internship Opportunities (2026)',
 
-  /* ── Resume ── */
-  resumePath: '/resume.pdf',
-
-  /* ── Profile Image ── */
-  profileImage: '/profile.jpg',
+  profileImage: `${cleanBase}profile.jpg`,
+  resumePath: `${cleanBase}resumes/Akilesh_A_SDE_Resume.pdf`,
 
   /* ── Social / Developer Links ── */
   github: 'https://github.com/akileshanand302006-sketch',
