@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 
 /**
  * Detects prefers-reduced-motion media query.
@@ -17,3 +17,5 @@ export function useReducedMotion() {
 
   return prefersReduced;
 }
+
+export default useReducedMotion;

@@ -1,0 +1,79 @@
+﻿/* ============================================================
+   RESPONSIVE DESIGN & ACCESSIBILITY SYSTEM
+   ============================================================ */
+
+/* ── Prevent Horizontal Overflow ── */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* ── Tablet Optimizations (<= 1024px) ── */
+@media (max-width: 1024px) {
+  .hero-3d-centerpiece {
+    max-width: 360px;
+    height: 360px;
+  }
+
+  .portfolio-3d-canvas-container {
+    opacity: 0.85;
+  }
+}
+
+/* ── Mobile Optimizations (<= 768px) ── */
+@media (max-width: 768px) {
+  .hero-3d-centerpiece {
+    max-width: 280px;
+    height: 280px;
+    margin-top: 1.5rem;
+  }
+
+  .portfolio-3d-canvas-container {
+    opacity: 0.65;
+  }
+
+  .bg-gradient-blob {
+    filter: blur(50px);
+    opacity: 0.35;
+  }
+
+  .blob-primary {
+    width: 320px;
+    height: 320px;
+  }
+
+  .blob-secondary {
+    width: 350px;
+    height: 350px;
+  }
+
+  .blob-accent {
+    display: none;
+  }
+}
+
+/* ── Small Mobile (<= 480px) ── */
+@media (max-width: 480px) {
+  .hero-3d-centerpiece {
+    max-width: 240px;
+    height: 240px;
+  }
+}
+
+/* ── Accessibility: Prefers Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .bg-gradient-blob {
+    animation: none !important;
+  }
+
+  .hero-3d-centerpiece {
+    pointer-events: none;
+  }
+}
