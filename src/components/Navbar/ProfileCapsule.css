@@ -1,0 +1,606 @@
+/* ============================================================
+   PREMIUM LIQUID GLASS PROFILE CAPSULE & TOGGLE SYSTEM
+   ============================================================ */
+
+.profile-capsule-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 800px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* ── Main Liquid Glass Trigger Capsule ── */
+.profile-capsule-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 3px 10px 3px 4px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0);
+}
+
+/* Moving Light Reflection / Specular Sweep */
+.capsule-shimmer-sweep {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  pointer-events: none;
+  transition: left 0.65s ease;
+}
+
+.profile-capsule-trigger:hover .capsule-shimmer-sweep {
+  left: 140%;
+}
+
+/* Hover & Active Micro-Interactions */
+.profile-capsule-trigger:hover,
+.profile-capsule-trigger.capsule-active {
+  background: rgba(15, 23, 42, 0.75);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35),
+              0 0 18px rgba(56, 189, 248, 0.25),
+              inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px) scale(1.02);
+}
+
+.profile-capsule-trigger:focus-visible {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.4);
+}
+
+/* ── Light Theme Capsule Appearance ── */
+[data-theme="light"] .profile-capsule-trigger {
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08), inset 0 1px 0 #ffffff;
+}
+
+[data-theme="light"] .profile-capsule-trigger:hover,
+[data-theme="light"] .profile-capsule-trigger.capsule-active {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: #2563eb;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.18),
+              0 0 16px rgba(37, 99, 235, 0.14),
+              inset 0 1px 0 #ffffff;
+}
+
+/* ── 1. Profile Avatar Frame & Multi-Layer System ── */
+.capsule-avatar-frame {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-ambient-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, transparent 70%);
+  filter: blur(4px);
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.profile-capsule-trigger:hover .avatar-ambient-glow {
+  opacity: 1;
+}
+
+.avatar-glass-ring {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  padding: 1.5px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.9), rgba(99, 102, 241, 0.6));
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+  overflow: hidden;
+}
+
+.avatar-core-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 12%; /* Perfect 9:16 portrait framing for head & upper body */
+  display: block;
+  background: #0f172a;
+  transition: transform 0.35s ease;
+}
+
+.profile-capsule-trigger:hover .avatar-core-image {
+  transform: scale(1.04);
+}
+
+.avatar-specular-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  border-top-left-radius: 999px;
+  border-top-right-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Pulsing Status Dot on Avatar */
+.avatar-status-dot {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  background: #10b981;
+  border: 1.5px solid #0f172a;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #10b981;
+}
+
+[data-theme="light"] .avatar-status-dot {
+  border-color: #ffffff;
+}
+
+.status-pulse-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1.5px solid #10b981;
+  opacity: 0.6;
+  animation: pulse-beacon 2.4s infinite ease-out;
+}
+
+@keyframes pulse-beacon {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  60% { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* ── 2. Identity Information (Akilesh A + Status) ── */
+.capsule-identity-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.capsule-name-text {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary, #f8fafc);
+  letter-spacing: -0.01em;
+}
+
+[data-theme="light"] .capsule-name-text {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.capsule-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.64rem;
+  font-weight: 500;
+  color: #10b981;
+  letter-spacing: 0.02em;
+}
+
+.status-live-beacon {
+  width: 4.5px;
+  height: 4.5px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #10b981;
+}
+
+/* ── 3. Dropdown Chevron Action Area ── */
+.capsule-chevron-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary, #94a3b8);
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.profile-capsule-trigger:hover .capsule-chevron-container {
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+}
+
+[data-theme="light"] .capsule-chevron-container {
+  background: rgba(37, 99, 235, 0.06);
+  color: #475569;
+}
+
+[data-theme="light"] .profile-capsule-trigger:hover .capsule-chevron-container {
+  background: rgba(37, 99, 235, 0.14);
+  color: #2563eb;
+}
+
+.capsule-chevron-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── 4. Floating Liquid Glass Dropdown Panel ── */
+.profile-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 275px;
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5),
+              0 0 25px rgba(56, 189, 248, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  z-index: 200;
+  transform-origin: top right;
+  overflow: hidden;
+}
+
+[data-theme="light"] .profile-dropdown-panel {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid rgba(37, 99, 235, 0.22);
+  box-shadow: 0 18px 44px rgba(37, 99, 235, 0.15), inset 0 1px 0 #ffffff;
+}
+
+/* Ambient subtle background glow inside dropdown */
+.dropdown-ambient-light {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+[data-theme="light"] .dropdown-ambient-light {
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
+}
+
+/* Header Identity Card */
+.dropdown-header-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .dropdown-header-card {
+  border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.dropdown-avatar-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 1.5px;
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+}
+
+.dropdown-avatar-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 12%;
+  display: block;
+}
+
+.dropdown-online-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 11px;
+  height: 11px;
+  background: #10b981;
+  border: 2px solid #0f172a;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #10b981;
+}
+
+[data-theme="light"] .dropdown-online-indicator {
+  border-color: #ffffff;
+}
+
+.dropdown-identity-meta {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dropdown-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dropdown-fullname {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary, #f8fafc);
+  margin: 0;
+  line-height: 1.2;
+}
+
+[data-theme="light"] .dropdown-fullname {
+  color: #0f172a;
+}
+
+.dropdown-college-tag {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+[data-theme="light"] .dropdown-college-tag {
+  color: #1d4ed8;
+  background: rgba(37, 99, 235, 0.1);
+}
+
+.dropdown-degree-text {
+  font-size: 0.72rem;
+  color: var(--text-secondary, #94a3b8);
+  margin: 2px 0 6px 0;
+  line-height: 1.2;
+}
+
+[data-theme="light"] .dropdown-degree-text {
+  color: #475569;
+}
+
+.dropdown-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 2px 8px;
+  border-radius: 999px;
+  width: fit-content;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+[data-theme="light"] .dropdown-status-pill {
+  color: #1d4ed8;
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+.badge-sparkle-glyph {
+  color: #38bdf8;
+}
+
+[data-theme="light"] .badge-sparkle-glyph {
+  color: #2563eb;
+}
+
+/* Menu Items in Dropdown */
+.dropdown-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 0;
+}
+
+.dropdown-action-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary, #f8fafc);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dropdown-action-item:hover {
+  background: rgba(56, 189, 248, 0.12);
+  transform: translateX(3px);
+}
+
+[data-theme="light"] .dropdown-action-item {
+  color: #0f172a;
+}
+
+[data-theme="light"] .dropdown-action-item:hover {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.action-icon-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary, #94a3b8);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.dropdown-action-item:hover .action-icon-box {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+}
+
+[data-theme="light"] .action-icon-box {
+  background: rgba(37, 99, 235, 0.06);
+  color: #475569;
+}
+
+[data-theme="light"] .dropdown-action-item:hover .action-icon-box {
+  background: rgba(37, 99, 235, 0.14);
+  color: #2563eb;
+}
+
+.action-meta-box {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.action-main-text {
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.action-desc {
+  font-size: 0.68rem;
+  color: var(--text-secondary, #94a3b8);
+  line-height: 1.2;
+  margin-top: 1px;
+}
+
+[data-theme="light"] .action-desc {
+  color: #64748b;
+}
+
+/* Social Links Footer */
+.dropdown-footer-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .dropdown-footer-row {
+  border-top: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.dropdown-social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary, #94a3b8);
+  transition: all 0.2s ease;
+}
+
+.dropdown-social-btn:hover {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+
+[data-theme="light"] .dropdown-social-btn {
+  background: rgba(37, 99, 235, 0.05);
+  border-color: rgba(37, 99, 235, 0.12);
+  color: #475569;
+}
+
+[data-theme="light"] .dropdown-social-btn:hover {
+  background: rgba(37, 99, 235, 0.12);
+  border-color: #2563eb;
+  color: #1d4ed8;
+}
+
+/* ── Responsive Adaptations ── */
+@media (max-width: 900px) {
+  .capsule-status-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .capsule-identity-block {
+    display: none;
+  }
+
+  .profile-capsule-trigger {
+    padding: 2px 5px 2px 2px;
+    gap: 4px;
+    height: 34px;
+  }
+
+  .capsule-avatar-frame {
+    width: 28px;
+    height: 28px;
+  }
+
+  .profile-dropdown-panel {
+    right: -10px;
+    width: 260px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-pulse-ring {
+    animation: none;
+  }
+  .profile-capsule-trigger:hover {
+    transform: none;
+  }
+  .avatar-core-image {
+    transition: none;
+  }
+}

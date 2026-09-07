@@ -13,7 +13,6 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
 // Connect Database
 connectDB();
@@ -21,19 +20,27 @@ connectDB();
 // Security Headers
 app.use(
   helmet({
-    crossOriginResourcePolicy: { policy: 'cross-origin' }, // Allows cross-origin media streaming
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
   })
 );
 
-// CORS Configuration
+// Allowed Origins for CORS
+const ALLOWED_ORIGINS = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:3000',
+  'https://akileshanand302006-sketch.github.io',
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl) or matching client url / localhost
-      if (!origin || origin === CLIENT_URL || origin.startsWith('http://localhost:')) {
+      // Allow requests with no origin (like mobile apps, curl) or matching allowed origins
+      if (!origin || ALLOWED_ORIGINS.includes(origin) || origin.startsWith('http://localhost:')) {
         callback(null, true);
       } else {
-        callback(null, true); // Permissive in dev, configurable for prod
+        callback(null, true); // Permissive in development
       }
     },
     credentials: true,
@@ -69,7 +76,7 @@ app.use(errorHandler);
 
 // Start Server
 app.listen(PORT, () => {
-  console.log(`🚀 [Portfolio Backend] Server running on http://localhost:${PORT}`);
+  console.log(`⚡ [Portfolio Backend] Server running on http://localhost:${PORT}`);
 });
 
 export default app;

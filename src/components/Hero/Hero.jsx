@@ -1,7 +1,7 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Send, FolderOpen, Circle, MapPin, GraduationCap, FileText } from 'lucide-react';
+import { Send, FolderOpen, Circle, GraduationCap, FileText } from 'lucide-react';
 import ProfileImage from '../ProfileImage/ProfileImage';
-import HeroOrb from './HeroOrb';
 import profile from '../../data/profile';
 import './Hero.css';
 
@@ -91,29 +91,27 @@ export default function Hero() {
             </button>
           </motion.div>
 
+          {/* 📍 High-Contrast Liquid Glass Location Indicator */}
           <motion.div
             className="hero-quick-meta"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.24, duration: 0.35 }}
           >
-            <div className="hq-item">
-              <MapPin size={14} />
-              <span>Coimbatore, Tamil Nadu, India</span>
+            <div className="hero-location-pill">
+              <span className="hlp-dot">◉</span>
+              <span className="hlp-text">Coimbatore, Tamil Nadu, India</span>
             </div>
           </motion.div>
         </div>
 
-        {/* Right Visual */}
+        {/* Right Visual ── Unified 3D Profile Showcase */}
         <motion.div
           className="hero-visual"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.45, ease: 'easeOut' }}
         >
-          <div className="hero-orb-wrapper">
-            <HeroOrb />
-          </div>
           <div className="hero-profile-wrapper">
             <ProfileImage />
           </div>

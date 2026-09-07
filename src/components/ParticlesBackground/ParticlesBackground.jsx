@@ -56,9 +56,29 @@ export default function ParticlesBackground({ theme }) {
       },
       interactivity: {
         events: {
-          onHover: { enable: false },
-          onClick: { enable: false },
+          onHover: {
+            enable: !isMobile,
+            mode: ['grab', 'bubble'],
+          },
+          onClick: {
+            enable: false,
+          },
           resize: true,
+        },
+        modes: {
+          grab: {
+            distance: 140,
+            links: {
+              opacity: 0.35,
+              color: isDark ? '#38bdf8' : '#2563eb',
+            },
+          },
+          bubble: {
+            distance: 140,
+            size: 3.5,
+            duration: 0.4,
+            opacity: 0.6,
+          },
         },
       },
       detectRetina: false, // Prevents 4K retina canvas overdraw

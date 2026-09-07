@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Mail } from 'lucide-react';
 import { useActiveSection } from '../../hooks/useActiveSection';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
+import ProfileCapsule from './ProfileCapsule';
 import profile from '../../data/profile';
 import './Navbar.css';
 
@@ -95,13 +96,15 @@ export default function Navbar({ theme, toggleTheme }) {
             ))}
           </ul>
 
-          {/* Desktop Right — Clean Theme Toggle */}
+          {/* Desktop Right ── Profile Capsule & Theme Toggle */}
           <div className="navbar-actions">
+            <ProfileCapsule theme={theme} />
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
           </div>
 
           {/* Mobile Right */}
           <div className="navbar-mobile-actions">
+            <ProfileCapsule theme={theme} isMobile={true} />
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
             <button
               className="mobile-menu-btn"

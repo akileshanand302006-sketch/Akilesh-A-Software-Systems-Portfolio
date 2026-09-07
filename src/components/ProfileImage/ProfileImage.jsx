@@ -1,18 +1,30 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { User } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
 import profile from '../../data/profile';
 import { portfolioService } from '../../services/portfolioService';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
+import OrbitalRings from './OrbitalRings';
+import FloatingAccents from './FloatingAccents';
+import { PROFILE_CONFIG } from './profileConfig';
 import './ProfileImage.css';
 
-// Direct asset URL for 100% reliable Vite bundling
 const BASE = import.meta.env.BASE_URL || '/';
 const cleanBase = BASE.endsWith('/') ? BASE : `${BASE}/`;
 const defaultPhoto = `${cleanBase}profile.jpg`;
 
+/**
+ * ProfileImage
+ * Premium 3D circular portrait lens experience.
+ * Features a crystal-clear, razor-sharp circular portrait with outer glass rim,
+ * traveling specular light sweep, 3D orbital rings, and smooth mouse parallax.
+ */
 export default function ProfileImage() {
-  const containerRef = useRef(null);
+  const sceneRef = useRef(null);
+  const rigRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(defaultPhoto);
+  const prefersReduced = useReducedMotion();
+
+  const mouseCoords = useRef({ targetX: 0, targetY: 0, currentX: 0, currentY: 0 });
+  const rafId = useRef(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -21,58 +33,106 @@ export default function ProfileImage() {
         setImgSrc(data.profileImage);
       }
     });
-    return () => {
-      isMounted = false;
-    };
+    return () => { isMounted = false; };
   }, []);
 
+  // Smooth RAF Mouse Parallax
+  useEffect(() => {
+    if (prefersReduced) return;
+    const rig = rigRef.current;
+    if (!rig) return;
+
+    const { parallax } = PROFILE_CONFIG;
+
+    const updateParallax = () => {
+      const coords = mouseCoords.current;
+      coords.currentX += (coords.targetX - coords.currentX) * parallax.lerp;
+      coords.currentY += (coords.targetY - coords.currentY) * parallax.lerp;
+
+      const tiltY = coords.currentX * parallax.maxTiltY;
+      const tiltX = -coords.currentY * parallax.maxTiltX;
+
+      rig.style.transform = `rotateY(${tiltY.toFixed(2)}deg) rotateX(${tiltX.toFixed(2)}deg)`;
+      rafId.current = requestAnimationFrame(updateParallax);
+    };
+
+    rafId.current = requestAnimationFrame(updateParallax);
+    return () => {
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+    };
+  }, [prefersReduced]);
+
   const handleMouseMove = (e) => {
-    const el = containerRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+    if (prefersReduced) return;
+    const scene = sceneRef.current;
+    if (!scene) return;
+
+    const rect = scene.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+
+    mouseCoords.current.targetX = Math.max(-1, Math.min(1, x));
+    mouseCoords.current.targetY = Math.max(-1, Math.min(1, y));
   };
 
   const handleMouseLeave = () => {
-    const el = containerRef.current;
-    if (el) {
-      el.style.transform = 'perspective(600px) rotateY(0deg) rotateX(0deg)';
-      el.style.transition = 'transform 0.5s ease';
-    }
+    mouseCoords.current.targetX = 0;
+    mouseCoords.current.targetY = 0;
+  };
+
+  const handleClick = () => {
+    window.dispatchEvent(
+      new CustomEvent('portfolio-cursor', {
+        detail: { state: 'success', duration: 1200, badge: 'EXPLORE' },
+      })
+    );
   };
 
   return (
-    <motion.div
-      className="profile-image-container"
-      ref={containerRef}
+    <div
+      className="profile-3d-scene"
+      ref={sceneRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.4, duration: 0.8, ease: 'easeOut' }}
+      data-cursor="image"
+      data-cursor-badge="VIEW PROFILE"
     >
-      {/* Outer glow ring */}
-      <div className="profile-glow-ring animate-pulse-glow" />
+      {/* Floating 3D Rig */}
+      <div className="profile-floating-rig" ref={rigRef}>
+        {/* Layer 1: Ambient Volumetric Backlight (Behind photo) */}
+        <div className="profile-ambient-glow" aria-hidden="true" />
+        <div className="profile-rim-halo" aria-hidden="true" />
 
-      {/* Rotating border ring */}
-      <div className="profile-orbit-ring animate-rotate" />
+        {/* Layer 2: 3D Orbital Rings System (Behind photo lens) */}
+        <OrbitalRings />
 
-      {/* Image frame */}
-      <div className="profile-frame">
-        <img
-          src={imgSrc}
-          alt={profile.name || 'Akilesh A'}
-          className="profile-img"
-          loading="eager"
-          onError={(e) => {
-            if (e.target.src !== defaultPhoto) {
-              e.target.src = defaultPhoto;
-            }
-          }}
-        />
+        {/* Layer 3: Main Circular Portrait Lens (Foreground) */}
+        <div className="profile-lens-wrapper" onClick={handleClick}>
+          {/* Outer Traveling Specular Beam (Circling outer perimeter) */}
+          <div className="profile-specular-ring" aria-hidden="true" />
+
+          {/* Outer Glass Rim (Annular frame around photo) */}
+          <div className="profile-glass-rim" aria-hidden="true" />
+
+          {/* Clean, Sharp, 100% Unblurred Circular Photograph */}
+          <div className="profile-photo-aperture">
+            <img
+              src={imgSrc}
+              alt={profile.name || 'Akilesh A'}
+              className="profile-circular-photo"
+              loading="eager"
+              onError={(e) => {
+                if (e.target.src !== defaultPhoto) {
+                  e.target.src = defaultPhoto;
+                }
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Layer 4: Micro Tech Accents (Outside photo) */}
+        <FloatingAccents />
       </div>
-    </motion.div>
+    </div>
   );
 }

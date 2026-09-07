@@ -1,39 +1,473 @@
-.cursor-dot {
+/* ============================================================
+   PREMIUM LIQUID GLASS INTERACTIVE CUSTOM CURSOR
+   Multi-layer liquid glass bubble with cyan bloom, specular
+   refraction, kinetic secondary ring, and 60-120+ FPS movement.
+   ============================================================ */
+
+/* Root Container */
+.custom-cursor-root {
+  position: fixed;
+  inset: 0;
+  pointer-events: none !important;
+  z-index: var(--z-cursor, 3000);
+  user-select: none;
+  overflow: hidden;
+}
+
+/* Layer 5: Canvas Digital Light Ribbon Trail */
+.cursor-trail-canvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
-  background-color: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: var(--z-cursor);
-  box-shadow: 0 0 10px var(--accent-glow-strong);
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none !important;
+  z-index: calc(var(--z-cursor, 3000) - 4);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  will-change: opacity;
 }
 
+/* Layer 4: Atmospheric Cyan Aurora Halo */
+.cursor-aura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  pointer-events: none !important;
+  z-index: calc(var(--z-cursor, 3000) - 3);
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.26) 0%,
+    rgba(34, 211, 238, 0.1) 42%,
+    transparent 72%
+  );
+  filter: blur(10px);
+  will-change: transform, width, height, opacity;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease;
+}
+
+/* Layer 3: Secondary Trailing Kinetic Glass Ring */
+.cursor-delayed-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  pointer-events: none !important;
+  z-index: calc(var(--z-cursor, 3000) - 2);
+  opacity: 0;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.18),
+              inset 0 0 8px rgba(34, 211, 238, 0.08);
+  will-change: transform, width, height, opacity;
+  transition: width 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              opacity 0.25s ease;
+}
+
+/* Layer 2: Main Liquid Glass Tracking Bubble */
 .cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid var(--accent);
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
+  pointer-events: none !important;
+  z-index: calc(var(--z-cursor, 3000) - 1);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* ?? Liquid Glass Material ?? */
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(56, 189, 248, 0.06) 50%,
+    rgba(15, 23, 42, 0.22) 100%
+  );
+  backdrop-filter: blur(6px) saturate(180%);
+  -webkit-backdrop-filter: blur(6px) saturate(180%);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4),
+              0 0 38px rgba(34, 211, 238, 0.2),
+              inset 0 1.5px 2px rgba(255, 255, 255, 0.55),
+              inset 0 -1.5px 2px rgba(0, 0, 0, 0.25),
+              inset 0 0 10px rgba(56, 189, 248, 0.2);
+
+  will-change: transform, width, height, border-color, background, box-shadow;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              background 0.25s ease,
+              box-shadow 0.25s ease,
+              opacity 0.25s ease;
+}
+
+/* Liquid Glass Curved Specular Highlight Glint */
+.glass-lens-reflection {
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.12) 35%,
+    transparent 65%
+  );
   pointer-events: none;
-  z-index: calc(var(--z-cursor) - 1);
-  opacity: 0.5;
-  transition: opacity var(--transition-fast), border-color var(--transition-fast);
 }
 
-.cursor-ring.hovered {
-  opacity: 0.8;
-  border-color: var(--accent-cyan);
-  background: rgba(59, 130, 246, 0.08);
+/* Prismatic Glass Rim Glow */
+.glass-lens-rim {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 180deg,
+    transparent 0deg,
+    rgba(56, 189, 248, 0.4) 90deg,
+    rgba(34, 211, 238, 0.8) 180deg,
+    rgba(255, 255, 255, 0.6) 240deg,
+    transparent 360deg
+  );
+  mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #fff calc(100% - 1px));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #fff calc(100% - 1px));
+  pointer-events: none;
+  opacity: 0.75;
+  animation: glass-rim-spin 8s linear infinite;
 }
 
+@keyframes glass-rim-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Inner Volumetric Glow */
+.glass-lens-glow {
+  position: absolute;
+  inset: 4px;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Layer 1: Central Luminous Core Dot */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  pointer-events: none !important;
+  z-index: var(--z-cursor, 3000);
+  opacity: 0;
+
+  background: radial-gradient(circle, #ffffff 25%, #38bdf8 70%, #0284c7 100%);
+  box-shadow: 0 0 10px #38bdf8,
+              0 0 20px rgba(34, 211, 238, 0.8),
+              0 0 4px #ffffff;
+
+  will-change: transform, width, height, border-radius, background, opacity;
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-radius 0.2s ease,
+              opacity 0.2s ease;
+}
+
+.cursor-dot-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: inherit;
+}
+
+/* ============================================================
+   CURSOR INTERACTIVE STATES (LIQUID GLASS GLOW)
+   ============================================================ */
+
+/* HOVER / LINK / BUTTON STATE */
+.cursor-ring.state-hover,
+.cursor-ring.state-link,
+.cursor-ring.state-button {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(34, 211, 238, 0.7);
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(56, 189, 248, 0.12) 50%,
+    rgba(15, 23, 42, 0.28) 100%
+  );
+  box-shadow: 0 0 28px rgba(56, 189, 248, 0.55),
+              0 0 50px rgba(34, 211, 238, 0.3),
+              inset 0 1.5px 3px rgba(255, 255, 255, 0.7),
+              inset 0 0 14px rgba(34, 211, 238, 0.25);
+}
+
+.cursor-delayed-ring.state-hover,
+.cursor-delayed-ring.state-link,
+.cursor-delayed-ring.state-button {
+  width: 62px;
+  height: 62px;
+  border-color: rgba(34, 211, 238, 0.4);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+}
+
+.cursor-dot.state-hover,
+.cursor-dot.state-link,
+.cursor-dot.state-button {
+  width: 5px;
+  height: 5px;
+  background: #ffffff;
+  box-shadow: 0 0 12px #ffffff, 0 0 22px #22d3ee;
+}
+
+.cursor-aura.state-hover,
+.cursor-aura.state-link,
+.cursor-aura.state-button {
+  width: 74px;
+  height: 74px;
+}
+
+/* TEXT MODE (Slim glowing vertical caret) */
+.cursor-ring.state-text,
+.cursor-delayed-ring.state-text {
+  width: 0 !important;
+  height: 0 !important;
+  opacity: 0 !important;
+  border: none !important;
+}
+
+.cursor-aura.state-text {
+  opacity: 0 !important;
+}
+
+.cursor-dot.state-text {
+  width: 2px !important;
+  height: 18px !important;
+  border-radius: 2px !important;
+  background: var(--accent, #38bdf8) !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8), 0 0 3px #ffffff !important;
+}
+
+/* IMAGE / PROJECT CARD STATE (Expanded Liquid Glass Lens) */
+.cursor-ring.state-image,
+.cursor-ring.state-project {
+  width: 68px;
+  height: 68px;
+  border-color: rgba(34, 211, 238, 0.8);
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(56, 189, 248, 0.15) 50%,
+    rgba(15, 23, 42, 0.35) 100%
+  );
+  box-shadow: 0 0 32px rgba(56, 189, 248, 0.6),
+              0 0 60px rgba(34, 211, 238, 0.3),
+              inset 0 2px 4px rgba(255, 255, 255, 0.8),
+              inset 0 0 16px rgba(34, 211, 238, 0.3);
+}
+
+.cursor-delayed-ring.state-image,
+.cursor-delayed-ring.state-project {
+  width: 78px;
+  height: 78px;
+  border-color: rgba(56, 189, 248, 0.45);
+}
+
+.cursor-dot.state-image,
+.cursor-dot.state-project {
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* DRAG STATE */
+.cursor-ring.state-drag {
+  width: 60px;
+  height: 60px;
+  border-color: var(--accent-cyan, #22d3ee);
+}
+
+.cursor-dot.state-drag {
+  opacity: 0 !important;
+}
+
+/* CLICK PRESS MODIFIER */
+.cursor-ring.is-down {
+  transform-origin: center center;
+  border-color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 0 24px #ffffff, 0 0 45px rgba(56, 189, 248, 0.8) !important;
+}
+
+.cursor-dot.is-down {
+  transform-origin: center center;
+  background: #ffffff !important;
+}
+
+/* ============================================================
+   TEXT BADGES
+   ============================================================ */
+
+.cursor-badge {
+  position: absolute;
+  pointer-events: none;
+  text-align: center;
+  z-index: 2;
+}
+
+.cursor-badge-text {
+  display: inline-block;
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.9), 0 0 20px rgba(34, 211, 238, 0.6);
+}
+
+/* ============================================================
+   CLICK RIPPLE SHOCKWAVES
+   ============================================================ */
+
+.cursor-ripples {
+  position: fixed;
+  inset: 0;
+  pointer-events: none !important;
+  z-index: calc(var(--z-cursor, 3000) - 2);
+}
+
+.cursor-ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none !important;
+  transform: translate(-50%, -50%) scale(0.2);
+  border: 1.5px solid rgba(56, 189, 248, 0.8);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(34, 211, 238, 0.08) 60%, transparent 80%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.6), 0 0 40px rgba(34, 211, 238, 0.3);
+  animation: cursor-ripple-expand 0.44s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cursor-ripple-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   LIGHT THEME ADAPTATION
+   Crystal Frosted Liquid Glass + Royal Blue Luminous Glow
+   ============================================================ */
+
+[data-theme="light"] .cursor-dot {
+  background: radial-gradient(circle, #ffffff 25%, #1d4ed8 70%, #1e40af 100%);
+  box-shadow: 0 0 10px rgba(29, 78, 216, 0.6), 0 0 3px rgba(15, 23, 42, 0.5);
+}
+
+[data-theme="light"] .cursor-ring {
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(29, 78, 216, 0.06) 50%,
+    rgba(255, 255, 255, 0.35) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 22px rgba(29, 78, 216, 0.22),
+              0 0 30px rgba(37, 99, 235, 0.15),
+              inset 0 1.5px 3px #ffffff,
+              inset 0 -1px 2px rgba(29, 78, 216, 0.1),
+              inset 0 0 10px rgba(29, 78, 216, 0.08);
+}
+
+[data-theme="light"] .cursor-delayed-ring {
+  border-color: rgba(29, 78, 216, 0.3);
+  box-shadow: 0 0 14px rgba(29, 78, 216, 0.15);
+}
+
+[data-theme="light"] .cursor-ring.state-hover,
+[data-theme="light"] .cursor-ring.state-link,
+[data-theme="light"] .cursor-ring.state-button {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: var(--accent, #1d4ed8);
+  box-shadow: 0 0 28px rgba(29, 78, 216, 0.35),
+              inset 0 2px 4px #ffffff;
+}
+
+[data-theme="light"] .cursor-ring.state-image,
+[data-theme="light"] .cursor-ring.state-project {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: var(--accent, #1d4ed8);
+}
+
+[data-theme="light"] .cursor-badge-text {
+  color: var(--text-primary, #09122a);
+  text-shadow: 0 0 8px rgba(29, 78, 216, 0.35);
+}
+
+[data-theme="light"] .cursor-aura {
+  background: radial-gradient(
+    circle,
+    rgba(29, 78, 216, 0.18) 0%,
+    rgba(2, 132, 199, 0.06) 45%,
+    transparent 72%
+  );
+}
+
+[data-theme="light"] .cursor-dot.state-text {
+  background: var(--accent, #1d4ed8) !important;
+  box-shadow: 0 0 10px rgba(29, 78, 216, 0.5) !important;
+}
+
+/* ============================================================
+   RESPONSIVE & ACCESSIBILITY CONSTRAINTS
+   ============================================================ */
+
+/* Touch Devices (Mobile & Tablets with coarse pointers) */
 @media (pointer: coarse) {
+  .custom-cursor-root,
   .cursor-dot,
-  .cursor-ring {
+  .cursor-ring,
+  .cursor-delayed-ring,
+  .cursor-aura,
+  .cursor-trail-canvas,
+  .cursor-ripples {
     display: none !important;
+  }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-trail-canvas,
+  .cursor-aura,
+  .cursor-delayed-ring,
+  .cursor-ripple,
+  .glass-lens-rim {
+    display: none !important;
+  }
+  .cursor-ring {
+    transition: none !important;
+  }
+  .cursor-dot {
+    transition: none !important;
   }
 }

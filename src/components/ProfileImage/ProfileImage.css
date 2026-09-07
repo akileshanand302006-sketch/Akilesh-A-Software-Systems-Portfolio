@@ -1,134 +1,430 @@
-.profile-image-container {
+/* ============================================================
+   PREMIUM 3D PROFILE IMAGE EXPERIENCE
+   Crystal-clear circular portrait with outer glass rim,
+   ambient halo, and 3D orbital rings framing the perimeter.
+   ============================================================ */
+
+/* Outer Perspective Container */
+.profile-3d-scene {
   position: relative;
-  width: 260px;
-  height: 260px;
-  margin: 0 auto;
+  width: 320px;
+  height: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
+  perspective: 1200px;
   cursor: pointer;
-  transform-style: preserve-3d;
+  user-select: none;
 }
 
-.profile-glow-ring {
-  position: absolute;
-  inset: -14px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(34, 211, 238, 0.15) 50%, transparent 70%);
-  filter: blur(16px);
-  z-index: 0;
-  pointer-events: none;
-}
-
-.profile-orbit-ring {
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  border: 1.5px dashed rgba(56, 189, 248, 0.5);
-  z-index: 1;
-  pointer-events: none;
-}
-
-.profile-frame {
-  width: 230px;
-  height: 230px;
-  border-radius: 50%;
-  overflow: hidden;
+/* Floating Rig: Handles Mouse Parallax and Floating Drift */
+.profile-floating-rig {
   position: relative;
-  z-index: 2;
-  border: 2.5px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 0 35px rgba(56, 189, 248, 0.35), inset 0 0 15px rgba(0, 0, 0, 0.2);
-  background: #0f172a;
-}
-
-[data-theme="light"] .profile-frame {
-  border: 2.5px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 10px 35px rgba(37, 99, 235, 0.25);
-}
-
-/* ── Perfect Framing for 9:16 Vertical Portrait (Face + Half Body) ── */
-.profile-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 12%;
-  transform: scale(1.0);
-  display: block;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.profile-image-container:hover .profile-img {
-  transform: scale(1.04);
-}
-
-/* ── Placeholder ── */
-.profile-placeholder {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  background: var(--bg-tertiary);
-  color: var(--text-tertiary);
-  font-size: 0.8rem;
-  font-family: var(--font-mono);
+  animation: profile-float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
-/* ── CSS Fallback Orb (for hero when no WebGL) ── */
-.hero-orb-fallback {
+@keyframes profile-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(0.5deg);
+  }
+}
+
+/* ============================================================
+   LAYER 1: AMBIENT VOLUMETRIC BACKLIGHT (BEHIND PHOTO)
+   ============================================================ */
+
+.profile-ambient-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.28) 0%,
+    rgba(34, 211, 238, 0.1) 45%,
+    transparent 70%
+  );
+  filter: blur(28px);
+  pointer-events: none;
+  z-index: 0;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.profile-rim-halo {
+  position: absolute;
+  width: 275px;
+  height: 275px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.35) 0%,
+    rgba(59, 130, 246, 0.12) 50%,
+    transparent 68%
+  );
+  filter: blur(14px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.profile-3d-scene:hover .profile-ambient-glow {
+  filter: blur(34px);
+  opacity: 1;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.38) 0%,
+    rgba(34, 211, 238, 0.18) 45%,
+    transparent 70%
+  );
+}
+
+/* ============================================================
+   LAYER 2: 3D ORBITAL RINGS SYSTEM (BEHIND PHOTO, z-index: 2)
+   ============================================================ */
+
+.profile-orbital-system {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  z-index: 2; /* Sits BEHIND the photo (photo is z-index 10) */
 }
 
-.orb-fallback-inner {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.25), rgba(6, 182, 212, 0.08));
-  border: 1px solid var(--glass-border);
-}
-
-.orb-fallback-ring {
+.profile-orbit-plane {
   position: absolute;
-  width: 280px;
-  height: 280px;
+  width: calc(256px * var(--orbit-scale, 1.3));
+  height: calc(256px * var(--orbit-scale, 1.3));
   border-radius: 50%;
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateZ(var(--orbit-tilt-z, 0deg)) rotateX(var(--orbit-tilt-x, 60deg));
+  pointer-events: none;
 }
 
-.orb-fallback-ring-2 {
-  width: 340px;
-  height: 340px;
-  border-color: rgba(6, 182, 212, 0.12);
+.profile-orbit-ring {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(56, 189, 248, calc(var(--orbit-opacity, 0.6) * 0.75));
+  box-shadow: 0 0 12px rgba(56, 189, 248, calc(var(--orbit-opacity, 0.6) * 0.45));
+  animation: orbit-rotate var(--orbit-duration, 22s) linear infinite;
 }
 
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .profile-image-container {
-    width: 220px;
-    height: 220px;
+.orbit-dashed .profile-orbit-ring {
+  border-style: dashed;
+  border-width: 1.5px;
+}
+
+.orbit-reverse .profile-orbit-ring {
+  animation-direction: reverse;
+}
+
+@keyframes orbit-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Satellite Data Packet Node */
+.profile-orbit-satellite {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: var(--sat-size, 6px);
+  height: var(--sat-size, 6px);
+  margin-left: calc(var(--sat-size, 6px) * -0.5);
+  border-radius: 50%;
+}
+
+.profile-satellite-core {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 8px #ffffff, 0 0 16px var(--accent, #38bdf8);
+}
+
+.profile-satellite-halo {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.45);
+  filter: blur(2px);
+  animation: satellite-pulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes satellite-pulse {
+  0% { transform: scale(0.85); opacity: 0.5; }
+  100% { transform: scale(1.35); opacity: 0.95; }
+}
+
+/* ============================================================
+   LAYER 3: MAIN CIRCULAR PORTRAIT LENS (FOREGROUND, z-index: 10)
+   ============================================================ */
+
+.profile-lens-wrapper {
+  position: relative;
+  width: 256px;
+  height: 256px;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; /* Cleanly above the orbital planes */
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-3d-scene:hover .profile-lens-wrapper {
+  transform: scale(1.02);
+}
+
+/* Outer Glass Rim (Annular framing ring around the photo) */
+.profile-glass-rim {
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  background: transparent; /* Absolutely NO background blur over photo! */
+  border: 2px solid rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3),
+              inset 0 0 12px rgba(56, 189, 248, 0.15);
+  pointer-events: none;
+  z-index: 12;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-3d-scene:hover .profile-glass-rim {
+  border-color: rgba(56, 189, 248, 0.75);
+  box-shadow: 0 0 28px rgba(56, 189, 248, 0.5),
+              inset 0 0 16px rgba(56, 189, 248, 0.25);
+}
+
+/* Traveling Specular Light Beam (Circles the perimeter of the rim) */
+.profile-specular-ring {
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-right-color: rgba(56, 189, 248, 0.6);
+  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 12px var(--accent, #38bdf8));
+  animation: specular-rotate 6s linear infinite;
+  pointer-events: none;
+  z-index: 13;
+}
+
+@keyframes specular-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Aperture: Strictly Circular Container for Photo */
+.profile-photo-aperture {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg-secondary, #080a10);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7),
+              0 0 24px rgba(56, 189, 248, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  z-index: 11;
+}
+
+/* CRYSTAL-CLEAR, CRISP, SHARP CIRCULAR PHOTOGRAPH */
+.profile-circular-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 12%;
+  display: block;
+  /* Completely clear - zero blur, natural colors */
+  filter: contrast(1.02) brightness(1.02);
+  image-rendering: auto;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-3d-scene:hover .profile-circular-photo {
+  transform: scale(1.035);
+}
+
+/* ============================================================
+   LAYER 4: MICRO TECH ACCENTS & DATA POINTS (OUTSIDE PHOTO)
+   ============================================================ */
+
+.profile-accents-field {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 14;
+}
+
+.profile-accent-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transform: translate(var(--acc-x, 0), var(--acc-y, 0));
+  pointer-events: none;
+}
+
+.profile-accent-dot {
+  width: var(--acc-size, 4px);
+  height: var(--acc-size, 4px);
+  border-radius: 50%;
+  background: var(--accent-cyan, #22d3ee);
+  box-shadow: 0 0 8px var(--accent-cyan, #22d3ee), 0 0 14px var(--accent, #38bdf8);
+  animation: accent-pulse var(--acc-pulse, 3s) ease-in-out infinite alternate;
+}
+
+@keyframes accent-pulse {
+  0% { opacity: 0.45; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1.15); }
+}
+
+.profile-accent-label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 8.5px;
+  font-weight: 600;
+  color: rgba(148, 163, 184, 0.8);
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ============================================================
+   LIGHT THEME ADAPTATION
+   Crystal White Glass Rim + Royal Blue High-Contrast Rings
+   ============================================================ */
+
+[data-theme="light"] .profile-ambient-glow {
+  background: radial-gradient(
+    circle,
+    rgba(37, 99, 235, 0.2) 0%,
+    rgba(2, 132, 199, 0.08) 45%,
+    transparent 70%
+  );
+  filter: blur(24px);
+}
+
+[data-theme="light"] .profile-rim-halo {
+  background: radial-gradient(
+    circle,
+    rgba(37, 99, 235, 0.28) 0%,
+    rgba(59, 130, 246, 0.1) 50%,
+    transparent 68%
+  );
+}
+
+[data-theme="light"] .profile-orbit-ring {
+  border-color: rgba(29, 78, 216, calc(var(--orbit-opacity, 0.6) * 0.85));
+  box-shadow: 0 0 10px rgba(29, 78, 216, 0.25);
+}
+
+[data-theme="light"] .profile-glass-rim {
+  border-color: rgba(29, 78, 216, 0.5);
+  box-shadow: 0 4px 20px rgba(29, 78, 216, 0.2),
+              inset 0 0 12px rgba(29, 78, 216, 0.1);
+}
+
+[data-theme="light"] .profile-specular-ring {
+  border-top-color: #1d4ed8;
+  border-right-color: rgba(2, 132, 199, 0.6);
+  filter: drop-shadow(0 0 6px #1d4ed8);
+}
+
+[data-theme="light"] .profile-photo-aperture {
+  background: #ffffff;
+  border-color: rgba(29, 78, 216, 0.35);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.15),
+              0 0 20px rgba(29, 78, 216, 0.15);
+}
+
+[data-theme="light"] .profile-accent-label {
+  color: #334155;
+  text-shadow: none;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN CONSTRAINTS
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .profile-3d-scene {
+    width: 290px;
+    height: 290px;
   }
 
-  .profile-frame {
-    width: 190px;
-    height: 190px;
+  .profile-lens-wrapper {
+    width: 225px;
+    height: 225px;
+  }
+
+  .profile-orbit-plane {
+    width: calc(225px * var(--orbit-scale, 1.3));
+    height: calc(225px * var(--orbit-scale, 1.3));
+  }
+
+  .profile-ambient-glow {
+    width: 260px;
+    height: 260px;
   }
 }
 
 @media (max-width: 480px) {
-  .profile-image-container {
-    width: 180px;
-    height: 180px;
+  .profile-3d-scene {
+    width: 240px;
+    height: 240px;
   }
 
-  .profile-frame {
-    width: 160px;
-    height: 160px;
+  .profile-lens-wrapper {
+    width: 190px;
+    height: 190px;
+  }
+
+  .profile-orbit-plane {
+    width: calc(190px * var(--orbit-scale, 1.3));
+    height: calc(190px * var(--orbit-scale, 1.3));
+  }
+
+  .orbit-vertical-halo,
+  .orbit-outer-tech-arc {
+    display: none !important;
+  }
+
+  .profile-accent-label {
+    display: none !important;
+  }
+
+  .profile-ambient-glow {
+    width: 210px;
+    height: 210px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .profile-floating-rig,
+  .profile-orbit-ring,
+  .profile-specular-ring,
+  .profile-satellite-halo,
+  .profile-accent-dot {
+    animation: none !important;
   }
 }

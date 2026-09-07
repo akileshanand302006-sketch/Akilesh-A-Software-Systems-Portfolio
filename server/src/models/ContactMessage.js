@@ -10,7 +10,7 @@ const ContactMessageSchema = new mongoose.Schema(
       lowercase: true,
       match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address'],
     },
-    subject: { type: String, required: true, trim: true },
+    subject: { type: String, default: 'General Inquiry', trim: true },
     message: { type: String, required: true, trim: true },
     status: {
       type: String,
@@ -18,6 +18,22 @@ const ContactMessageSchema = new mongoose.Schema(
       default: 'NEW',
       index: true,
     },
+    emailStatus: {
+      type: String,
+      enum: ['SENT', 'FAILED', 'PENDING'],
+      default: 'PENDING',
+    },
+    ownerEmailStatus: {
+      type: String,
+      enum: ['SENT', 'FAILED', 'PENDING'],
+      default: 'PENDING',
+    },
+    visitorEmailStatus: {
+      type: String,
+      enum: ['SENT', 'FAILED', 'PENDING'],
+      default: 'PENDING',
+    },
+    errorMessage: { type: String, default: '' },
     ipAddress: { type: String, default: '' },
     userAgent: { type: String, default: '' },
   },
