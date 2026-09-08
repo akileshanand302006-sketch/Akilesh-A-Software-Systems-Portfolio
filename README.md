@@ -1,870 +1,840 @@
-**# ✦ Akilesh A — Software Systems Portfolio**
-
-\<p align="center">
-
-  \<strong>Integrated MSc Software Systems Student • Full-Stack Developer • Problem Solver\</strong>
-
-\</p>
-
-\<p align="center">
-
-  A cinematic, interactive developer portfolio built with modern web technologies,
-
-  premium Liquid Glass UI, 3D experiences, Anime.js motion, and a cloud-backed architecture.
-
-\</p>
-
-\<p align="center">
-
-  \<a href="https\://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/">
-
-    \<img src="https\://img.shields.io/badge/🚀%20EXPLORE%20MY%20PORTFOLIO-2563EB?style=for-the-badge&labelColor=0F172A" alt="Explore Portfolio"/>
-
-  \</a>
-
-  &nbsp;
-
-  \<a href="https\://github.com/akileshanand302006-sketch/Akilesh-A-Software-Systems-Portfolio" target="\_blank">
-
-    \<img src="https\://img.shields.io/badge/💻%20SOURCE%20CODE-GitHub-111827?style=for-the-badge&logo=github&logoColor=white" alt="Source Code">
-
-  \</a>
-
-\</p>
-
-\<p align="center">
-
-![React]\(https\://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
-
-![Vite]\(https\://img.shields.io/badge/Vite-Latest-646CFF?logo=vite&logoColor=white)
-
-![Three.js]\(https\://img.shields.io/badge/Three.js-3D-black?logo=three.js)
-
-![Framer Motion]\(https\://img.shields.io/badge/Framer%20Motion-Animations-FF0055?logo=framer)
-
-![MongoDB]\(https\://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)
-
-![Node.js]\(https\://img.shields.io/badge/Node.js-Backend-339933?logo=node.js&logoColor=white)
-
-![Bootstrap]\(https\://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)
-
-![GitHub Pages]\(https\://img.shields.io/badge/Deploy-GitHub%20Pages-222222?logo=github)
-
-![License]\(https\://img.shields.io/badge/License-MIT-green.svg)
-
-\</p>
-
-\---
-
-**## ✨ Overview**
-
-This portfolio is designed as a **\*\*professional internship-ready developer portfolio\*\***, combining software engineering, full-stack development, databases, algorithms, and interactive UI into a single immersive experience.
-
-Instead of a traditional static portfolio, it provides a cinematic interface featuring:
-
-\- Premium Liquid Glass UI
-
-\- Interactive 3D visuals
-
-\- Smooth Framer Motion animations
-
-- Anime.js-powered UI motion and micro-interactions
-
-\- Dynamic light/dark themes
-
-\- Interactive project showcase
-
-\- Animated skills ticker
-
-\- Coding profile integrations
-
-\- Cloud-backed portfolio data
-
-\- Working contact system
-
-\- Responsive design across devices
-
-\---
-
-**### 🌐 Explore the Portfolio**
-
-\<p align="center">
-
-  \<a href="https\://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/">
-
-    \<img src="https\://img.shields.io/badge/✨%20EXPLORE%20MY%20PORTFOLIO-Click%20to%20Visit%20→-2563EB?style=for-the-badge&labelColor=0F172A" alt="Explore Portfolio">
-
-  \</a>
-
-\</p>
-
-\> **\*\*Live:\*\*** [Akilesh A — Software Systems Portfolio]\(https\://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/)
-
-\---
-
-**## 🚀 Key Features**
-
-**### 🎨 Premium UI/UX**
-
-\- Liquid Glass / Glassmorphism design
-
-\- Transparent surfaces and backdrop blur
-
-\- Electric blue glow effects
-
-\- Animated gradients
-
-\- Micro-interactions
-
-\- Smooth transitions
-
-\- Responsive layouts
-
-\- Premium light & dark Liquid Glass themes
-
-- Cinematic 3D loading / system initialization experience
-
-**### 🌌 Interactive Experience**
-
-\- Three.js 3D hero environment
-
-\- Floating glass objects
-
-\- Orbital rings
-
-\- Interactive particles
-
-\- Mouse-based parallax
-
-\- Cinematic section transitions
-
-\- Custom cursor effects
-
-\- Scroll progress indicator
-
-**### 💻 Developer Showcase**
-
-\- About & engineering philosophy
-
-\- Technical skills
-
-\- Animated skill ticker
-
-\- Project showcase
-
-\- Experience / learning timeline
-
-\- Achievements
-
-\- Coding profiles
-
-\- Social profiles
-
-\- Resume access
-
-**### 📬 Contact**
-
-\- Real-time form validation
-
-\- Nodemailer + Gmail SMTP backend delivery
-
-\- MongoDB-backed contact messages
-
-\- Animated submission feedback
-
-**### ☁️ Cloud Backend**
-
-\- Node.js + Express REST API
-
-\- MongoDB Atlas cloud database
-
-\- Profile and project data stored in MongoDB
-
-\- Cloud-based resume/image storage
-
-\- API-driven portfolio content
-
-\---
-
-**## 🧩 Featured Projects**
-
-The portfolio showcases projects including:
-
-\| Project | Focus |
-
-\|---|---|
-
-\| **\*\*Smart Hospital Bed Management System\*\*** | 8086 Assembly, PHP, JavaScript, resource allocation |
-
-\| **\*\*RouteVeda-Smart Travel Planning Platform\*\*** | Angular, Node.js, PostgreSQL/PostGIS, Google Places |
-
-\| **\*\*Finora\*\*** | Java, JavaFX, MySQL, personal finance management |
-
-\| **\*\*QuoteVerse\*\*** | React, Node.js, MySQL, interactive quote discovery |
-
-Each project highlights its:
-
-\- Problem
-
-\- Solution
-
-\- Technologies
-
-\- Key features
-
-\- GitHub repository
-
-\- Live demonstration where available
-
-\---
-
-**## 🎨 Design System
-
-The interface follows a unified futuristic **Liquid Glass** design system.
-
-### Dark Mode
-- Deep-space atmospheric background
-- Translucent dark glass surfaces
-- Electric blue, cyan, and violet accents
-- 3D particles, network lines, floating geometry, and orbital rings
-- Luminous borders, soft bloom, and depth shadows
-
-### Light Mode
-- Atmospheric white/blue background
-- Frosted translucent white glass
-- Cyan, electric-blue, and subtle violet accents
-- Soft reflections, cool shadows, luminous borders, and layered depth
-- The same visual hierarchy and interaction language as dark mode
-
-### UI Principles
-- Background 3D elements remain behind the interface
-- Glass surfaces diffuse the background instead of hiding it completely
-- Interactive controls remain readable and accessible
-- Decorative background effects use `pointer-events: none` where appropriate
-- Responsive and reduced-motion variants prevent unnecessary visual or GPU load
+````markdown
+# ✦ Akilesh A — Software Systems Portfolio
+
+<p align="center">
+  <strong>Integrated M.Sc Software Systems Student • Full-Stack Developer • Problem Solver</strong>
+</p>
+
+<p align="center">
+  A cinematic, interactive developer portfolio built with modern web technologies,
+  premium Liquid Glass UI, immersive 3D experiences, advanced animations,
+  and a cloud-backed architecture.
+</p>
+
+<p align="center">
+  <a href="https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/">
+    <img src="https://img.shields.io/badge/🚀%20EXPLORE%20MY%20PORTFOLIO-2563EB?style=for-the-badge&labelColor=0F172A" alt="Explore Portfolio"/>
+  </a>
+  &nbsp;
+  <a href="https://github.com/akileshanand302006-sketch/Akilesh-A-Software-Systems-Portfolio">
+    <img src="https://img.shields.io/badge/💻%20SOURCE%20CODE-GitHub-111827?style=for-the-badge&logo=github&logoColor=white" alt="Source Code"/>
+  </a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React"/>
+  <img src="https://img.shields.io/badge/Vite-Latest-646CFF?logo=vite&logoColor=white" alt="Vite"/>
+  <img src="https://img.shields.io/badge/Three.js-3D-black?logo=three.js" alt="Three.js"/>
+  <img src="https://img.shields.io/badge/Framer%20Motion-Animations-FF0055?logo=framer" alt="Framer Motion"/>
+  <img src="https://img.shields.io/badge/Anime.js-Motion%20Engine-FF4B91?logo=javascript&logoColor=white" alt="Anime.js"/>
+  <img src="https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white" alt="MongoDB"/>
+  <img src="https://img.shields.io/badge/Node.js-Backend-339933?logo=node.js&logoColor=white" alt="Node.js"/>
+  <img src="https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white" alt="Bootstrap"/>
+  <img src="https://img.shields.io/badge/Deploy-GitHub%20Pages-222222?logo=github" alt="GitHub Pages"/>
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License"/>
+</p>
 
 ---
 
-## 🛠️ Technology Stack**
+## ✨ Overview
 
-\| Area | Technologies |
+This portfolio is designed as a **professional internship-ready developer portfolio**, combining software engineering, full-stack development, databases, algorithms, 3D graphics, and modern interactive UI into a single immersive experience.
 
-\|---|---|
+Instead of a traditional static portfolio, it provides a cinematic interface featuring:
 
-\| **\*\*Frontend\*\*** | React 19, Vite, JavaScript / JSX |
+- Premium Liquid Glass UI
+- Interactive 3D visual environment
+- Three.js / React Three Fiber experiences
+- Framer Motion component animations
+- Anime.js-powered UI motion and micro-interactions
+- Dynamic premium light and dark themes
+- Cinematic 3D loading / system initialization experience
+- Interactive project showcase
+- Animated skills and profile sections
+- Coding and professional profile integrations
+- Cloud-backed portfolio data
+- Gmail SMTP-powered contact system
+- Responsive and performance-aware design
 
-\| **\*\*UI\*\*** | Bootstrap 5.3, Custom CSS, Liquid Glass |
+---
 
-\| **\*\*Animations\*\*** | Framer Motion |
+## 🌐 Explore the Portfolio
 
-\| **\*\*3D\*\*** | Three.js, React Three Fiber, Drei |
+<p align="center">
+  <a href="https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/">
+    <img src="https://img.shields.io/badge/✨%20EXPLORE%20MY%20PORTFOLIO-Click%20to%20Visit%20→-2563EB?style=for-the-badge&labelColor=0F172A" alt="Explore Portfolio"/>
+  </a>
+</p>
 
-\| **\*\*Particles\*\*** | tsParticles |
+<p align="center">
+  <strong>Live Portfolio:</strong><br/>
+  <a href="https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/">
+    https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/
+  </a>
+</p>
 
-\| **\*\*Icons\*\*** | Lucide React |
+---
 
-\| **\*\*Backend\*\*** | Node.js, Express.js |
+## 🚀 Key Features
 
-\| **\*\*Database\*\*** | MongoDB Atlas |
+### 🎨 Premium Liquid Glass UI
 
-\| **\*\*File Storage\*\*** | MongoDB GridFS |
+- Futuristic Liquid Glass / glassmorphism design
+- Translucent frosted surfaces
+- Backdrop blur and layered transparency
+- Luminous borders and inner highlights
+- Electric blue, cyan, and violet glow effects
+- Animated gradients and reflections
+- Premium hover states and micro-interactions
+- Glass pills, controls, cards, modals, and forms
+- Consistent light and dark theme design system
 
-\| **\*\*Contact\*\*** | Nodemailer + Gmail SMTP |
+### 🌌 Interactive 3D Experience
 
-\| **\*\*Deployment\*\*** | GitHub Pages + Backend Hosting |
+- Three.js 3D environment
+- React Three Fiber and Drei
+- Floating geometric objects
+- Orbital rings
+- 3D particles and network nodes
+- Atmospheric backgrounds
+- Camera movement and subtle parallax
+- Glass-like 3D materials
+- Cinematic system initialization/loading screen
+- Theme-aware 3D lighting
 
-\| **\*\*Version Control\*\*** | Git & GitHub |
+### 🎬 Advanced Motion System
 
-\---
+The portfolio combines multiple animation technologies with clearly separated responsibilities:
 
-**## 🏗️ Architecture**
-
-\`\`\`text
-
-                    PORTFOLIO
-
-                        │
-
-                        ▼
-
-                 React + Vite
-
-                        │
-
-                  Axios / HTTP
-
-                        │
-
-                        ▼
-
-               Node.js + Express
-
-                        │
-
-                        ▼
-
-                  MongoDB Atlas
-
-                        │
-
-              ┌─────────┴─────────┐
-
-              │                   │
-
-          Application           GridFS
-
-             Data                │
-
-              │          ┌───────┼────────┐
-
-              │          │       │        │
-
-          Profile      Resume  Images   Media
-
-          Projects
-
-          Skills
-
-          Experience
-
-          Contact
-
-          Analytics
-
-
-
-Frontend Deployment:
-
-GitHub Repository
-
-        ↓
-
-   GitHub Pages
-
-        ↓
-
-   React Application
-
-\`\`\`\`
-
-\## 🎬 Animation Architecture
-
-The portfolio uses a layered animation architecture so each technology handles the type of motion it is best suited for:
-
-| Layer | Responsibility |
+| Technology | Responsibility |
 |---|---|
-| **Three.js / React Three Fiber** | 3D objects, particles, orbital rings, camera movement, lighting, and spatial depth |
-| **Framer Motion** | React component transitions, presence animations, and UI lifecycle transitions |
-| **Anime.js** | DOM timelines, staggered reveals, counters, navigation motion, glass reflections, micro-interactions, and coordinated sequences |
-| **CSS** | Liquid Glass surfaces, hover/focus states, gradients, simple transitions, and visual effects |
+| **Three.js / React Three Fiber** | 3D objects, particles, orbital systems, camera, lighting, spatial depth |
+| **Framer Motion** | React component transitions, presence animations, lifecycle transitions |
+| **Anime.js** | DOM timelines, staggered reveals, counters, navigation motion, reflections, micro-interactions |
+| **CSS** | Liquid Glass surfaces, hover/focus states, gradients, basic transitions |
 | **tsParticles** | Particle and network background effects |
 
-The animation system is designed to avoid conflicting animation ownership, unnecessary re-renders, and layout-thrashing properties.
+Additional motion features include:
+
+- Staggered section reveals
+- Animated counters
+- Navigation indicator transitions
+- Glass reflection sweeps
+- Button feedback animations
+- Card hover elevation
+- Icon micro-interactions
+- Scroll-triggered animations
+- Magnetic CTA interactions
+- Subtle 3D/card tilt effects
+- Cinematic loading and exit transitions
+- Reduced-motion support
+
+### 💻 Developer Showcase
+
+- About section and engineering philosophy
+- Technical domains and interests
+- Skills and technology categories
+- Animated skill ticker
+- Project showcase
+- Experience / learning timeline
+- Achievements
+- Coding profiles
+- Professional social profiles
+- Resume access
+- Direct contact information
+
+### 📬 Contact System
+
+- Client-side validation
+- React contact form
+- Node.js + Express API
+- Nodemailer
+- Google Gmail SMTP
+- Visitor email as `Reply-To`
+- Secure backend-only SMTP credentials
+- MongoDB contact-message storage
+- Loading, success, and error states
+- Direct email fallback
+
+### ☁️ Cloud Backend
+
+- Node.js + Express REST API
+- MongoDB Atlas
+- MongoDB-backed portfolio content
+- MongoDB GridFS
+- Cloud-based resume and image storage
+- API-driven portfolio content
+- Separate backend deployment architecture
+
+---
+
+## 🎨 Design System
+
+The portfolio follows a unified futuristic **Liquid Glass** visual language.
+
+### 🌑 Dark Liquid Glass
+
+- Deep-space atmospheric background
+- Dark translucent glass surfaces
+- Electric blue and cyan illumination
+- Violet accents
+- 3D particles and network lines
+- Floating geometric objects
+- Orbital rings
+- Luminous borders
+- Soft bloom and depth shadows
+
+### ☀️ Light Liquid Glass
+
+- Atmospheric white/blue environment
+- Frosted translucent white glass
+- Electric blue and cyan accents
+- Subtle violet illumination
+- Cool blue-gray shadows
+- Glass reflections and inner highlights
+- Luminous borders
+- Layered transparency and depth
+
+Both themes share the same:
+
+- component hierarchy
+- spacing system
+- interaction patterns
+- typography
+- animation language
+- 3D composition
+
+Only the material, lighting, background atmosphere, and color treatment change.
+
+### Layering Principle
+
+The 3D environment is intentionally separated from the interface:
+
+```text
+3D Background
+      ↓
+Atmospheric Effects
+      ↓
+Liquid Glass Surfaces
+      ↓
+UI Content
+      ↓
+Navigation / Dropdowns
+      ↓
+Modals
+````
+
+Decorative 3D elements remain behind the interface and are prevented from intercepting UI interaction.
+
+---
+
+## 🧩 Featured Projects
+
+The portfolio currently showcases projects including:
+
+| Project                                        | Focus                                               |
+| ---------------------------------------------- | --------------------------------------------------- |
+| **Smart Hospital Bed Management System**       | 8086 Assembly, PHP, JavaScript, resource allocation |
+| **RouteVeda – Smart Travel Planning Platform** | Angular, Node.js, PostgreSQL/PostGIS, Google Places |
+| **Finora**                                     | Java, JavaFX, MySQL, personal finance management    |
+| **QuoteVerse**                                 | React, Node.js, MySQL, interactive quote discovery  |
+
+Each project highlights:
+
+* Problem
+* Solution
+* Technologies
+* Key features
+* GitHub repository
+* Live demonstration where available
+
+---
+
+## 🛠️ Technology Stack
+
+| Area                | Technologies                                   |
+| ------------------- | ---------------------------------------------- |
+| **Frontend**        | React 19, Vite, JavaScript / JSX               |
+| **UI**              | Bootstrap 5.3, Custom CSS, Liquid Glass        |
+| **Animations**      | Framer Motion, Anime.js, CSS                   |
+| **3D**              | Three.js, React Three Fiber, Drei              |
+| **Particles**       | tsParticles                                    |
+| **Icons**           | Lucide React                                   |
+| **Backend**         | Node.js, Express.js                            |
+| **Database**        | MongoDB Atlas                                  |
+| **File Storage**    | MongoDB GridFS                                 |
+| **Email**           | Nodemailer + Google Gmail SMTP                 |
+| **Deployment**      | GitHub Pages + Node-compatible backend hosting |
+| **Version Control** | Git & GitHub                                   |
+
+---
+
+## 🏗️ Architecture
+
+```text
+                         PORTFOLIO
+                             │
+                             ▼
+                       React + Vite
+                             │
+                      HTTP / Axios
+                             │
+                             ▼
+                     Node.js + Express
+                       │            │
+                       │            └──────────────┐
+                       ▼                           │
+                 MongoDB Atlas                     │
+                       │                           │
+             ┌─────────┴─────────┐                 │
+             │                   │                 │
+      Application Data         GridFS              │
+             │                   │                 │
+      ┌──────┼──────┐       ┌────┼─────┐           │
+      │      │      │       │    │     │           │
+   Profile Projects Skills Resume Images Media      │
+   Experience Contact Analytics                     │
+                                                     │
+                                                     ▼
+                                               Nodemailer
+                                                     │
+                                                     ▼
+                                              Gmail SMTP
+                                                     │
+                                                     ▼
+                                     akileshanand302006@gmail.com
+```
+
+### Frontend Deployment
+
+```text
+GitHub Repository
+       ↓
+GitHub Actions
+       ↓
+npm run build
+       ↓
+dist/
+       ↓
+GitHub Pages
+```
+
+### Production Backend
+
+```text
+GitHub Pages Frontend
+        │
+        │ HTTPS API request
+        ▼
+Node.js + Express
+        │
+        ├──────────────► MongoDB Atlas
+        │
+        └──────────────► Gmail SMTP
+```
+
+---
+
+## 🎬 Animation Architecture
+
+The portfolio uses a layered animation architecture to avoid conflicting animations:
+
+```text
+Three.js / R3F
+    ↓
+3D World & Spatial Motion
+
+Framer Motion
+    ↓
+React Component Transitions
+
+Anime.js
+    ↓
+DOM Timelines & Micro-Interactions
+
+CSS
+    ↓
+Glass / Hover / Focus Effects
+
+tsParticles
+    ↓
+Background Particle System
+```
+
+The animation system prioritizes:
+
+* smooth transforms
+* opacity-based transitions
+* efficient viewport detection
+* limited DOM animation instances
+* no unnecessary layout animation
+* mobile performance
+* reduced-motion support
 
 ---
 
 ## 🗄️ MongoDB Atlas
 
-Portfolio application data is stored in \*\*MongoDB Atlas\*\* instead of static JSON files.
+Portfolio data is stored in **MongoDB Atlas** rather than relying entirely on static JSON.
 
 Stored data includes:
 
-\* Profile information
+* Profile information
+* Projects
+* Skills
+* Experience
+* Achievements
+* Coding profiles
+* Social links
+* Contact messages
+* Portfolio analytics
 
-\* Projects
+Large assets such as:
 
-\* Skills
+* Resume PDF
+* Profile image
+* Project images
+* Other media
 
-\* Experience
+can be managed using **MongoDB GridFS**, with corresponding references stored in MongoDB.
 
-\* Achievements
+### Data Flow
 
-\* Coding profiles
-
-\* Social links
-
-\* Contact messages
-
-\* Portfolio analytics
-
-Large files such as:
-
-\* Resume PDF
-
-\* Profile image
-
-\* Project images
-
-can be stored through \*\*MongoDB GridFS\*\*, with their file references maintained in MongoDB documents.
-
-\### Data Flow
-
-\`\`\`text
-
+```text
 React
-
-  ↓
-
+  ↓
 Express API
-
-  ↓
-
+  ↓
 MongoDB Atlas
-
-  ↓
-
+  ↓
 Portfolio Data
+```
 
-\`\`\`
+MongoDB credentials are stored exclusively in backend environment variables.
 
-MongoDB credentials are stored only in backend environment variables.
+---
 
-\---
+## 📁 Project Structure
 
-**## 📁 Project Structure**
-
-\`\`\`text
-
-Portfolio/
-
+```text
+Akilesh-A-Software-Systems-Portfolio/
 │
-
 ├── src/
-
-│   ├── components/
-
-│   │   ├── About/
-
-│   │   ├── Achievements/
-
-│   │   ├── BackgroundEffects/
-
-│   │   ├── Contact/
-
-│   │   ├── CodingProfiles/
-
-│   │   ├── Experience/
-
-│   │   ├── Footer/
-
-│   │   ├── Hero/
-
-│   │   ├── Navbar/
-
-│   │   ├── ProfileImage/
-
-│   │   ├── Projects/
-
-│   │   ├── Resume/
-
-│   │   ├── Skills/
-
-│   │   └── ThemeToggle/
-
-│   │
-
-│   ├── hooks/
-
-│   ├── services/
-
-│   ├── data/
-
-│   ├── styles/
-
-│   ├── App.jsx
-
-│   └── main.jsx
-
+│   ├── components/
+│   │   ├── About/
+│   │   ├── Achievements/
+│   │   ├── BackgroundEffects/
+│   │   ├── Contact/
+│   │   ├── CodingProfiles/
+│   │   ├── Experience/
+│   │   ├── Footer/
+│   │   ├── Hero/
+│   │   ├── Navbar/
+│   │   ├── ProfileImage/
+│   │   ├── Projects/
+│   │   ├── Resume/
+│   │   ├── Skills/
+│   │   └── ThemeToggle/
+│   │
+│   ├── hooks/
+│   ├── services/
+│   ├── data/
+│   ├── styles/
+│   ├── animations/
+│   ├── App.jsx
+│   └── main.jsx
 │
-
 ├── server/
-
-│   ├── models/
-
-│   ├── routes/
-
-│   ├── controllers/
-
-│   ├── services/
-
-│   ├── config/
-
-│   └── server.js
-
+│   ├── models/
+│   ├── routes/
+│   ├── controllers/
+│   ├── services/
+│   ├── config/
+│   └── server.js
 │
-
 ├── public/
-
 ├── .env.example
-
 ├── package.json
-
 └── README.md
+```
 
-\`\`\`
+---
 
-\---
+## ⚙️ Local Development
 
-**## ⚙️ Local Development**
+### 1. Clone the repository
 
-**### 1. Clone the repository**
-
-\`\`\`bash
-
-git clone https\://github.com/YOUR\_USERNAME/YOUR\_REPOSITORY.git
-
+```bash
+git clone https://github.com/akileshanand302006-sketch/Akilesh-A-Software-Systems-Portfolio.git
 cd Akilesh-A-Software-Systems-Portfolio
+```
 
-\`\`\`
+### 2. Install frontend dependencies
 
-**### 2. Install frontend dependencies**
-
-\`\`\`bash
-
+```bash
 npm install
+```
 
-\`\`\`
+### 3. Configure the backend
 
-**### 3. Configure backend**
-
-\`\`\`bash
-
+```bash
 cd server
-
 npm install
-
-\`\`\`
+```
 
 Create:
 
-\`\`\`text
-
+```text
 server/.env
-
-\`\`\`
+```
 
 Example:
 
-\`\`\`env
-
-MONGODB\_URI=your\_mongodb\_atlas\_connection\_string
-
+```env
 PORT=5000
+MONGODB_URI=your_mongodb_atlas_connection_string
+CLIENT_URL=http://localhost:5173
 
-CLIENT\_URL=http\://localhost:5173
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=akileshanand302006@gmail.com
+SMTP_PASS=your_google_app_password
+CONTACT_TO=akileshanand302006@gmail.com
+```
 
-\`\`\`
+Never commit `.env`.
 
-Never commit \`.env\`.
+### 4. Start the backend
 
-**### 4. Start the backend**
-
-\`\`\`bash
-
+```bash
 npm run dev
+```
 
-\`\`\`
-
-**### 5. Start the frontend**
+### 5. Start the frontend
 
 From the project root:
 
-\`\`\`bash
-
+```bash
 npm run dev
-
-\`\`\`
+```
 
 Open:
 
-\`\`\`text
+```text
+http://localhost:5173
+```
 
-http\://localhost:5173
+---
 
-\`\`\`
+## 🔐 Environment Variables
 
-\---
+### Frontend
 
-**## 🔐 Environment Variables**
+```env
+# Optional for local development when Vite proxies /api
+VITE_API_URL=
 
-**### Frontend (\`.env\`)**
+# Production backend URL
+VITE_API_URL=https://your-backend-api.com/api
+```
 
-\`\`\`env
+### Backend
 
-\# Optional in local dev (Vite proxies /api to backend localhost:5000)
-
-\# In production, set to your deployed backend URL:
-
-VITE\_API\_URL=https\://your-backend-api.com/api
-
-\`\`\`
-
-**### Backend (\`server/.env\`)**
-
-\`\`\`env
-
+```env
 PORT=5000
 
-MONGODB\_URI=your\_mongodb\_atlas\_connection\_string
+MONGODB_URI=your_mongodb_atlas_connection_string
 
-CLIENT\_URL=https\://akileshanand302006.github.io
+CLIENT_URL=http://localhost:5173
 
-\# Gmail SMTP Configuration
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=akileshanand302006@gmail.com
+SMTP_PASS=your_google_app_password
 
-SMTP\_HOST=smtp.gmail.com
+CONTACT_TO=akileshanand302006@gmail.com
+```
 
-SMTP\_PORT=465
+> [!WARNING]
+> **Never commit `.env` files or hardcode secrets.**
+>
+> `SMTP_PASS` should be a dedicated Google App Password or another secure authentication mechanism, not your normal Google account password.
+>
+> SMTP credentials must remain exclusively on the backend.
 
-SMTP\_SECURE=true
+---
 
-SMTP\_USER=akileshanand302006\@gmail.com
+## 📧 Contact Email Configuration
 
-SMTP\_PASS=your\_16\_character\_google\_app\_password
-
-CONTACT\_TO=akileshanand302006\@gmail.com
-
-\`\`\`
-
-\> [!WARNING]
-
-\> **\*\*Never commit your \`.env\` file or hardcode SMTP/MongoDB credentials.\*\***  
-
-\> \`SMTP\_PASS\` must be a 16-character Google App Password (not your personal Google account password).  
-
-\> GitHub Pages cannot execute the Node.js SMTP server, so SMTP credentials must remain exclusively on the separately deployed backend.
-
-\---
-
-**## 📧 Contact Email Configuration**
-
-The portfolio uses a secure decoupled architecture for the contact system:
-
-\* **\*\*Frontend\*\***: React 19 + Vite (dispatches \`POST /api/contact\` with \`{ name, email, subject, message }\`)
-
-\* **\*\*Backend\*\***: Node.js + Express (\`POST /api/contact\` with rate limiting, sanitization, and input validation)
-
-\* **\*\*Email Service\*\***: Nodemailer + Gmail SMTP (\`smtp.gmail.com:465\` SSL/TLS)
-
-\* **\*\*Storage\*\***: MongoDB Atlas (stores contact messages upon verified dispatch)
-
-**### Required Backend Environment Variables**
-
-\| Variable | Description | Example / Recommended Value |
-
-\|---|---|---|
-
-\| \`SMTP\_HOST\` | Gmail SMTP server hostname | \`smtp.gmail.com\` |
-
-\| \`SMTP\_PORT\` | Secure SSL/TLS port | \`465\` |
-
-\| \`SMTP\_SECURE\` | Use SSL/TLS encryption | \`true\` |
-
-\| \`SMTP\_USER\` | Authenticated Gmail address | \`akileshanand302006\@gmail.com\` |
-
-\| \`SMTP\_PASS\` | 16-character Google App Password | \`your\_16\_character\_app\_password\` |
-
-\| \`CONTACT\_TO\` | Destination inbox for inquiries | \`akileshanand302006\@gmail.com\` |
-
-**### Generating a Google App Password**
-
-1\. Navigate to your **\*\*Google Account\*\*** (\`https\://myaccount.google.com/\`).
-
-2\. Go to **\*\*Security\*\*** and confirm that **\*\*2-Step Verification\*\*** is turned ON.
-
-3\. Search for or navigate to **\*\*App Passwords\*\*** (\`https\://myaccount.google.com/apppasswords\`).
-
-4\. Create a new App Password named "Portfolio".
-
-5\. Copy the 16-character password and paste it as \`SMTP\_PASS\` in \`server/.env\` (without spaces).
-
-**### Important Architectural Principles**
-
-\* **\*\*Sender & Recipient Flow\*\***: The email is sent from the authenticated account (\`SMTP\_USER\`) to \`CONTACT\_TO\`. The visitor's email is set as \`Reply-To\`, allowing you to click "Reply" in Gmail and respond directly to the visitor.
-
-\* **\*\*Separation of Concerns\*\***: GitHub Pages only serves static frontend assets and cannot run Node.js/Express. The backend must be hosted on a Node-capable platform (e.g., Render, Railway, Fly.io, Cloud Run) with the SMTP environment variables configured in its environment settings.
-
-\---
-
-**## 🌐 Deployment**
-
-**### Frontend — GitHub Pages**
-
-Build the React application:
-
-\`\`\`bash
-
-npm run build
-
-\`\`\`
-
-Configure Vite with the correct GitHub Pages base path if the repository is not using a custom domain.
-
-Then deploy the generated \`dist/\` directory using GitHub Pages.
-
-Recommended deployment flow:
-
-\`\`\`text
-
-GitHub Repository
-
-       ↓
-
-GitHub Actions
-
-       ↓
-
-npm run build
-
-       ↓
-
-dist/
-
-       ↓
-
-GitHub Pages
-
-\`\`\`
-
-**### Backend**
-
-GitHub Pages cannot execute Node.js/Express.
-
-Deploy the backend separately using a Node-compatible hosting provider.
-
-Production architecture:
-
-\`\`\`text
-
-GitHub Pages
-
-     │
-
-     │ HTTPS API requests
-
-     ▼
-
-Node.js + Express
-
-     │
-
-     ▼
-
-MongoDB Atlas
-
-\`\`\`
-
-Set the production frontend URL in the backend CORS configuration.
-
-\---
-
-**### 📧 Production Contact Flow
-
-The contact form follows a secure server-side mail flow:
+The contact form follows a secure server-side architecture:
 
 ```text
 Visitor
    ↓
 React Contact Form
    ↓ HTTPS
-Node.js + Express API
+Node.js + Express
    ↓
 Nodemailer
    ↓
-Gmail SMTP
+Google Gmail SMTP
    ↓
 akileshanand302006@gmail.com
 ```
 
-The visitor's submitted email is used as **Reply-To** rather than being spoofed as the authenticated sender. SMTP credentials remain on the backend and are never exposed to the React/GitHub Pages frontend.
+### Email Flow
+
+**From**
+
+```text
+akileshanand302006@gmail.com
+```
+
+**To**
+
+```text
+akileshanand302006@gmail.com
+```
+
+**Reply-To**
+
+```text
+Visitor's submitted email
+```
+
+This allows incoming portfolio messages to arrive in Gmail while keeping the visitor's address available through the normal Gmail **Reply** action.
+
+### SMTP Configuration
+
+| Variable      | Value                          |
+| ------------- | ------------------------------ |
+| `SMTP_HOST`   | `smtp.gmail.com`               |
+| `SMTP_PORT`   | `465`                          |
+| `SMTP_SECURE` | `true`                         |
+| `SMTP_USER`   | `akileshanand302006@gmail.com` |
+| `SMTP_PASS`   | Google App Password            |
+| `CONTACT_TO`  | `akileshanand302006@gmail.com` |
+
+### Google App Password
+
+1. Open your Google Account.
+2. Go to **Security**.
+3. Enable **2-Step Verification**.
+4. Open **App Passwords**.
+5. Create an app password for the portfolio backend.
+6. Store the generated password only in `server/.env`.
+
+Never place the password in React code or a `VITE_*` variable.
 
 ---
 
-## 📱 Responsive Design**
+## 🌐 Deployment
 
-The portfolio is optimized for:
+### Frontend — GitHub Pages
 
-\* Desktop
+Build the React application:
 
-\* Laptop
+```bash
+npm run build
+```
 
-\* Tablet
+The production output is generated in:
 
-\* Mobile
+```text
+dist/
+```
 
-The 3D background and particle system automatically reduce visual complexity on smaller devices to maintain smooth performance.
+Recommended flow:
+
+```text
+GitHub Repository
+       ↓
+GitHub Actions
+       ↓
+npm run build
+       ↓
+dist/
+       ↓
+GitHub Pages
+```
+
+The live frontend is:
+
+```text
+https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/
+```
+
+### Backend
+
+GitHub Pages is static hosting and cannot execute:
+
+* Node.js
+* Express
+* Nodemailer
+* Gmail SMTP
+
+Therefore the backend must be deployed separately using a Node-compatible hosting platform.
+
+Examples include:
+
+* Render
+* Railway
+* Fly.io
+* Google Cloud Run
+
+Production flow:
+
+```text
+GitHub Pages
+      │
+      │ HTTPS
+      ▼
+Node.js + Express
+      │
+      ├────────► MongoDB Atlas
+      │
+      └────────► Gmail SMTP
+```
+
+Configure the production frontend origin in backend CORS settings.
+
+---
+
+## 📱 Responsive Design
+
+The portfolio is designed for:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile
+
+The application adapts visual complexity according to device capability.
+
+On smaller devices:
+
+* 3D complexity is reduced
+* particle density is reduced
+* excessive blur is reduced
+* heavy glow effects are reduced
+* mouse-only effects are disabled
 
 The application also respects:
 
-\`\`\`text
-
+```text
 prefers-reduced-motion
+```
 
-\`\`\`
-
-for accessibility.
-
-\---
-
-**## 🎯 Engineering Highlights**
-
-This portfolio demonstrates practical knowledge of:
-
-\* Component-based architecture
-
-\* REST API integration
-
-\* Cloud database architecture
-
-\* MongoDB data modeling
-
-\* File storage with GridFS
-
-\* Responsive frontend development
-
-\* 3D web graphics
-
-\* Animation systems
-
-\* API-based content management
-
-\* Form validation
-
-\* Accessibility
-
-\* SEO
-
-\* Git/GitHub workflows
-
-\* Production deployment
-
-\---
-
-**## 🧪 Quality & Performance
-
-The portfolio is built with production-oriented considerations:
-
-- Responsive testing across desktop, tablet, and mobile breakpoints
-- `prefers-reduced-motion` support
-- GPU-friendly transform/opacity animations where possible
-- Reduced 3D/particle complexity on smaller devices
-- Decorative background layers isolated from interactive UI
-- No intentional horizontal overflow from 3D scenes
-- Theme switching without changing application structure
-- Build validation with `npm run build`
-- Backend secrets isolated through environment variables
+to provide a more accessible experience.
 
 ---
 
-## 📄 License**
+## ⚡ Performance
 
-This project is available under the **\*\*MIT License\*\***.
+Performance is treated as part of the visual system.
 
-\---
+The portfolio uses:
 
-\<p align="center">
+* GPU-friendly `transform` and `opacity` animation
+* limited expensive blur effects
+* responsive particle density
+* optimized 3D complexity
+* viewport-aware animation
+* reduced-motion fallbacks
+* decorative layers isolated from interactive UI
+* prevention of unnecessary animation duplication
+* mobile-aware rendering
 
-**### ✦ Build systems. Solve problems. Create experiences.**
+The goal is to retain premium visual quality without sacrificing usability.
 
-**\*\*Akilesh A\*\***
+---
 
-\</p>
+## 🔒 Security Principles
+
+The application follows several important security practices:
+
+* Backend secrets are stored in environment variables
+* SMTP credentials never enter frontend bundles
+* MongoDB credentials remain backend-only
+* Contact form input is validated
+* Contact requests can be rate-limited
+* User input is sanitized before HTML email generation
+* Sensitive server errors are not exposed to users
+* GitHub Pages contains only public frontend assets
+
+---
+
+## 🎯 Engineering Highlights
+
+This portfolio demonstrates practical experience with:
+
+* Component-based React architecture
+* REST API development
+* MongoDB data modeling
+* MongoDB Atlas
+* MongoDB GridFS
+* Node.js and Express
+* Gmail SMTP integration
+* Responsive frontend development
+* Liquid Glass UI engineering
+* Three.js / React Three Fiber
+* 3D web graphics
+* Anime.js animation systems
+* Framer Motion
+* Particle systems
+* Interactive UI design
+* Form validation
+* Accessibility
+* SEO
+* Git/GitHub workflows
+* GitHub Pages deployment
+* Separate frontend/backend architecture
+
+---
+
+## 🚀 Current Visual Experience
+
+The portfolio combines:
+
+```text
+Premium Liquid Glass
+        +
+Atmospheric 3D Environment
+        +
+Three.js / R3F
+        +
+Framer Motion
+        +
+Anime.js
+        +
+Particle Networks
+        +
+Interactive Micro-Interactions
+        +
+Gmail SMTP Contact System
+        +
+MongoDB Atlas
+```
+
+The overall design goal is to present a portfolio that feels less like a static resume website and more like a **premium interactive software product**.
+
+---
+
+## 📄 License
+
+This project is available under the **MIT License**.
+
+---
+
+<p align="center">
+
+### ✦ Build systems. Solve problems. Create experiences.
+
+<strong>Akilesh A</strong>
+
+</p>
+```
+
+This version also fixes the markdown formatting issues in the generated version, such as malformed headings, escaped Markdown characters, and the missing Anime.js entry in the technology stack.
