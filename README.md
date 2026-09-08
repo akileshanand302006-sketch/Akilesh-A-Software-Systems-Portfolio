@@ -1,5 +1,5 @@
-````markdown
-# ✦ Akilesh A — Software Systems Portfolio
+
+✦ Akilesh A — Software Systems Portfolio
 
 <p align="center">
   <strong>Integrated M.Sc Software Systems Student • Full-Stack Developer • Problem Solver</strong>
