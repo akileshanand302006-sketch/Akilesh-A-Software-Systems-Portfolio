@@ -101,7 +101,7 @@ Instead of a traditional static portfolio, it provides a cinematic interface fea
 
 ### 📬 Contact
 - Real-time form validation
-- EmailJS-powered contact delivery
+- Nodemailer + Gmail SMTP backend delivery
 - MongoDB-backed contact messages
 - Animated submission feedback
 
@@ -121,7 +121,7 @@ The portfolio showcases projects including:
 | Project | Focus |
 |---|---|
 | **Smart Hospital Bed Management System** | 8086 Assembly, PHP, JavaScript, resource allocation |
-| **Travel Planning Platform** | Angular, Node.js, PostgreSQL/PostGIS, Google Places |
+| **RouteVeda-Smart Travel Planning Platform** | Angular, Node.js, PostgreSQL/PostGIS, Google Places |
 | **Finora** | Java, JavaFX, MySQL, personal finance management |
 | **QuoteVerse** | React, Node.js, MySQL, interactive quote discovery |
 
@@ -149,7 +149,7 @@ Each project highlights its:
 | **Backend** | Node.js, Express.js |
 | **Database** | MongoDB Atlas |
 | **File Storage** | MongoDB GridFS |
-| **Contact** | EmailJS |
+| **Contact** | Nodemailer + Gmail SMTP |
 | **Deployment** | GitHub Pages + Backend Hosting |
 | **Version Control** | Git & GitHub |
 
@@ -341,25 +341,67 @@ http://localhost:5173
 
 ## 🔐 Environment Variables
 
-### Frontend
+### Frontend (`.env`)
 
 ```env
+# Optional in local dev (Vite proxies /api to backend localhost:5000)
+# In production, set to your deployed backend URL:
 VITE_API_URL=https://your-backend-api.com/api
-
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
-### Backend
+### Backend (`server/.env`)
 
 ```env
-MONGODB_URI=your_mongodb_atlas_connection_string
 PORT=5000
-CLIENT_URL=https://yourusername.github.io
+MONGODB_URI=your_mongodb_atlas_connection_string
+CLIENT_URL=https://akileshanand302006.github.io
+
+# Gmail SMTP Configuration
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=akileshanand302006@gmail.com
+SMTP_PASS=your_16_character_google_app_password
+CONTACT_TO=akileshanand302006@gmail.com
 ```
 
-**Never place `MONGODB_URI` inside the frontend environment.**
+> [!WARNING]
+> **Never commit your `.env` file or hardcode SMTP/MongoDB credentials.**  
+> `SMTP_PASS` must be a 16-character Google App Password (not your personal Google account password).  
+> GitHub Pages cannot execute the Node.js SMTP server, so SMTP credentials must remain exclusively on the separately deployed backend.
+
+---
+
+## 📧 Contact Email Configuration
+
+The portfolio uses a secure decoupled architecture for the contact system:
+
+* **Frontend**: React 19 + Vite (dispatches `POST /api/contact` with `{ name, email, subject, message }`)
+* **Backend**: Node.js + Express (`POST /api/contact` with rate limiting, sanitization, and input validation)
+* **Email Service**: Nodemailer + Gmail SMTP (`smtp.gmail.com:465` SSL/TLS)
+* **Storage**: MongoDB Atlas (stores contact messages upon verified dispatch)
+
+### Required Backend Environment Variables
+
+| Variable | Description | Example / Recommended Value |
+|---|---|---|
+| `SMTP_HOST` | Gmail SMTP server hostname | `smtp.gmail.com` |
+| `SMTP_PORT` | Secure SSL/TLS port | `465` |
+| `SMTP_SECURE` | Use SSL/TLS encryption | `true` |
+| `SMTP_USER` | Authenticated Gmail address | `akileshanand302006@gmail.com` |
+| `SMTP_PASS` | 16-character Google App Password | `your_16_character_app_password` |
+| `CONTACT_TO` | Destination inbox for inquiries | `akileshanand302006@gmail.com` |
+
+### Generating a Google App Password
+1. Navigate to your **Google Account** (`https://myaccount.google.com/`).
+2. Go to **Security** and confirm that **2-Step Verification** is turned ON.
+3. Search for or navigate to **App Passwords** (`https://myaccount.google.com/apppasswords`).
+4. Create a new App Password named "Portfolio".
+5. Copy the 16-character password and paste it as `SMTP_PASS` in `server/.env` (without spaces).
+
+### Important Architectural Principles
+* **Sender & Recipient Flow**: The email is sent from the authenticated account (`SMTP_USER`) to `CONTACT_TO`. The visitor's email is set as `Reply-To`, allowing you to click "Reply" in Gmail and respond directly to the visitor.
+* **Separation of Concerns**: GitHub Pages only serves static frontend assets and cannot run Node.js/Express. The backend must be hosted on a Node-capable platform (e.g., Render, Railway, Fly.io, Cloud Run) with the SMTP environment variables configured in its environment settings.
 
 ---
 
@@ -469,4 +511,3 @@ This project is available under the **MIT License**.
 **Akilesh A**
 
 </p>
-```

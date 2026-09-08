@@ -1,27 +1,35 @@
 import ContactMessage from '../models/ContactMessage.js';
-import { sendOwnerNotification, sendVisitorAcknowledgement } from './emailService.js';
+import { sendContactEmail, isSmtpConfigured } from './emailService.js';
 
 /**
- * Orchestrates real contact delivery:
- * 1. Sends email notification to portfolio owner
- * 2. Sends auto-acknowledgement email to visitor
- * 3. Saves submission and statuses in MongoDB Atlas
+ * Orchestrates contact email delivery and database persistence:
+ * 1. Dispatches message to Akilesh via Gmail SMTP (Nodemailer)
+ * 2. Persists submission to MongoDB Atlas
  */
-export async function processContactMessage({ name, email, subject, message, ipAddress, userAgent }) {
-  console.log(`[CONTACT] Request received from ${name} (${email})`);
+export async function processContactMessage({
+  name,
+  email,
+  subject,
+  message,
+  ipAddress,
+  userAgent,
+}) {
+  console.log(`[CONTACT] Processing contact submission from ${name} (${email})`);
 
-  let ownerEmailStatus = 'PENDING';
-  let visitorEmailStatus = 'PENDING';
-
-  // 1. Send owner notification first (MANDATORY: failure stops success response!)
+  // Step 1: Deliver email via Gmail SMTP
+  let emailDeliveryResult = null;
   try {
-    await sendOwnerNotification({ name, email, subject, message, ipAddress });
-    ownerEmailStatus = 'SENT';
-  } catch (err) {
-    ownerEmailStatus = 'FAILED';
-    console.error('[CONTACT ERROR] Owner email delivery failed:', err.message);
+    emailDeliveryResult = await sendContactEmail({
+      name,
+      email,
+      subject,
+      message,
+      ipAddress,
+    });
+  } catch (smtpError) {
+    console.error('[CONTACT] Gmail SMTP delivery failed:', smtpError.message);
 
-    // Save failed attempt in MongoDB for diagnostic auditing
+    // Save failed attempt in MongoDB for diagnostic auditing if possible
     try {
       await ContactMessage.create({
         name,
@@ -33,28 +41,18 @@ export async function processContactMessage({ name, email, subject, message, ipA
         status: 'NEW',
         emailStatus: 'FAILED',
         ownerEmailStatus: 'FAILED',
-        visitorEmailStatus: 'FAILED',
-        errorMessage: err.message,
+        errorMessage: smtpError.message,
       });
     } catch { }
 
-    // Re-throw so API returns 500/503 and frontend NEVER displays fake success!
-    throw new Error(err.message || 'Email delivery failed.');
+    // Re-throw so the controller returns 500 and the frontend never displays false success
+    throw smtpError;
   }
 
-  // 2. Send visitor acknowledgement email
-  try {
-    const ackResult = await sendVisitorAcknowledgement({ name, email, subject, message });
-    visitorEmailStatus = ackResult ? 'SENT' : 'FAILED';
-  } catch (err) {
-    visitorEmailStatus = 'FAILED';
-    console.warn('[CONTACT WARNING] Visitor acknowledgement failed:', err.message);
-  }
-
-  // 3. Save to MongoDB Atlas
+  // Step 2: Persist successful submission to MongoDB Atlas
   let contact = null;
   try {
-    console.log('[CONTACT] Saving message to MongoDB Atlas...');
+    console.log('[CONTACT] Persisting message to MongoDB Atlas...');
     contact = await ContactMessage.create({
       name,
       email,
@@ -65,17 +63,16 @@ export async function processContactMessage({ name, email, subject, message, ipA
       status: 'NEW',
       emailStatus: 'SENT',
       ownerEmailStatus: 'SENT',
-      visitorEmailStatus,
     });
-    console.log('[CONTACT] Contact request completed. ID:', contact._id);
-  } catch (dbErr) {
-    console.warn('[CONTACT WARNING] Could not persist message to MongoDB Atlas:', dbErr.message);
+    console.log('[CONTACT] Successfully stored message in MongoDB Atlas. ID:', contact._id);
+  } catch (dbError) {
+    // Email was already delivered to Akilesh, so log DB warning without failing the user
+    console.warn('[CONTACT WARNING] Email delivered, but database persistence failed:', dbError.message);
   }
 
   return {
     id: contact?._id || 'delivered',
     emailStatus: 'SENT',
-    ownerEmailStatus,
-    visitorEmailStatus,
+    messageId: emailDeliveryResult?.messageId,
   };
 }

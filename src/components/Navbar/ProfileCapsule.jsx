@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, FileText, Send, Github, Linkedin, ExternalLink, Sparkles } from 'lucide-react';
 import profile from '../../data/profile';
@@ -12,7 +12,9 @@ const defaultPhoto = `${cleanBase}profile.jpg`;
 export default function ProfileCapsule({ theme = 'dark', isMobile = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const [imgSrc, setImgSrc] = useState(defaultPhoto);
+  const [positionStyle, setPositionStyle] = useState({});
   const capsuleRef = useRef(null);
+  const panelRef = useRef(null);
 
   // Dynamic MongoDB GridFS Profile Image streaming with local fallback
   useEffect(() => {
@@ -26,6 +28,68 @@ export default function ProfileCapsule({ theme = 'dark', isMobile = false }) {
       isMounted = false;
     };
   }, []);
+
+  // Smart Viewport Positioning calculation
+  // Ensures the dropdown always remains strictly within viewport boundaries [safeMargin, viewportWidth - safeMargin]
+  const updatePosition = useCallback(() => {
+    if (!capsuleRef.current) return;
+    const capsuleRect = capsuleRef.current.getBoundingClientRect();
+    const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    const safeMargin = 14; // 14px safe margin from viewport edge
+
+    // Maximum width the panel can occupy on the screen
+    const maxAllowedWidth = Math.min(285, viewportWidth - safeMargin * 2);
+
+    // Preferred behavior: align dropdown right edge with capsule right edge (CSS right: 0)
+    // Capsule's screen right is capsuleRect.right
+    // Projected dropdown screen right = capsuleRect.right
+    // Projected dropdown screen left = capsuleRect.right - maxAllowedWidth
+    let shiftX = 0; // horizontal offset: negative = shift left, positive = shift right
+
+    // 1. Right boundary check: if capsule right edge is closer to right screen edge than safeMargin
+    if (capsuleRect.right > viewportWidth - safeMargin) {
+      shiftX = (viewportWidth - safeMargin) - capsuleRect.right;
+    }
+
+    // 2. Left boundary check: if projected left edge overflows viewport left safe margin
+    const projectedLeft = capsuleRect.right + shiftX - maxAllowedWidth;
+    if (projectedLeft < safeMargin) {
+      shiftX += (safeMargin - projectedLeft);
+    }
+
+    // Convert shiftX to CSS right offset relative to capsule container:
+    // CSS right: 0 aligns with capsule right edge.
+    // Shifting right by shiftX decreases CSS right: right = -shiftX
+    const cssRight = -Math.round(shiftX);
+
+    setPositionStyle({
+      right: `${cssRight}px`,
+      maxWidth: `${maxAllowedWidth}px`,
+      width: `${maxAllowedWidth}px`,
+    });
+  }, []);
+
+  // Update position on open and view resize/scroll
+  useEffect(() => {
+    if (!isOpen) return;
+
+    updatePosition();
+
+    let rafId = null;
+    const handleResize = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updatePosition);
+    };
+
+    window.addEventListener('resize', handleResize, { passive: true });
+    window.addEventListener('scroll', handleResize, { passive: true });
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleResize);
+    };
+  }, [isOpen, updatePosition]);
 
   // Close on outside click or Escape key
   useEffect(() => {
@@ -124,11 +188,13 @@ export default function ProfileCapsule({ theme = 'dark', isMobile = false }) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="profile-dropdown-panel glass-panel"
-            initial={{ opacity: 0, scale: 0.96, y: -4 }}
+            ref={panelRef}
+            className="profile-dropdown-panel"
+            style={positionStyle}
+            initial={{ opacity: 0, scale: 0.97, y: -8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: -4 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, scale: 0.98, y: -6 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
             role="dialog"
             aria-label="Profile Details"
           >

@@ -4,23 +4,69 @@ import { Send, CheckCircle, AlertCircle, Mail, User, MessageSquare, FileText, Lo
 import contactService from '../../services/contactService';
 import './Contact.css';
 
+const OWNER_EMAIL = 'akileshanand302006@gmail.com';
+
 /**
  * Contact Component
- * Real production-ready contact form connected to the backend API.
- * Genuine loading, success, and error states with zero simulated success.
+ * Liquid Glass contact form powered by Node.js/Express backend,
+ * Nodemailer Gmail SMTP delivery, and direct mailto fallback.
  */
 export default function Contact() {
   const formRef = useRef(null);
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', _honeypot: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    _honeypot: '',
+  });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [errorMessage, setErrorMessage] = useState('');
+  const lastSubmitTime = useRef(0);
 
   const validate = () => {
     const errs = {};
-    if (!formData.name.trim() || formData.name.trim().length < 2) errs.name = 'Name must be at least 2 characters.';
-    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errs.email = 'Please enter a valid email.';
-    if (!formData.message.trim() || formData.message.trim().length < 10) errs.message = 'Message must be at least 10 characters.';
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedSubject = formData.subject.trim();
+    const trimmedMessage = formData.message.trim();
+
+    // 1. Name validation (Required, min 2 characters, max 100 characters)
+    if (!trimmedName) {
+      errs.name = 'Name is required.';
+    } else if (trimmedName.length < 2) {
+      errs.name = 'Name must be at least 2 characters.';
+    } else if (trimmedName.length > 100) {
+      errs.name = 'Name cannot exceed 100 characters.';
+    }
+
+    // 2. Email validation (Required, valid RFC format)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!trimmedEmail) {
+      errs.email = 'Email is required.';
+    } else if (!emailRegex.test(trimmedEmail)) {
+      errs.email = 'Please enter a valid email address.';
+    }
+
+    // 3. Subject validation (Required, min 2 characters, max 150 characters)
+    if (!trimmedSubject) {
+      errs.subject = 'Subject is required.';
+    } else if (trimmedSubject.length < 2) {
+      errs.subject = 'Subject must be at least 2 characters.';
+    } else if (trimmedSubject.length > 150) {
+      errs.subject = 'Subject cannot exceed 150 characters.';
+    }
+
+    // 4. Message validation (Required, 10-2000 characters)
+    if (!trimmedMessage) {
+      errs.message = 'Message is required.';
+    } else if (trimmedMessage.length < 10) {
+      errs.message = 'Message must be at least 10 characters.';
+    } else if (trimmedMessage.length > 2000) {
+      errs.message = 'Message cannot exceed 2000 characters.';
+    }
+
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -28,15 +74,25 @@ export default function Contact() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Prevent duplicate rapid submissions (minimum 2s throttle)
+    const now = Date.now();
+    if (now - lastSubmitTime.current < 2000) return;
+    lastSubmitTime.current = now;
+
+    if (status === 'sending') return;
     if (!validate()) return;
 
-    // Check honeypot
+    // Silent reject for automated spam bots filling hidden honeypot
     if (formData._honeypot) {
+      console.warn('[CONTACT] Honeypot triggered.');
       return;
     }
 
@@ -44,25 +100,33 @@ export default function Contact() {
     setErrorMessage('');
 
     try {
+      // Send message to Express backend API (triggers Gmail SMTP delivery and saves to MongoDB Atlas)
       const response = await contactService.sendMessage({
-        name: formData.name,
-        email: formData.email,
-        subject: formData.subject || 'General Inquiry',
-        message: formData.message,
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
       });
 
-      if (response && response.success) {
-        setStatus('success');
-      } else {
-        throw new Error(response?.message || 'Unable to deliver message.');
+      if (!response || !response.success) {
+        throw new Error(response?.message || 'Server did not accept the request.');
       }
+
+      // Show success state only after server and SMTP confirm delivery
+      setStatus('success');
     } catch (err) {
-      console.error('[CONTACT FORM ERROR]', err);
+      console.error('[CONTACT API ERROR]', err);
       setStatus('error');
+
+      // Never expose technical browser exceptions (e.g. "Failed to fetch") or internal secrets
+      const isTechnicalError =
+        !err.message ||
+        /fetch|network|econnrefused|failed|abort|timeout|http \d+/i.test(err.message);
+
       setErrorMessage(
-        err.message && !err.message.includes('HTTP 500')
-          ? err.message
-          : 'Something went wrong while delivering your message. Please try again or contact me directly by email.'
+        isTechnicalError
+          ? "We couldn't send your message right now. Please try again or contact me directly by email."
+          : err.message
       );
     }
   };
@@ -75,12 +139,22 @@ export default function Contact() {
   };
 
   const handleRetry = () => {
+    // Return to form without losing user's entered text
     setStatus('idle');
     setErrorMessage('');
   };
 
+  // Direct mailto fallback link pre-filled with visitor's subject and message
+  const directMailtoUrl = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(
+    formData.subject ? `Portfolio Contact — ${formData.subject}` : 'New Portfolio Contact'
+  )}&body=${encodeURIComponent(
+    formData.message
+      ? `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      : ''
+  )}`;
+
   return (
-    <section id="contact" className="section">
+    <section id="contact" className="section" aria-label="Contact Section">
       <div className="container-custom">
         <motion.div
           className="section-header"
@@ -113,13 +187,15 @@ export default function Contact() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -15 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
+                role="status"
+                aria-live="polite"
               >
                 <div className="result-icon-wrap success-icon">
                   <CheckCircle size={38} />
                 </div>
                 <h3 className="result-title">Message Sent Successfully!</h3>
                 <p className="result-description">
-                  Thanks for reaching out, <strong>{formData.name}</strong>. Your message has been delivered to my inbox and a confirmation email has been sent to <strong>{formData.email}</strong>.
+                  Thank you, <strong>{formData.name}</strong>. Your message has been delivered to <strong>{OWNER_EMAIL}</strong>.
                 </p>
                 <p className="result-subtext">I will review your message and get back to you as soon as possible.</p>
                 <button
@@ -142,26 +218,40 @@ export default function Contact() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -15 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
+                role="alert"
+                aria-live="assertive"
               >
                 <div className="result-icon-wrap error-icon">
                   <AlertCircle size={38} />
                 </div>
                 <h3 className="result-title">Unable to Send Message</h3>
                 <p className="result-description">{errorMessage}</p>
+
+                {/* Direct mailto fallback */}
                 <div className="result-direct-contact">
-                  <span>Direct Email:</span>
-                  <a href="mailto:akileshanand302006@gmail.com" className="direct-email-link">
-                    akileshanand302006@gmail.com
+                  <span>Send Directly:</span>
+                  <a href={directMailtoUrl} className="direct-email-link" title="Open in default email app">
+                    {OWNER_EMAIL}
                   </a>
                 </div>
-                <button
-                  type="button"
-                  className="glass-button glass-button-primary result-btn"
-                  onClick={handleRetry}
-                >
-                  <RotateCcw size={16} />
-                  <span>Try Again</span>
-                </button>
+
+                <div className="result-actions-row">
+                  <button
+                    type="button"
+                    className="glass-button glass-button-secondary result-btn"
+                    onClick={handleRetry}
+                  >
+                    <RotateCcw size={16} />
+                    <span>Try Again</span>
+                  </button>
+                  <a
+                    href={directMailtoUrl}
+                    className="glass-button glass-button-primary result-btn"
+                  >
+                    <Mail size={16} />
+                    <span>Open Email App</span>
+                  </a>
+                </div>
               </motion.div>
             )}
 
@@ -187,6 +277,7 @@ export default function Contact() {
                   style={{ display: 'none' }}
                   tabIndex={-1}
                   autoComplete="off"
+                  aria-hidden="true"
                 />
 
                 {/* Name */}
@@ -204,11 +295,19 @@ export default function Contact() {
                     placeholder="Your name"
                     autoComplete="name"
                     disabled={status === 'sending'}
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? 'contact-name-error' : undefined}
                     required
                   />
                   <AnimatePresence>
                     {errors.name && (
-                      <motion.span className="form-error" initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                      <motion.span
+                        id="contact-name-error"
+                        className="form-error"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                      >
                         {errors.name}
                       </motion.span>
                     )}
@@ -230,11 +329,19 @@ export default function Contact() {
                     placeholder="your@email.com"
                     autoComplete="email"
                     disabled={status === 'sending'}
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? 'contact-email-error' : undefined}
                     required
                   />
                   <AnimatePresence>
                     {errors.email && (
-                      <motion.span className="form-error" initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                      <motion.span
+                        id="contact-email-error"
+                        className="form-error"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                      >
                         {errors.email}
                       </motion.span>
                     )}
@@ -242,10 +349,10 @@ export default function Contact() {
                 </div>
 
                 {/* Subject */}
-                <div className="form-group">
+                <div className={`form-group ${errors.subject ? 'has-error' : ''}`}>
                   <label htmlFor="contact-subject">
                     <FileText size={16} />
-                    Subject <span style={{ color: 'var(--text-tertiary)', fontSize: '0.8rem', fontWeight: 400 }}>(Optional)</span>
+                    Subject
                   </label>
                   <input
                     id="contact-subject"
@@ -255,28 +362,58 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="e.g. Internship discussion / Project inquiry"
                     disabled={status === 'sending'}
+                    aria-invalid={!!errors.subject}
+                    aria-describedby={errors.subject ? 'contact-subject-error' : undefined}
+                    required
                   />
+                  <AnimatePresence>
+                    {errors.subject && (
+                      <motion.span
+                        id="contact-subject-error"
+                        className="form-error"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        {errors.subject}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
                 </div>
 
                 {/* Message */}
                 <div className={`form-group ${errors.message ? 'has-error' : ''}`}>
-                  <label htmlFor="contact-message">
-                    <MessageSquare size={16} />
-                    Message
-                  </label>
+                  <div className="message-label-row">
+                    <label htmlFor="contact-message">
+                      <MessageSquare size={16} />
+                      Message
+                    </label>
+                    <span className="char-counter" aria-live="polite">
+                      {formData.message.length}/2000
+                    </span>
+                  </div>
                   <textarea
                     id="contact-message"
                     name="message"
                     rows={5}
+                    maxLength={2000}
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Hi Akilesh, I'd like to talk about..."
                     disabled={status === 'sending'}
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? 'contact-message-error' : undefined}
                     required
                   />
                   <AnimatePresence>
                     {errors.message && (
-                      <motion.span className="form-error" initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                      <motion.span
+                        id="contact-message-error"
+                        className="form-error"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                      >
                         {errors.message}
                       </motion.span>
                     )}
@@ -288,6 +425,7 @@ export default function Contact() {
                   type="submit"
                   className="glass-button glass-button-primary contact-submit"
                   disabled={status === 'sending'}
+                  aria-busy={status === 'sending'}
                 >
                   {status === 'sending' ? (
                     <>

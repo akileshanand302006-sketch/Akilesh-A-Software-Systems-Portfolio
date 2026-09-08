@@ -15,6 +15,19 @@
   gap: 8px;
 }
 
+.message-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.char-counter {
+  font-size: 0.76rem;
+  color: var(--text-tertiary, #64748b);
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono, monospace);
+}
+
 .form-group label {
   font-size: 0.9rem;
   font-weight: 600;
@@ -206,6 +219,31 @@
   color: var(--text-primary, #ffffff);
 }
 
+.result-confirmation-note {
+  font-size: 0.94rem;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: var(--radius-sm, 8px);
+  padding: 8px 16px;
+  margin: 4px auto 16px auto;
+  line-height: 1.5;
+}
+
+.result-confirmation-note strong {
+  color: #ffffff;
+}
+
+[data-theme="light"] .result-confirmation-note {
+  color: #1d4ed8;
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+[data-theme="light"] .result-confirmation-note strong {
+  color: #0f172a;
+}
+
 .result-subtext {
   font-size: 0.92rem;
   color: var(--text-tertiary, #64748b);
@@ -238,6 +276,20 @@
 .result-btn {
   padding: 12px 28px;
   font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.result-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 /* Spinner Animation */

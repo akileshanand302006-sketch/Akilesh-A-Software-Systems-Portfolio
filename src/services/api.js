@@ -3,7 +3,14 @@
  * Uses VITE_API_URL or defaults to localhost:5000/api.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// In local dev without explicit backend URL, default to '/api' to use Vite proxy (proxying to localhost:5000)
+const rawBase = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || '';
+let defaultBase = rawBase ? rawBase.replace(/\/+$/, '') : '/api';
+
+// If a domain is provided without /api (e.g. https://my-backend.com), ensure /api is attached
+if (defaultBase.startsWith('http') && !defaultBase.endsWith('/api')) {
+  defaultBase = `${defaultBase}/api`;
+}
 
 class ApiClient {
   constructor(baseUrl) {
@@ -11,7 +18,13 @@ class ApiClient {
   }
 
   async request(endpoint, options = {}) {
-    const url = `${this.baseUrl}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+    // Avoid /api/api/ duplication if both baseUrl ends in /api and endpoint starts with /api
+    let cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    if (this.baseUrl.endsWith('/api') && cleanEndpoint.startsWith('/api/')) {
+      cleanEndpoint = cleanEndpoint.replace(/^\/api/, '');
+    }
+
+    const url = `${this.baseUrl}${cleanEndpoint}`;
     
     const headers = {
       'Content-Type': 'application/json',
@@ -73,5 +86,5 @@ class ApiClient {
   }
 }
 
-export const api = new ApiClient(API_BASE_URL);
+export const api = new ApiClient(defaultBase);
 export default api;
