@@ -1,4 +1,3 @@
-````markdown
 # ✦ Akilesh A — Software Systems Portfolio
 
 <p align="center">
@@ -12,26 +11,38 @@
 </p>
 
 <p align="center">
-  <a href="https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/">
-    <img src="https://img.shields.io/badge/🚀%20EXPLORE%20MY%20PORTFOLIO-2563EB?style=for-the-badge&labelColor=0F172A" alt="Explore Portfolio"/>
-  </a>
-  &nbsp;
-  <a href="https://github.com/akileshanand302006-sketch/Akilesh-A-Software-Systems-Portfolio">
-    <img src="https://img.shields.io/badge/💻%20SOURCE%20CODE-GitHub-111827?style=for-the-badge&logo=github&logoColor=white" alt="Source Code"/>
-  </a>
+
+[![🚀 Live Portfolio](https://img.shields.io/badge/🚀%20LIVE%20PORTFOLIO-Visit%20Now-2563EB?style=for-the-badge&labelColor=0F172A&logo=googlechrome&logoColor=white)](https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/)
+
+[![💻 GitHub Repository](https://img.shields.io/badge/💻%20SOURCE%20CODE-View%20on%20GitHub-111827?style=for-the-badge&logo=github&logoColor=white)](https://github.com/akileshanand302006-sketch/Akilesh-A-Software-Systems-Portfolio)
+
+</p>
+
+---
+
+## 🌐 Explore My Portfolio
+
+<p align="center">
+
+[![🚀 Explore Portfolio](https://img.shields.io/badge/🚀%20EXPLORE%20MY%20PORTFOLIO-CLICK%20TO%20VISIT-168CFF?style=for-the-badge&logo=googlechrome&logoColor=white)](https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/)
+
+[![💻 View Source Code](https://img.shields.io/badge/💻%20VIEW%20SOURCE%20CODE-GITHUB-24292F?style=for-the-badge&logo=github&logoColor=white)](https://github.com/akileshanand302006-sketch/Akilesh-A-Software-Systems-Portfolio)
+
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React"/>
-  <img src="https://img.shields.io/badge/Vite-Latest-646CFF?logo=vite&logoColor=white" alt="Vite"/>
-  <img src="https://img.shields.io/badge/Three.js-3D-black?logo=three.js" alt="Three.js"/>
-  <img src="https://img.shields.io/badge/Framer%20Motion-Animations-FF0055?logo=framer" alt="Framer Motion"/>
-  <img src="https://img.shields.io/badge/Anime.js-Motion%20Engine-FF4B91?logo=javascript&logoColor=white" alt="Anime.js"/>
-  <img src="https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white" alt="MongoDB"/>
-  <img src="https://img.shields.io/badge/Node.js-Backend-339933?logo=node.js&logoColor=white" alt="Node.js"/>
-  <img src="https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white" alt="Bootstrap"/>
-  <img src="https://img.shields.io/badge/Deploy-GitHub%20Pages-222222?logo=github" alt="GitHub Pages"/>
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License"/>
+
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-Latest-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
+[![Three.js](https://img.shields.io/badge/Three.js-3D-000000?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
+[![Framer Motion](https://img.shields.io/badge/Framer%20Motion-Animations-FF0055?style=for-the-badge&logo=framer&logoColor=white)](https://motion.dev/)
+[![Anime.js](https://img.shields.io/badge/Anime.js-Motion%20Engine-FF4B91?style=for-the-badge&logo=javascript&logoColor=white)](https://animejs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/atlas)
+[![Node.js](https://img.shields.io/badge/Node.js-Backend-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white)](https://pages.github.com/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+
 </p>
 
 ---
@@ -55,23 +66,6 @@ Instead of a traditional static portfolio, it provides a cinematic interface fea
 - Cloud-backed portfolio data
 - Gmail SMTP-powered contact system
 - Responsive and performance-aware design
-
----
-
-## 🌐 Explore the Portfolio
-
-<p align="center">
-  <a href="https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/">
-    <img src="https://img.shields.io/badge/✨%20EXPLORE%20MY%20PORTFOLIO-Click%20to%20Visit%20→-2563EB?style=for-the-badge&labelColor=0F172A" alt="Explore Portfolio"/>
-  </a>
-</p>
-
-<p align="center">
-  <strong>Live Portfolio:</strong><br/>
-  <a href="https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/">
-    https://akileshanand302006-sketch.github.io/Akilesh-A-Software-Systems-Portfolio/
-  </a>
-</p>
 
 ---
 
