@@ -867,6 +867,7 @@ prefers-reduced-motion
 ```
 
 When reduced motion is enabled, the interface reduces:
+<<<<<<< HEAD
 
 * particle movement
 * parallax
@@ -1130,3 +1131,268 @@ This project is available under the **MIT License**.
 
 </p>
 
+=======
+
+* particle movement
+* parallax
+* 3D motion
+* cursor effects
+* large transitions
+* decorative animation
+
+---
+
+# ⚡ Performance
+
+Performance is treated as a core part of the experience.
+
+Optimization strategies include:
+
+* GPU-friendly `transform` and `opacity` animations
+* Reduced 3D complexity on mobile
+* Reduced particle density on smaller devices
+* Limited expensive blur effects
+* Efficient viewport-triggered animations
+* Avoidance of unnecessary React re-renders
+* Decorative background layers isolated from interactive UI
+* Pointer events disabled on non-interactive background effects
+* Animation cleanup during component unmounting
+* Reduced-motion fallbacks
+* Responsive 3D rendering
+
+The goal is to maintain a high-end visual experience without unnecessary GPU or CPU load.
+
+---
+
+# 🔒 Security Principles
+
+The project follows basic production security practices:
+
+* Backend secrets stored in environment variables
+* SMTP credentials never exposed to the frontend
+* MongoDB credentials remain server-side
+* Contact inputs validated
+* Contact submissions can be rate-limited
+* User input sanitized before HTML email generation
+* Sensitive server errors are hidden from public responses
+* `.env` excluded from version control
+* GitHub Pages contains only public frontend assets
+
+---
+
+# 🧪 Quality & Testing
+
+The portfolio should be validated across:
+
+### Desktop
+
+* 1280px
+* 1440px
+* 1920px+
+
+### Tablet
+
+* 768px
+* 1024px
+
+### Mobile
+
+* 320px
+* 375px
+* 390px
+* 430px
+
+### Theme Testing
+
+```text
+LIGHT
+  ↓
+DARK
+  ↓
+LIGHT
+  ↓
+DARK
+```
+
+Verify:
+
+* no CSS leakage
+* no broken glass effects
+* no 3D layering problems
+* no animation duplication
+* no horizontal overflow
+* no clipped dropdowns
+* no unreadable content
+
+### Contact Testing
+
+```text
+React Form
+    ↓
+POST /api/contact
+    ↓
+Express
+    ↓
+Nodemailer
+    ↓
+Gmail SMTP
+    ↓
+Gmail Inbox
+```
+
+---
+
+# 🎯 Engineering Highlights
+
+This portfolio demonstrates practical knowledge of:
+
+* Component-based React architecture
+* REST API development
+* Node.js and Express
+* MongoDB data modeling
+* MongoDB Atlas
+* MongoDB GridFS
+* Gmail SMTP integration
+* Responsive web development
+* Liquid Glass UI engineering
+* Three.js
+* React Three Fiber
+* Drei
+* 3D web graphics
+* Framer Motion
+* Anime.js
+* Particle systems
+* UI animation architecture
+* Scroll-based interactions
+* Form validation
+* Accessibility
+* SEO
+* Git/GitHub workflows
+* GitHub Pages deployment
+* Separate frontend/backend architecture
+
+---
+
+# 🧠 Development Philosophy
+
+The portfolio is built around a simple principle:
+
+> **Build systems. Solve problems. Create experiences.**
+
+The visual system is designed to communicate both technical depth and product thinking.
+
+The objective is not to add effects for the sake of effects.
+
+Every animation, glass surface, 3D element, interaction, and transition should contribute to a cohesive experience.
+
+---
+
+# 📊 System Overview
+
+```text
+┌─────────────────────────────────────────────┐
+│             AKILESH A PORTFOLIO             │
+├─────────────────────────────────────────────┤
+│                                             │
+│  React 19 + Vite                            │
+│             │                               │
+│             ├── Liquid Glass UI             │
+│             ├── Framer Motion               │
+│             ├── Anime.js                    │
+│             ├── Three.js / R3F              │
+│             └── tsParticles                 │
+│                                             │
+│                    │                        │
+│                    ▼                        │
+│             Node.js + Express               │
+│                    │                        │
+│           ┌────────┴────────┐               │
+│           ▼                 ▼               │
+│      MongoDB Atlas     Gmail SMTP            │
+│           │                 │               │
+│        GridFS          Contact Mail         │
+│                                             │
+└─────────────────────────────────────────────┘
+```
+
+---
+
+# 🌟 Why This Portfolio Is Different
+
+This portfolio is designed as more than a collection of pages.
+
+It combines:
+
+```text
+Software Engineering
+        +
+Full-Stack Development
+        +
+Cloud Architecture
+        +
+3D Graphics
+        +
+Liquid Glass UI
+        +
+Advanced Animation
+        +
+Responsive UX
+        +
+Interactive Storytelling
+```
+
+The result is an interactive developer profile built to demonstrate both **engineering capability and frontend craftsmanship**.
+
+---
+
+# 📌 Repository
+
+<p align="center">
+
+<a href="https://github.com/akileshanand302006-sketch/Akilesh-A-Software-Systems-Portfolio">
+<img src="https://img.shields.io/badge/⚡%20VIEW%20SOURCE%20CODE-OPEN%20GITHUB-7C5CFF?style=for-the-badge&labelColor=0B1220&logo=github&logoColor=white" alt="View Source Code"/>
+</a>
+
+</p>
+
+---
+
+# 📬 Let's Connect
+
+<p align="center">
+
+<a href="https://www.linkedin.com/">
+<img src="https://img.shields.io/badge/💼%20LINKEDIN-CONNECT-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
+</a>
+
+<a href="https://github.com/akileshanand302006-sketch">
+<img src="https://img.shields.io/badge/💻%20GITHUB-FOLLOW-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
+</a>
+
+<a href="mailto:akileshanand302006@gmail.com">
+<img src="https://img.shields.io/badge/✉%20EMAIL-GET%20IN%20TOUCH-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/>
+</a>
+
+</p>
+
+---
+
+## 📄 License
+
+This project is available under the **MIT License**.
+
+---
+
+<p align="center">
+
+### ✦ Build systems. Solve problems. Create experiences.
+
+<strong>Akilesh A</strong>
+
+<br/>
+
+<sub>Software Systems • Full-Stack Development • Interactive Experiences</sub>
+
+</p>
+```
+>>>>>>> 905607144d2a9d8f3c7827b1c7de0a464c050d65
