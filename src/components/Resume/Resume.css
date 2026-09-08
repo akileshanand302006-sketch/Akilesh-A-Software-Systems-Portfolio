@@ -7,12 +7,13 @@
 }
 
 .resume-dual-card {
+  position: relative;
+  z-index: var(--z-ui-card, 12);
   padding: 32px;
   display: flex;
   flex-direction: column;
   border-radius: var(--radius-xl);
   transition: all var(--transition-base);
-  position: relative;
   overflow: hidden;
 }
 
@@ -89,13 +90,16 @@
 }
 
 [data-theme="light"] .resume-dual-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.80), rgba(255, 255, 255, 0.50));
-  border: 1px solid rgba(255, 255, 255, 0.88);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.60), rgba(240, 248, 255, 0.36));
+  backdrop-filter: blur(24px) saturate(165%);
+  -webkit-backdrop-filter: blur(24px) saturate(165%);
+  border: 1px solid rgba(255, 255, 255, 0.82);
   box-shadow: 0 20px 50px rgba(35, 90, 160, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.98);
 }
 
 [data-theme="light"] .resume-dual-card:hover {
-  border-color: rgba(0, 200, 255, 0.45);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.74), rgba(240, 248, 255, 0.48));
+  border-color: rgba(0, 200, 255, 0.55);
   box-shadow: 0 26px 65px rgba(35, 90, 160, 0.15), 0 0 25px rgba(22, 119, 255, 0.18), inset 0 1px 0 #ffffff;
   transform: translateY(-3px);
 }

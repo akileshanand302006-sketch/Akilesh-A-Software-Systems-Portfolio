@@ -4,6 +4,7 @@ import {
   Cpu, Globe, Code2, Compass, Binary, Database
 } from 'lucide-react';
 import { useCountUp } from '../../hooks/useCountUp';
+import { createGlassSheen } from '../../animations';
 import profile from '../../data/profile';
 import './About.css';
 
@@ -31,6 +32,7 @@ function StatCard({ stat, index }) {
     <motion.div
       className="stat-card glass-card"
       ref={ref}
+      onMouseEnter={(e) => createGlassSheen(e.currentTarget)}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -153,7 +155,10 @@ export default function About() {
               <StatCard key={i} stat={stat} index={i} />
             ))}
 
-            <div className="about-quote-card glass-card">
+            <div
+              className="about-quote-card glass-card"
+              onMouseEnter={(e) => createGlassSheen(e.currentTarget)}
+            >
               <span className="aqc-label">Engineering Philosophy</span>
               <p className="aqc-text">
                 "Writing clean, modular code with strong architectural foundations — bridging low-level system performance with intuitive modern user experiences."

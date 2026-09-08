@@ -1,44 +1,583 @@
-.loading-screen {
+/* ============================================================
+   LOADING SCREEN — Futuristic 3D Liquid Glass Boot Sequence
+   ============================================================ */
+
+.loading-screen-portal {
   position: fixed;
   inset: 0;
-  z-index: var(--z-loading);
-  background: var(--bg-primary);
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  transition: background 0.4s ease;
+}
+
+/* ── Dark Theme Environment ── */
+.loading-screen-portal.dark-mode,
+.loading-screen-portal[data-theme='dark'] {
+  background: #030712;
+  color: #f8fafc;
+}
+
+/* ── Light Theme Environment ── */
+.loading-screen-portal.light-mode,
+.loading-screen-portal[data-theme='light'] {
+  background: radial-gradient(circle at 50% 30%, #e0f2fe 0%, #f0f9ff 55%, #ede9fe 100%);
+  color: #0f172a;
+}
+
+/* ── Ambient Radial Glows ── */
+.loading-ambient-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 1;
+}
+
+.loading-screen-portal.dark-mode .primary-glow,
+.loading-screen-portal[data-theme='dark'] .primary-glow {
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, rgba(14, 165, 233, 0.08) 50%, transparent 70%);
+}
+
+.loading-screen-portal.dark-mode .secondary-glow,
+.loading-screen-portal[data-theme='dark'] .secondary-glow {
+  bottom: 20%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 420px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.16) 0%, rgba(99, 102, 241, 0.05) 50%, transparent 70%);
+}
+
+.loading-screen-portal.light-mode .primary-glow,
+.loading-screen-portal[data-theme='light'] .primary-glow {
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.18) 0%, rgba(56, 189, 248, 0.08) 55%, transparent 70%);
+}
+
+.loading-screen-portal.light-mode .secondary-glow,
+.loading-screen-portal[data-theme='light'] .secondary-glow {
+  bottom: 20%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 440px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.14) 0%, rgba(168, 85, 247, 0.06) 50%, transparent 70%);
+}
+
+/* ── Digital Grid Overlay ── */
+.loading-grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.55;
+  background-size: 40px 40px;
+}
+
+.loading-screen-portal.dark-mode .loading-grid-overlay,
+.loading-screen-portal[data-theme='dark'] .loading-grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(56, 189, 248, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.035) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+}
+
+.loading-screen-portal.light-mode .loading-grid-overlay,
+.loading-screen-portal[data-theme='light'] .loading-grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(2, 132, 199, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(2, 132, 199, 0.05) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+}
+
+/* ── Diagnostic Telemetry Header ── */
+.loading-telemetry-header {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  right: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.telemetry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.loading-screen-portal.dark-mode .telemetry-pill,
+.loading-screen-portal[data-theme='dark'] .telemetry-pill {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  color: #94a3b8;
+}
+
+.loading-screen-portal.light-mode .telemetry-pill,
+.loading-screen-portal[data-theme='light'] .telemetry-pill {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  color: #0369a1;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.08);
+}
+
+.telemetry-dot.live {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulse-dot 1.5s infinite alternate;
+}
+
+@keyframes pulse-dot {
+  0% { opacity: 0.4; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1.15); }
+}
+
+/* ── Central Stage (3D Scene Canvas & Fallback) ── */
+.loading-stage-center {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  margin-bottom: -20px;
+}
+
+.loading-scene-canvas-wrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+.loading-scene-canvas-wrap canvas {
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+}
+
+/* ── Graceful CSS 3D Fallback ── */
+.loading-css-fallback-core {
+  position: relative;
+  width: 180px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.loading-content {
+.css-core-orb {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(56, 189, 248, 0.4) 0%, rgba(14, 165, 233, 0.1) 70%);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+}
+
+.css-core-nucleus {
+  width: 32px;
+  height: 32px;
+  background: #38bdf8;
+  border-radius: 4px;
+  transform: rotate(45deg);
+  box-shadow: 0 0 16px #38bdf8;
+  animation: css-spin 4s linear infinite;
+}
+
+.css-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  pointer-events: none;
+}
+
+.ring-x {
+  border-top-color: #38bdf8;
+  border-bottom-color: #38bdf8;
+  animation: css-orbit-x 3s linear infinite;
+}
+
+.ring-y {
+  inset: -15px;
+  border-left-color: #22d3ee;
+  border-right-color: #22d3ee;
+  animation: css-orbit-y 4s linear infinite reverse;
+}
+
+.ring-z {
+  inset: -30px;
+  border-top-color: #818cf8;
+  border-right-color: #818cf8;
+  animation: css-orbit-z 5s linear infinite;
+}
+
+@keyframes css-spin {
+  0% { transform: rotate(0deg) scale(0.95); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(0.95); }
+}
+
+@keyframes css-orbit-x {
+  0% { transform: rotateX(65deg) rotateZ(0deg); }
+  100% { transform: rotateX(65deg) rotateZ(360deg); }
+}
+
+@keyframes css-orbit-y {
+  0% { transform: rotateY(65deg) rotateZ(0deg); }
+  100% { transform: rotateY(65deg) rotateZ(360deg); }
+}
+
+@keyframes css-orbit-z {
+  0% { transform: rotate3d(1, 1, 0, 45deg) rotateZ(0deg); }
+  100% { transform: rotate3d(1, 1, 0, 45deg) rotateZ(360deg); }
+}
+
+/* ── Liquid Glass HUD Panel ── */
+.loading-hud-panel {
+  position: relative;
+  z-index: 10;
+  width: 90%;
+  max-width: 440px;
+  padding: 24px 30px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  text-align: center;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transition: all 0.3s ease;
 }
 
-.loading-ring {
-  width: 60px;
-  height: 60px;
+.loading-screen-portal.dark-mode .loading-hud-panel,
+.loading-screen-portal[data-theme='dark'] .loading-hud-panel {
+  background: rgba(15, 23, 42, 0.62);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.45),
+    0 0 28px rgba(56, 189, 248, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
-.loading-svg {
-  width: 100%;
-  height: 100%;
-  animation: loading-ring 1.5s linear infinite;
+.loading-screen-portal.light-mode .loading-hud-panel,
+.loading-screen-portal[data-theme='light'] .loading-hud-panel {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(2, 132, 199, 0.22);
+  box-shadow:
+    0 16px 40px rgba(2, 132, 199, 0.12),
+    0 0 28px rgba(2, 132, 199, 0.06),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
 }
 
-.loading-circle {
-  animation: loading-dash 1.5s ease-in-out infinite;
-}
-
-.loading-name {
-  font-family: var(--font-mono);
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: 2px;
+/* ── Brand Logo Typography ── */
+.loading-brand {
+  font-family: var(--font-mono, monospace);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
 }
 
 .loading-bracket {
-  color: var(--accent);
+  font-weight: 800;
+  transition: color 0.3s ease;
+}
+
+.loading-screen-portal.dark-mode .loading-bracket,
+.loading-screen-portal[data-theme='dark'] .loading-bracket {
+  color: #38bdf8;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+.loading-screen-portal.light-mode .loading-bracket,
+.loading-screen-portal[data-theme='light'] .loading-bracket {
+  color: #0284c7;
+  text-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
+}
+
+.loading-name {
   font-weight: 700;
+}
+
+.loading-screen-portal.dark-mode .loading-name,
+.loading-screen-portal[data-theme='dark'] .loading-name {
+  color: #f8fafc;
+}
+
+.loading-screen-portal.light-mode .loading-name,
+.loading-screen-portal[data-theme='light'] .loading-name {
+  color: #0f172a;
+}
+
+/* ── Subtitle ── */
+.loading-subtitle {
+  font-family: var(--font-sans, system-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  margin-top: 5px;
+  margin-bottom: 18px;
+}
+
+.loading-screen-portal.dark-mode .loading-subtitle,
+.loading-screen-portal[data-theme='dark'] .loading-subtitle {
+  color: #94a3b8;
+}
+
+.loading-screen-portal.light-mode .loading-subtitle,
+.loading-screen-portal[data-theme='light'] .loading-subtitle {
+  color: #0369a1;
+}
+
+/* ── Status Text Sequence ── */
+.loading-status-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  margin-bottom: 14px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.82rem;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+.loading-screen-portal.dark-mode .loading-status-wrap,
+.loading-screen-portal[data-theme='dark'] .loading-status-wrap {
+  color: #38bdf8;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.45);
+}
+
+.loading-screen-portal.light-mode .loading-status-wrap,
+.loading-screen-portal[data-theme='light'] .loading-status-wrap {
+  color: #0284c7;
+  text-shadow: 0 0 8px rgba(2, 132, 199, 0.3);
+}
+
+.loading-status-cursor {
+  animation: cursor-blink 0.8s infinite;
+  margin-left: 2px;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* ── Progress Indicator Capsule ── */
+.loading-progress-capsule {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.loading-progress-track {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-screen-portal.dark-mode .loading-progress-track,
+.loading-screen-portal[data-theme='dark'] .loading-progress-track {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.loading-screen-portal.light-mode .loading-progress-track,
+.loading-screen-portal[data-theme='light'] .loading-progress-track {
+  background: rgba(2, 132, 199, 0.12);
+  box-shadow: inset 0 1px 2px rgba(2, 132, 199, 0.08);
+}
+
+.loading-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0284c7 0%, #38bdf8 50%, #818cf8 100%);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.65);
+  transition: width 0.08s linear;
+}
+
+.loading-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 7px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.loading-screen-portal.dark-mode .loading-progress-meta,
+.loading-screen-portal[data-theme='dark'] .loading-progress-meta {
+  color: #64748b;
+}
+
+.loading-screen-portal.light-mode .loading-progress-meta,
+.loading-screen-portal[data-theme='light'] .loading-progress-meta {
+  color: #64748b;
+}
+
+.loading-progress-val {
+  font-weight: 700;
+}
+
+.loading-screen-portal.dark-mode .loading-progress-val,
+.loading-screen-portal[data-theme='dark'] .loading-progress-val {
+  color: #38bdf8;
+}
+
+.loading-screen-portal.light-mode .loading-progress-val,
+.loading-screen-portal[data-theme='light'] .loading-progress-val {
+  color: #0284c7;
+}
+
+/* ── HUD Footer Tags ── */
+.loading-hud-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+.loading-screen-portal.dark-mode .loading-hud-footer,
+.loading-screen-portal[data-theme='dark'] .loading-hud-footer {
+  color: #94a3b8;
+}
+
+.loading-screen-portal.light-mode .loading-hud-footer,
+.loading-screen-portal[data-theme='light'] .loading-hud-footer {
+  color: #475569;
+}
+
+.hud-sep {
+  opacity: 0.4;
+}
+
+/* ── Mobile Optimization (≤ 640px) ── */
+@media (max-width: 640px) {
+  .loading-telemetry-header {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+  }
+
+  .telemetry-pill {
+    padding: 4px 10px;
+    font-size: 0.65rem;
+  }
+
+  .loading-stage-center {
+    height: 260px;
+    margin-bottom: -15px;
+  }
+
+  .loading-hud-panel {
+    padding: 18px 20px;
+    max-width: 340px;
+    border-radius: 16px;
+  }
+
+  .loading-brand {
+    font-size: 1.35rem;
+    letter-spacing: 1.8px;
+  }
+
+  .loading-subtitle {
+    font-size: 0.64rem;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .loading-status-wrap {
+    font-size: 0.74rem;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .loading-progress-meta {
+    font-size: 0.62rem;
+  }
+
+  .loading-hud-footer {
+    font-size: 0.58rem;
+    letter-spacing: 1px;
+  }
+}
+
+/* ── Extra Small Devices (≤ 360px) ── */
+@media (max-width: 360px) {
+  .loading-hud-panel {
+    width: 94%;
+    padding: 14px 16px;
+  }
+
+  .loading-stage-center {
+    height: 220px;
+  }
+}
+
+/* ── Accessibility: Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .loading-ambient-glow,
+  .telemetry-dot.live,
+  .loading-status-cursor,
+  .css-core-nucleus,
+  .ring-x,
+  .ring-y,
+  .ring-z {
+    animation: none !important;
+  }
+
+  .loading-progress-fill {
+    transition: none !important;
+  }
 }

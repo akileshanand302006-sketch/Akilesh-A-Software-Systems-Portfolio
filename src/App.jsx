@@ -32,7 +32,7 @@ export default function App() {
 
   return (
     <div className="portfolio-app" data-theme={theme}>
-      {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
+      {!loaded && <LoadingScreen theme={theme} onComplete={() => setLoaded(true)} />}
 
       <BackgroundEffects theme={theme} />
       <ParticlesBackground theme={theme} />

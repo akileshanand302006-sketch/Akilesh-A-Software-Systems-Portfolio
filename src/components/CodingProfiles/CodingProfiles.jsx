@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, Linkedin, Code2, Award, Trophy, BookOpen } from 'lucide-react';
 import profilesData from '../../data/profiles';
+import { createGlassSheen, createGlassRipple } from '../../animations';
 import './CodingProfiles.css';
 
 const iconMap = { Github, Linkedin, Code2, Award, Trophy, BookOpen };
@@ -37,6 +38,8 @@ export default function CodingProfiles() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="profile-card glass-card"
+                onMouseEnter={(e) => createGlassSheen(e.currentTarget)}
+                onClick={(e) => createGlassRipple(e.currentTarget, e)}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}

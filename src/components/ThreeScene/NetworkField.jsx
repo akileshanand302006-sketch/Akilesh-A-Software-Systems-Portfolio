@@ -16,7 +16,7 @@ export function NetworkField({ theme = 'dark', isMobile = false }) {
       coords.push(
         (Math.random() - 0.5) * 16,
         (Math.random() - 0.5) * 14,
-        (Math.random() - 0.5) * 6 - 2
+        (Math.random() - 0.5) * 4 - 3.8
       );
     }
 
@@ -65,10 +65,10 @@ export function NetworkField({ theme = 'dark', isMobile = false }) {
     <group name="NetworkField">
       <points ref={pointsRef} geometry={pointsGeo}>
         <pointsMaterial
-          size={isMobile ? 0.07 : 0.11}
+          size={isMobile ? 0.05 : 0.075}
           color={nodeColor}
           transparent
-          opacity={isLight ? 0.6 : 0.8}
+          opacity={isLight ? 0.38 : 0.55}
           sizeAttenuation
         />
       </points>
@@ -77,7 +77,7 @@ export function NetworkField({ theme = 'dark', isMobile = false }) {
         <lineBasicMaterial
           color={lineColor}
           transparent
-          opacity={isLight ? 0.18 : 0.28}
+          opacity={isLight ? 0.10 : 0.16}
           depthWrite={false}
         />
       </lineSegments>

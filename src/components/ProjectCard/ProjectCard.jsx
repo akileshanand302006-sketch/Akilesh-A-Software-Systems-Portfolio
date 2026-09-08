@@ -2,17 +2,25 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, ChevronDown, ChevronUp, Layers } from 'lucide-react';
 import { useTilt } from '../../hooks/useTilt';
+import { createGlassSheen, createGlassRipple } from '../../animations';
 import './ProjectCard.css';
 
 export default function ProjectCard({ project, index }) {
   const [expanded, setExpanded] = useState(false);
-  const { ref: tiltRef, handleMouseMove, handleMouseLeave } = useTilt(6);
+  const { ref: tiltRef, handleMouseMove, handleMouseLeave } = useTilt(3.5);
   const [imgError, setImgError] = useState(false);
+
+  const handleMouseEnter = () => {
+    if (tiltRef.current) {
+      createGlassSheen(tiltRef.current);
+    }
+  };
 
   return (
     <motion.article
       className="project-card glass-card"
       ref={tiltRef}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       initial={{ opacity: 0, y: 40 }}

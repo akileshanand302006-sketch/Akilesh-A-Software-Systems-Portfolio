@@ -34,47 +34,47 @@ export function OrbitalSystem({ theme = 'dark', isMobile = false }) {
   });
 
   return (
-    <Float speed={1.2} rotationIntensity={0.2} floatIntensity={0.4} position={[4.5, -2.5, -3]}>
-      <group scale={isMobile ? 0.7 : 0.95}>
+    <Float speed={1.1} rotationIntensity={0.18} floatIntensity={0.35} position={[4.6, -2.4, -3.8]}>
+      <group scale={isMobile ? 0.65 : 0.88}>
         <mesh ref={ring1}>
-          <torusGeometry args={[2.4, 0.025, 16, 64]} />
+          <torusGeometry args={[2.4, 0.018, 16, 64]} />
           <meshStandardMaterial
             color={primaryColor}
             emissive={primaryColor}
-            emissiveIntensity={isLight ? 0.4 : 1.0}
+            emissiveIntensity={isLight ? 0.25 : 0.65}
             metalness={0.8}
             roughness={0.2}
           />
         </mesh>
 
         <mesh ref={node1} position={[2.4, 0, 0]}>
-          <sphereGeometry args={[0.07, 16, 16]} />
+          <sphereGeometry args={[0.06, 16, 16]} />
           <meshBasicMaterial color="#ffffff" />
         </mesh>
 
         <mesh ref={ring2} rotation={[Math.PI / 3, 0, 0]}>
-          <torusGeometry args={[1.8, 0.02, 16, 64]} />
+          <torusGeometry args={[1.8, 0.015, 16, 64]} />
           <meshStandardMaterial
             color={secondaryColor}
             emissive={secondaryColor}
-            emissiveIntensity={isLight ? 0.3 : 0.8}
+            emissiveIntensity={isLight ? 0.20 : 0.55}
             metalness={0.8}
             roughness={0.2}
           />
         </mesh>
 
         <mesh ref={node2} position={[1.8, 0, 0]}>
-          <sphereGeometry args={[0.06, 16, 16]} />
+          <sphereGeometry args={[0.05, 16, 16]} />
           <meshBasicMaterial color={secondaryColor} />
         </mesh>
 
         {!isMobile && (
           <mesh ref={ring3} rotation={[-Math.PI / 4, Math.PI / 4, 0]}>
-            <torusGeometry args={[1.3, 0.018, 16, 64]} />
+            <torusGeometry args={[1.3, 0.014, 16, 64]} />
             <meshStandardMaterial
               color={accentColor}
               emissive={accentColor}
-              emissiveIntensity={isLight ? 0.3 : 0.7}
+              emissiveIntensity={isLight ? 0.20 : 0.50}
               metalness={0.7}
               roughness={0.3}
             />

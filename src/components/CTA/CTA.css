@@ -1,11 +1,14 @@
 .cta-section {
+  position: relative;
+  z-index: var(--z-main-content, 10);
   padding: 80px 0;
 }
 
 .cta-content {
+  position: relative;
+  z-index: var(--z-ui-card, 12);
   text-align: center;
   padding: 60px 40px;
-  position: relative;
   overflow: hidden;
 }
 

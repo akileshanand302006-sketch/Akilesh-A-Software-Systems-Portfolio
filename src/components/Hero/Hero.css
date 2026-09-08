@@ -22,11 +22,12 @@
 
 /* ── Left Column: Content ── */
 .hero-content {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
-  z-index: 2;
+  z-index: var(--z-ui-content, 14);
 }
 
 .availability-badge {
@@ -196,12 +197,12 @@
   align-items: center;
   justify-content: center;
   min-height: 320px;
-  z-index: 1;
+  z-index: var(--z-ui-card, 12);
 }
 
 .hero-profile-wrapper {
   position: relative;
-  z-index: 2;
+  z-index: var(--z-ui-card, 12);
   width: 100%;
   display: flex;
   align-items: center;

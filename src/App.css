@@ -1,1 +1,27 @@
-/* Component specific styles are placed in their respective component directories */
+/* ============================================================
+   PORTFOLIO APP — ROOT STACKING CONTEXT & SECTION ARCHITECTURE
+   ============================================================ */
+
+.portfolio-app {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: clip;
+  isolation: isolate; /* Establishes definitive root stacking context */
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: var(--transition-theme);
+}
+
+#main-content {
+  position: relative;
+  z-index: var(--z-main-content, 10);
+  width: 100%;
+  pointer-events: auto;
+}
+
+.portfolio-section,
+section {
+  position: relative;
+  z-index: var(--z-main-content, 10);
+}

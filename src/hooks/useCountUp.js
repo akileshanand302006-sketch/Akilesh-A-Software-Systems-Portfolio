@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
+import { animateCountUp, cleanupAnime } from '../animations';
 
 /**
- * Animated counter that counts up when element enters viewport.
+ * Animated counter powered by Anime.js that counts up when element enters viewport.
+ * Respects prefers-reduced-motion and is safe in React StrictMode.
  */
-export function useCountUp(target, duration = 2000) {
+export function useCountUp(target, duration = 1500) {
   const [count, setCount] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
   const ref = useRef(null);
+  const counterObj = useRef({ val: 0 });
 
   useEffect(() => {
     const element = ref.current;
@@ -16,35 +19,25 @@ export function useCountUp(target, duration = 2000) {
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {
           setHasAnimated(true);
-          let start = 0;
-          const startTime = performance.now();
 
-          const animate = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-
-            // Ease-out cubic
-            const eased = 1 - Math.pow(1 - progress, 3);
-            const current = Math.floor(eased * target);
-
-            setCount(current);
-
-            if (progress < 1) {
-              requestAnimationFrame(animate);
-            } else {
-              setCount(target);
-            }
-          };
-
-          requestAnimationFrame(animate);
+          animateCountUp(
+            counterObj.current,
+            target,
+            (val) => setCount(val),
+            { duration }
+          );
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     );
 
     observer.observe(element);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      cleanupAnime(counterObj.current);
+    };
   }, [target, duration, hasAnimated]);
 
   return { count, ref };
 }
+

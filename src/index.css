@@ -41,7 +41,7 @@ body {
   width: 100vw !important;
   height: 100vh !important;
   pointer-events: none !important;
-  z-index: 0 !important;
+  z-index: var(--z-bg-particles, 3) !important;
 }
 
 #tsparticles canvas {

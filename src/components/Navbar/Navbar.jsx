@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Mail } from 'lucide-react';
 import { useActiveSection } from '../../hooks/useActiveSection';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import ProfileCapsule from './ProfileCapsule';
 import profile from '../../data/profile';
+import { animateNavbarEntrance, createGlassRipple, cleanupAnime } from '../../animations';
 import './Navbar.css';
 
 const navItems = [
@@ -26,6 +27,13 @@ export default function Navbar({ theme, toggleTheme }) {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const activeSection = useActiveSection(sectionIds);
+  const navRef = useRef(null);
+
+  // Coordinated Anime.js initial entrance on mount
+  useEffect(() => {
+    animateNavbarEntrance(navRef.current);
+    return () => cleanupAnime(navRef.current);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +53,10 @@ export default function Navbar({ theme, toggleTheme }) {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  const scrollTo = (id) => {
+  const scrollTo = (id, event) => {
+    if (event && event.currentTarget) {
+      createGlassRipple(event.currentTarget, event);
+    }
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
@@ -56,6 +67,7 @@ export default function Navbar({ theme, toggleTheme }) {
   return (
     <>
       <motion.nav
+        ref={navRef}
         className={`navbar-float glass-nav ${isScrolled ? 'scrolled' : ''}`}
         initial={{ y: -80, opacity: 0 }}
         animate={{ 
@@ -68,7 +80,7 @@ export default function Navbar({ theme, toggleTheme }) {
       >
         <div className="navbar-container">
           {/* Logo */}
-          <button className="navbar-logo" onClick={() => scrollTo('home')} aria-label="Go to home">
+          <button className="navbar-logo" onClick={(e) => scrollTo('home', e)} aria-label="Go to home">
             <span className="logo-bracket">&lt;</span>
             <span className="logo-name">{profile.firstName || 'Akilesh'}</span>
             <span className="logo-bracket">/&gt;</span>
@@ -81,7 +93,7 @@ export default function Navbar({ theme, toggleTheme }) {
                 <button
                   role="menuitem"
                   className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
-                  onClick={() => scrollTo(item.id)}
+                  onClick={(e) => scrollTo(item.id, e)}
                 >
                   {item.label}
                   {activeSection === item.id && (

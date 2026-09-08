@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Download, Eye, Sparkles, Code2, Database, FileText } from 'lucide-react';
 import { analyticsService } from '../../services/analyticsService';
+import { createGlassSheen, createGlassRipple } from '../../animations';
 import './Resume.css';
 const BASE = import.meta.env.BASE_URL || '/';
 const cleanBase = BASE.endsWith('/') ? BASE : `${BASE}/`;
@@ -40,9 +41,11 @@ const resumes = [
   },
 ];
 
-
 export default function Resume() {
-  const handleTrack = (type, id) => {
+  const handleTrack = (type, id, e) => {
+    if (e && e.currentTarget) {
+      createGlassRipple(e.currentTarget, e);
+    }
     analyticsService.track(type, `resume_${id}`);
   };
 
@@ -70,6 +73,7 @@ export default function Resume() {
               <motion.div
                 key={item.id}
                 className="resume-dual-card glass-panel"
+                onMouseEnter={(e) => createGlassSheen(e.currentTarget)}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -113,7 +117,7 @@ export default function Resume() {
                     rel="noopener noreferrer"
                     className="rdc-btn rdc-btn-primary"
                     aria-label={`View ${item.title} PDF`}
-                    onClick={() => handleTrack('resume_view', item.id)}
+                    onClick={(e) => handleTrack('resume_view', item.id, e)}
                   >
                     <Eye size={16} />
                     <span>View PDF</span>
@@ -124,7 +128,7 @@ export default function Resume() {
                     download={`Akilesh_A_${item.id.toUpperCase()}_Resume.pdf`}
                     className="rdc-btn rdc-btn-secondary"
                     aria-label={`Download ${item.title} PDF`}
-                    onClick={() => handleTrack('resume_download', item.id)}
+                    onClick={(e) => handleTrack('resume_download', item.id, e)}
                   >
                     <Download size={16} />
                     <span>Download PDF</span>
@@ -135,7 +139,7 @@ export default function Resume() {
                     download={`Akilesh_A_${item.id.toUpperCase()}_Resume.docx`}
                     className="rdc-btn rdc-btn-docx"
                     aria-label={`Download ${item.title} Word DOCX`}
-                    onClick={() => handleTrack('resume_download', `${item.id}_docx`)}
+                    onClick={(e) => handleTrack('resume_download', `${item.id}_docx`, e)}
                   >
                     <FileText size={16} className="rdc-docx-icon" />
                     <span>Download Word Document (.docx)</span>

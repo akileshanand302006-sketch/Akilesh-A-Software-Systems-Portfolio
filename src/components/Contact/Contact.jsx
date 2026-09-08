@@ -1,7 +1,13 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle, AlertCircle, Mail, User, MessageSquare, FileText, Loader2, RotateCcw } from 'lucide-react';
 import contactService from '../../services/contactService';
+import {
+  animateInputFocus,
+  animateContactSuccess,
+  createGlassRipple,
+  cleanupAnime,
+} from '../../animations';
 import './Contact.css';
 
 const OWNER_EMAIL = 'akileshanand302006@gmail.com';
@@ -13,6 +19,8 @@ const OWNER_EMAIL = 'akileshanand302006@gmail.com';
  */
 export default function Contact() {
   const formRef = useRef(null);
+  const successModalRef = useRef(null);
+  const successIconRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,6 +32,13 @@ export default function Contact() {
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [errorMessage, setErrorMessage] = useState('');
   const lastSubmitTime = useRef(0);
+
+  // Trigger Anime.js success animation when status turns to 'success'
+  useEffect(() => {
+    if (status === 'success') {
+      animateContactSuccess(successIconRef.current, successModalRef.current);
+    }
+  }, [status]);
 
   const validate = () => {
     const errs = {};
@@ -182,6 +197,7 @@ export default function Contact() {
             {status === 'success' && (
               <motion.div
                 key="contact-success"
+                ref={successModalRef}
                 className="contact-result-card glass-panel success-card"
                 initial={{ opacity: 0, scale: 0.95, y: 15 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -190,7 +206,7 @@ export default function Contact() {
                 role="status"
                 aria-live="polite"
               >
-                <div className="result-icon-wrap success-icon">
+                <div ref={successIconRef} className="result-icon-wrap success-icon">
                   <CheckCircle size={38} />
                 </div>
                 <h3 className="result-title">Message Sent Successfully!</h3>
@@ -201,7 +217,10 @@ export default function Contact() {
                 <button
                   type="button"
                   className="glass-button glass-button-primary result-btn"
-                  onClick={handleReset}
+                  onClick={(e) => {
+                    createGlassRipple(e.currentTarget, e);
+                    handleReset();
+                  }}
                 >
                   <Send size={16} />
                   <span>Send Another Message</span>
@@ -292,6 +311,8 @@ export default function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    onFocus={(e) => animateInputFocus(e.target.parentElement, true)}
+                    onBlur={(e) => animateInputFocus(e.target.parentElement, false)}
                     placeholder="Your name"
                     autoComplete="name"
                     disabled={status === 'sending'}
@@ -326,6 +347,8 @@ export default function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    onFocus={(e) => animateInputFocus(e.target.parentElement, true)}
+                    onBlur={(e) => animateInputFocus(e.target.parentElement, false)}
                     placeholder="your@email.com"
                     autoComplete="email"
                     disabled={status === 'sending'}
@@ -360,6 +383,8 @@ export default function Contact() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
+                    onFocus={(e) => animateInputFocus(e.target.parentElement, true)}
+                    onBlur={(e) => animateInputFocus(e.target.parentElement, false)}
                     placeholder="e.g. Internship discussion / Project inquiry"
                     disabled={status === 'sending'}
                     aria-invalid={!!errors.subject}
@@ -399,6 +424,8 @@ export default function Contact() {
                     maxLength={2000}
                     value={formData.message}
                     onChange={handleChange}
+                    onFocus={(e) => animateInputFocus(e.target.parentElement, true)}
+                    onBlur={(e) => animateInputFocus(e.target.parentElement, false)}
                     placeholder="Hi Akilesh, I'd like to talk about..."
                     disabled={status === 'sending'}
                     aria-invalid={!!errors.message}
@@ -426,6 +453,7 @@ export default function Contact() {
                   className="glass-button glass-button-primary contact-submit"
                   disabled={status === 'sending'}
                   aria-busy={status === 'sending'}
+                  onClick={(e) => createGlassRipple(e.currentTarget, e)}
                 >
                   {status === 'sending' ? (
                     <>

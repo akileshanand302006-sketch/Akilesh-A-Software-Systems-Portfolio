@@ -10,8 +10,8 @@ export function FloatingObjects({ theme = 'dark', isMobile = false }) {
 
   const primaryColor = isLight ? '#1677ff' : '#38bdf8';
   const secondaryColor = isLight ? '#00c8ff' : '#22d3ee';
-  const glassOpacity = isLight ? 0.35 : 0.22;
-  const wireOpacity = isLight ? 0.6 : 0.75;
+  const glassOpacity = isLight ? 0.22 : 0.16;
+  const wireOpacity = isLight ? 0.35 : 0.45;
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
@@ -32,8 +32,8 @@ export function FloatingObjects({ theme = 'dark', isMobile = false }) {
   return (
     <group name="FloatingObjects">
       {!isMobile && (
-        <Float speed={1.5} rotationIntensity={0.25} floatIntensity={0.5} position={[5.2, 2.8, -3.5]}>
-          <group ref={dbGroupRef} scale={0.72}>
+        <Float speed={1.3} rotationIntensity={0.2} floatIntensity={0.4} position={[5.5, 2.6, -4.0]}>
+          <group ref={dbGroupRef} scale={0.68}>
             <mesh position={[0, 0.6, 0]}>
               <cylinderGeometry args={[0.9, 0.9, 0.35, 32]} />
               <meshPhysicalMaterial
@@ -88,14 +88,14 @@ export function FloatingObjects({ theme = 'dark', isMobile = false }) {
         </Float>
       )}
 
-      <Float speed={1.8} rotationIntensity={0.35} floatIntensity={0.7} position={[-5.2, 0.8, -3]}>
-        <group ref={codeCubeRef} scale={isMobile ? 0.65 : 0.82}>
+      <Float speed={1.5} rotationIntensity={0.25} floatIntensity={0.5} position={[-5.5, 0.8, -3.6]}>
+        <group ref={codeCubeRef} scale={isMobile ? 0.6 : 0.76}>
           <mesh>
             <boxGeometry args={[1.4, 1.4, 1.4]} />
             <meshPhysicalMaterial
               color={secondaryColor}
               transparent
-              opacity={glassOpacity + 0.08}
+              opacity={glassOpacity + 0.06}
               roughness={0.12}
               transmission={0.75}
               ior={1.5}
@@ -106,19 +106,19 @@ export function FloatingObjects({ theme = 'dark', isMobile = false }) {
             <meshStandardMaterial
               color={primaryColor}
               emissive={primaryColor}
-              emissiveIntensity={isLight ? 1.2 : 2.0}
+              emissiveIntensity={isLight ? 0.6 : 1.2}
               wireframe
             />
           </mesh>
           <mesh>
             <boxGeometry args={[1.41, 1.41, 1.41]} />
-            <meshBasicMaterial color={primaryColor} wireframe transparent opacity={wireOpacity * 0.5} />
+            <meshBasicMaterial color={primaryColor} wireframe transparent opacity={wireOpacity * 0.4} />
           </mesh>
         </group>
       </Float>
 
-      <Float speed={2.0} rotationIntensity={0.4} floatIntensity={0.6} position={[-3.8, 3.6, -4]}>
-        <mesh ref={octaRef} scale={isMobile ? 0.55 : 0.75}>
+      <Float speed={1.8} rotationIntensity={0.3} floatIntensity={0.5} position={[-4.2, 3.5, -4.5]}>
+        <mesh ref={octaRef} scale={isMobile ? 0.5 : 0.68}>
           <octahedronGeometry args={[1, 0]} />
           <meshPhysicalMaterial
             color={primaryColor}

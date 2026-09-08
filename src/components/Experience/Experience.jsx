@@ -1,13 +1,41 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, Globe, Quote, TrendingUp, BookOpen } from 'lucide-react';
 import experienceData from '../../data/experience';
+import { animateTimelineProgress, createGlassSheen, cleanupAnime } from '../../animations';
 import './Experience.css';
 
 const iconMap = { Cpu, Globe, Quote, TrendingUp, BookOpen };
 
 export default function Experience() {
+  const lineRef = useRef(null);
+  const sectionRef = useRef(null);
+
+  // Progressive timeline draw animation using Anime.js
+  useEffect(() => {
+    const line = lineRef.current;
+    if (!line) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          animateTimelineProgress(line, 950);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(line);
+
+    return () => {
+      observer.disconnect();
+      cleanupAnime(line);
+    };
+  }, []);
+
   return (
-    <section id="experience" className="section">
+    <section id="experience" className="section" ref={sectionRef}>
       <div className="container-custom">
         <motion.div
           className="section-header"
@@ -24,7 +52,7 @@ export default function Experience() {
         </motion.div>
 
         <div className="timeline">
-          <div className="timeline-line" />
+          <div className="timeline-line" ref={lineRef} />
           {experienceData.map((item, index) => {
             const Icon = iconMap[item.icon] || BookOpen;
             return (
@@ -39,7 +67,10 @@ export default function Experience() {
                 <div className="timeline-dot">
                   <Icon size={16} />
                 </div>
-                <div className="timeline-card glass-card">
+                <div
+                  className="timeline-card glass-card"
+                  onMouseEnter={(e) => createGlassSheen(e.currentTarget)}
+                >
                   <div className="timeline-card-header">
                     <span className="timeline-period">{item.period}</span>
                     <span className="timeline-org">{item.organization}</span>

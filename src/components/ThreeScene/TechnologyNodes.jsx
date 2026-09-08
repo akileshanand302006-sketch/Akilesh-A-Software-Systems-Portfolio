@@ -32,26 +32,26 @@ export function TechnologyNodes({ theme = 'dark', isMobile = false }) {
   });
 
   return (
-    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5} position={[-4.5, -1.5, -2.5]}>
-      <group ref={groupRef} scale={isMobile ? 0.75 : 1.0}>
+    <Float speed={1.2} rotationIntensity={0.16} floatIntensity={0.35} position={[-4.8, -1.8, -3.4]}>
+      <group ref={groupRef} scale={isMobile ? 0.68 : 0.88}>
         {nodes.map((node, i) => (
           <group key={i} position={node.pos}>
             <mesh>
-              <sphereGeometry args={[0.18, 16, 16]} />
+              <sphereGeometry args={[0.16, 16, 16]} />
               <meshStandardMaterial
                 color={node.color}
                 emissive={node.color}
-                emissiveIntensity={isLight ? 1.0 : 1.8}
+                emissiveIntensity={isLight ? 0.45 : 0.9}
                 roughness={0.2}
                 metalness={0.5}
               />
             </mesh>
             <mesh>
-              <sphereGeometry args={[0.28, 16, 16]} />
+              <sphereGeometry args={[0.24, 16, 16]} />
               <meshPhysicalMaterial
                 color={node.color}
                 transparent
-                opacity={isLight ? 0.35 : 0.25}
+                opacity={isLight ? 0.20 : 0.16}
                 transmission={0.8}
                 roughness={0.1}
               />
@@ -71,7 +71,7 @@ export function TechnologyNodes({ theme = 'dark', isMobile = false }) {
           <lineBasicMaterial
             color={isLight ? '#1677ff' : '#38bdf8'}
             transparent
-            opacity={isLight ? 0.45 : 0.55}
+            opacity={isLight ? 0.20 : 0.30}
             depthWrite={false}
           />
         </lineSegments>

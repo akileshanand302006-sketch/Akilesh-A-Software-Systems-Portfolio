@@ -275,17 +275,17 @@
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55),
               0 0 25px rgba(56, 189, 248, 0.16),
               inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  z-index: 250;
+  z-index: var(--z-dropdown-panel, 1100);
   transform-origin: top right;
   overflow: hidden;
   pointer-events: auto;
 }
 
 [data-theme="light"] .profile-dropdown-panel {
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  border: 1px solid rgba(22, 119, 255, 0.20);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(240, 248, 255, 0.75));
+  backdrop-filter: blur(28px) saturate(175%);
+  -webkit-backdrop-filter: blur(28px) saturate(175%);
+  border: 1px solid rgba(22, 119, 255, 0.22);
   box-shadow: 0 20px 48px rgba(35, 90, 160, 0.12),
               0 0 20px rgba(0, 200, 255, 0.10),
               inset 0 1px 0 #ffffff;
