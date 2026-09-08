@@ -10,9 +10,9 @@ export function OrbitalSystem({ theme = 'dark', isMobile = false }) {
   const node2 = useRef();
 
   const isLight = theme === 'light';
-  const primaryColor = isLight ? '#0284c7' : '#38bdf8';
-  const secondaryColor = isLight ? '#0891b2' : '#22d3ee';
-  const accentColor = isLight ? '#4f46e5' : '#818cf8';
+  const primaryColor = isLight ? '#1677ff' : '#38bdf8';
+  const secondaryColor = isLight ? '#00c8ff' : '#22d3ee';
+  const accentColor = isLight ? '#7c5cff' : '#818cf8';
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;

@@ -316,48 +316,55 @@
 [data-theme="light"] .profile-ambient-glow {
   background: radial-gradient(
     circle,
-    rgba(37, 99, 235, 0.2) 0%,
-    rgba(2, 132, 199, 0.08) 45%,
+    rgba(0, 200, 255, 0.22) 0%,
+    rgba(22, 119, 255, 0.12) 45%,
     transparent 70%
   );
-  filter: blur(24px);
+  filter: blur(26px);
 }
 
 [data-theme="light"] .profile-rim-halo {
   background: radial-gradient(
     circle,
-    rgba(37, 99, 235, 0.28) 0%,
-    rgba(59, 130, 246, 0.1) 50%,
+    rgba(22, 119, 255, 0.25) 0%,
+    rgba(0, 200, 255, 0.16) 50%,
     transparent 68%
   );
 }
 
 [data-theme="light"] .profile-orbit-ring {
-  border-color: rgba(29, 78, 216, calc(var(--orbit-opacity, 0.6) * 0.85));
-  box-shadow: 0 0 10px rgba(29, 78, 216, 0.25);
+  border-color: rgba(22, 119, 255, calc(var(--orbit-opacity, 0.6) * 0.85));
+  box-shadow: 0 0 12px rgba(0, 200, 255, 0.22);
 }
 
 [data-theme="light"] .profile-glass-rim {
-  border-color: rgba(29, 78, 216, 0.5);
-  box-shadow: 0 4px 20px rgba(29, 78, 216, 0.2),
-              inset 0 0 12px rgba(29, 78, 216, 0.1);
+  border-color: rgba(22, 119, 255, 0.45);
+  box-shadow: 0 4px 20px rgba(22, 119, 255, 0.18),
+              0 0 16px rgba(0, 200, 255, 0.16),
+              inset 0 0 12px rgba(22, 119, 255, 0.10);
+}
+
+[data-theme="light"] .profile-3d-scene:hover .profile-glass-rim {
+  border-color: rgba(0, 200, 255, 0.7);
+  box-shadow: 0 6px 28px rgba(22, 119, 255, 0.25),
+              0 0 24px rgba(0, 200, 255, 0.25);
 }
 
 [data-theme="light"] .profile-specular-ring {
-  border-top-color: #1d4ed8;
-  border-right-color: rgba(2, 132, 199, 0.6);
-  filter: drop-shadow(0 0 6px #1d4ed8);
+  border-top-color: #ffffff;
+  border-right-color: rgba(0, 200, 255, 0.85);
+  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 10px #1677ff);
 }
 
 [data-theme="light"] .profile-photo-aperture {
   background: #ffffff;
-  border-color: rgba(29, 78, 216, 0.35);
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.15),
-              0 0 20px rgba(29, 78, 216, 0.15);
+  border-color: rgba(22, 119, 255, 0.28);
+  box-shadow: 0 14px 36px rgba(35, 90, 160, 0.14),
+              0 0 24px rgba(0, 200, 255, 0.15);
 }
 
 [data-theme="light"] .profile-accent-label {
-  color: #334155;
+  color: #40516f;
   text-shadow: none;
 }
 

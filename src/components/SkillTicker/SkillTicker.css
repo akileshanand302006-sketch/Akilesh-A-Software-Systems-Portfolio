@@ -35,6 +35,22 @@
   box-shadow: var(--shadow-glow);
 }
 
+[data-theme="light"] .ticker-item {
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(22, 119, 255, 0.18);
+  color: #40516f;
+  box-shadow: 0 2px 8px rgba(35, 90, 160, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+[data-theme="light"] .ticker-item:hover {
+  color: #1677ff;
+  border-color: #1677ff;
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(22, 119, 255, 0.20), inset 0 1px 0 #ffffff;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ticker-track {
     animation: none;

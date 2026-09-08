@@ -29,7 +29,9 @@ export default function ParticlesBackground({ theme }) {
           density: { enable: true, area: 1400 },
         },
         color: {
-          value: isDark ? ['#38bdf8', '#60a5fa', '#22d3ee'] : ['#2563eb', '#38bdf8', '#0891b2'],
+          value: isDark
+            ? ['#38bdf8', '#60a5fa', '#22d3ee']
+            : ['#1677ff', '#00c8ff', '#7c5cff', '#ffffff'],
         },
         opacity: {
           value: { min: 0.12, max: 0.35 },
@@ -49,8 +51,8 @@ export default function ParticlesBackground({ theme }) {
         links: {
           enable: true,
           distance: 120,
-          color: isDark ? '#38bdf8' : '#2563eb',
-          opacity: 0.09,
+          color: isDark ? '#38bdf8' : '#1677ff',
+          opacity: 0.10,
           width: 1,
         },
       },

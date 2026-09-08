@@ -72,17 +72,17 @@
 
 /* ── Light Theme Capsule Appearance ── */
 [data-theme="light"] .profile-capsule-trigger {
-  background: rgba(255, 255, 255, 0.76);
-  border: 1px solid rgba(37, 99, 235, 0.18);
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08), inset 0 1px 0 #ffffff;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(22, 119, 255, 0.22);
+  box-shadow: 0 4px 16px rgba(35, 90, 160, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 [data-theme="light"] .profile-capsule-trigger:hover,
 [data-theme="light"] .profile-capsule-trigger.capsule-active {
   background: rgba(255, 255, 255, 0.94);
-  border-color: #2563eb;
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.18),
-              0 0 16px rgba(37, 99, 235, 0.14),
+  border-color: #1677ff;
+  box-shadow: 0 6px 20px rgba(22, 119, 255, 0.20),
+              0 0 16px rgba(0, 200, 255, 0.16),
               inset 0 1px 0 #ffffff;
 }
 
@@ -285,9 +285,9 @@
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
-  border: 1.5px solid rgba(37, 99, 235, 0.22);
-  box-shadow: 0 20px 48px rgba(37, 99, 235, 0.14),
-              0 0 20px rgba(56, 189, 248, 0.1),
+  border: 1px solid rgba(22, 119, 255, 0.20);
+  box-shadow: 0 20px 48px rgba(35, 90, 160, 0.12),
+              0 0 20px rgba(0, 200, 255, 0.10),
               inset 0 1px 0 #ffffff;
 }
 

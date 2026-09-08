@@ -63,3 +63,43 @@
     text-align: center;
   }
 }
+
+/* ============================================================
+   LIGHT THEME ADAPTATION ── ACHIEVEMENTS
+   ============================================================ */
+
+[data-theme="light"] .achievement-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.45));
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 14px 38px rgba(35, 90, 160, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .achievement-card:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.65));
+  border-color: rgba(0, 200, 255, 0.45);
+  box-shadow: 0 20px 50px rgba(35, 90, 160, 0.14), 0 0 20px rgba(22, 119, 255, 0.16), inset 0 1px 0 #ffffff;
+  transform: translateY(-3px);
+}
+
+[data-theme="light"] .achievement-icon-wrap {
+  background: rgba(22, 119, 255, 0.10);
+  border: 1px solid rgba(22, 119, 255, 0.22);
+  color: #1677ff;
+  box-shadow: 0 4px 14px rgba(22, 119, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .achievement-year {
+  color: #1677ff;
+}
+
+[data-theme="light"] .achievement-category {
+  color: #71809a;
+}
+
+[data-theme="light"] .achievement-title {
+  color: #0b1736;
+}
+
+[data-theme="light"] .achievement-desc {
+  color: #40516f;
+}

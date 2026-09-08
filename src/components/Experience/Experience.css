@@ -122,3 +122,47 @@
     right: auto;
   }
 }
+
+/* ============================================================
+   LIGHT THEME ADAPTATION ── LUMINOUS TIMELINE SYSTEM
+   ============================================================ */
+
+[data-theme="light"] .timeline-line {
+  background: linear-gradient(180deg, #1677ff 0%, #00c8ff 50%, rgba(22, 119, 255, 0.15) 100%);
+}
+
+[data-theme="light"] .timeline-dot {
+  background: rgba(255, 255, 255, 0.90);
+  border: 2px solid #1677ff;
+  color: #1677ff;
+  box-shadow: 0 0 16px rgba(0, 200, 255, 0.28), 0 4px 14px rgba(35, 90, 160, 0.12), inset 0 1px 0 #ffffff;
+}
+
+[data-theme="light"] .timeline-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.45));
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 16px 42px rgba(35, 90, 160, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .timeline-card:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.65));
+  border-color: rgba(0, 200, 255, 0.4);
+  box-shadow: 0 22px 55px rgba(35, 90, 160, 0.12), 0 0 20px rgba(22, 119, 255, 0.16), inset 0 1px 0 #ffffff;
+  transform: translateY(-3px);
+}
+
+[data-theme="light"] .timeline-period {
+  color: #1677ff;
+}
+
+[data-theme="light"] .timeline-org {
+  color: #71809a;
+}
+
+[data-theme="light"] .timeline-title {
+  color: #0b1736;
+}
+
+[data-theme="light"] .timeline-desc {
+  color: #40516f;
+}

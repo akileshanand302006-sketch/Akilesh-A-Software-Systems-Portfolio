@@ -69,9 +69,9 @@ export function TechnologyNodes({ theme = 'dark', isMobile = false }) {
             />
           </bufferGeometry>
           <lineBasicMaterial
-            color={isLight ? '#0284c7' : '#38bdf8'}
+            color={isLight ? '#1677ff' : '#38bdf8'}
             transparent
-            opacity={isLight ? 0.4 : 0.55}
+            opacity={isLight ? 0.45 : 0.55}
             depthWrite={false}
           />
         </lineSegments>

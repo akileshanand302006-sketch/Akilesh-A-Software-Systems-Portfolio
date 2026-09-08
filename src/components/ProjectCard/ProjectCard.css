@@ -210,6 +210,89 @@
   padding: 8px 16px;
 }
 
+/* ============================================================
+   LIGHT THEME ADAPTATION ── LIQUID GLASS PROJECT PANEL
+   ============================================================ */
+
+[data-theme="light"] .project-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.46));
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 20px 48px rgba(35, 90, 160, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .project-card:hover {
+  border-color: rgba(0, 200, 255, 0.45);
+  box-shadow: 0 26px 65px rgba(35, 90, 160, 0.14), 0 0 24px rgba(22, 119, 255, 0.18), inset 0 1px 0 #ffffff;
+}
+
+[data-theme="light"] .project-image-wrap {
+  background: #eef6ff;
+  border-bottom: 1px solid rgba(22, 119, 255, 0.10);
+}
+
+[data-theme="light"] .project-image-overlay {
+  background: linear-gradient(180deg, transparent 55%, rgba(11, 23, 54, 0.32) 100%);
+}
+
+[data-theme="light"] .project-image-fallback {
+  background: linear-gradient(135deg, #eef6ff, #f0f7ff);
+  color: #71809a;
+}
+
+[data-theme="light"] .project-category-badge {
+  background: rgba(255, 255, 255, 0.88);
+  color: #1677ff;
+  border: 1px solid rgba(22, 119, 255, 0.22);
+  box-shadow: 0 2px 10px rgba(35, 90, 160, 0.10), inset 0 1px 0 #ffffff;
+  font-weight: 700;
+}
+
+[data-theme="light"] .project-title {
+  color: #0b1736;
+}
+
+[data-theme="light"] .project-description {
+  color: #40516f;
+}
+
+[data-theme="light"] .project-tech-tag {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(22, 119, 255, 0.18);
+  color: #1677ff;
+  box-shadow: 0 2px 6px rgba(35, 90, 160, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="light"] .project-tech-more {
+  color: #71809a;
+  background: rgba(238, 246, 255, 0.85);
+  border-color: rgba(22, 119, 255, 0.16);
+}
+
+[data-theme="light"] .project-details {
+  border-top-color: rgba(22, 119, 255, 0.12);
+}
+
+[data-theme="light"] .project-detail-block h4 {
+  color: #0b1736;
+}
+
+[data-theme="light"] .project-detail-block p,
+[data-theme="light"] .project-features-list li {
+  color: #40516f;
+}
+
+[data-theme="light"] .project-features-list li::before {
+  color: #1677ff;
+}
+
+[data-theme="light"] .project-details-btn {
+  color: #40516f;
+}
+
+[data-theme="light"] .project-details-btn:hover {
+  color: #1677ff;
+}
+
 /* ── Responsive ── */
 @media (max-width: 480px) {
   .project-features-list {

@@ -58,8 +58,8 @@ export function NetworkField({ theme = 'dark', isMobile = false }) {
     }
   });
 
-  const nodeColor = isLight ? '#0284c7' : '#38bdf8';
-  const lineColor = isLight ? '#bae6fd' : '#0369a1';
+  const nodeColor = isLight ? '#1677ff' : '#38bdf8';
+  const lineColor = isLight ? '#00c8ff' : '#0369a1';
 
   return (
     <group name="NetworkField">

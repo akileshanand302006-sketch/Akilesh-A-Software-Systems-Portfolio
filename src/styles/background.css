@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    MULTI-LAYER ATMOSPHERIC CSS BACKGROUND
    ============================================================ */
 
@@ -22,10 +22,13 @@
   transition: background var(--transition-base, 0.4s ease);
 }
 
-[data-theme=light] .bg-atmospheric-layer {
-  background: radial-gradient(circle at 50% 15%, rgba(56, 189, 248, 0.15) 0%, transparent 65%),
-              radial-gradient(circle at 85% 85%, rgba(37, 99, 235, 0.08) 0%, transparent 55%),
-              #f8fafc;
+[data-theme="light"] .bg-atmospheric-layer {
+  background: 
+    radial-gradient(circle at 15% 20%, rgba(0, 200, 255, 0.13) 0%, transparent 36%),
+    radial-gradient(circle at 85% 15%, rgba(124, 92, 255, 0.10) 0%, transparent 34%),
+    radial-gradient(circle at 50% 90%, rgba(22, 119, 255, 0.09) 0%, transparent 40%),
+    radial-gradient(circle at 75% 55%, rgba(54, 224, 255, 0.08) 0%, transparent 30%),
+    linear-gradient(135deg, #f8fbff 0%, #eef6ff 50%, #f8f9ff 100%);
 }
 
 /* Layer 2: Ambient Glowing Blobs */
@@ -40,9 +43,9 @@
   animation: blob-float 22s infinite alternate ease-in-out;
 }
 
-[data-theme=light] .bg-gradient-blob {
-  opacity: 0.45;
-  filter: blur(70px);
+[data-theme="light"] .bg-gradient-blob {
+  opacity: 0.65;
+  filter: blur(90px);
 }
 
 .blob-primary {
@@ -51,6 +54,10 @@
   width: 550px;
   height: 550px;
   background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, transparent 70%);
+}
+
+[data-theme="light"] .blob-primary {
+  background: radial-gradient(circle, rgba(22, 119, 255, 0.22) 0%, rgba(47, 128, 255, 0.10) 45%, transparent 70%);
 }
 
 .blob-secondary {
@@ -63,6 +70,10 @@
   animation-delay: -5s;
 }
 
+[data-theme="light"] .blob-secondary {
+  background: radial-gradient(circle, rgba(0, 200, 255, 0.20) 0%, rgba(54, 224, 255, 0.08) 50%, transparent 70%);
+}
+
 .blob-accent {
   top: 45%;
   left: -5%;
@@ -71,6 +82,10 @@
   background: radial-gradient(circle, rgba(129, 140, 248, 0.18) 0%, transparent 70%);
   animation-duration: 25s;
   animation-delay: -10s;
+}
+
+[data-theme="light"] .blob-accent {
+  background: radial-gradient(circle, rgba(124, 92, 255, 0.16) 0%, rgba(98, 70, 234, 0.06) 50%, transparent 70%);
 }
 
 /* Layer 3: Perspective Spatial Grid */
@@ -85,10 +100,10 @@
   opacity: 0.7;
 }
 
-[data-theme=light] .bg-perspective-grid {
-  background-image: linear-gradient(to right, rgba(2, 132, 199, 0.08) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(2, 132, 199, 0.08) 1px, transparent 1px);
-  opacity: 0.6;
+[data-theme="light"] .bg-perspective-grid {
+  background-image: linear-gradient(to right, rgba(22, 119, 255, 0.06) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(22, 119, 255, 0.06) 1px, transparent 1px);
+  opacity: 0.55;
 }
 
 /* Layer 4: Floating Glow Orbs */
@@ -107,12 +122,22 @@
   background: rgba(56, 189, 248, 0.12);
 }
 
+[data-theme="light"] .glow-orb-1 {
+  background: rgba(0, 200, 255, 0.14);
+  filter: blur(45px);
+}
+
 .glow-orb-2 {
   width: 200px;
   height: 200px;
   bottom: 30%;
   left: 20%;
   background: rgba(34, 211, 238, 0.1);
+}
+
+[data-theme="light"] .glow-orb-2 {
+  background: rgba(124, 92, 255, 0.12);
+  filter: blur(45px);
 }
 
 @keyframes blob-float {

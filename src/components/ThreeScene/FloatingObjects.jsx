@@ -8,8 +8,8 @@ export function FloatingObjects({ theme = 'dark', isMobile = false }) {
   const octaRef = useRef();
   const isLight = theme === 'light';
 
-  const primaryColor = isLight ? '#0284c7' : '#38bdf8';
-  const secondaryColor = isLight ? '#0891b2' : '#22d3ee';
+  const primaryColor = isLight ? '#1677ff' : '#38bdf8';
+  const secondaryColor = isLight ? '#00c8ff' : '#22d3ee';
   const glassOpacity = isLight ? 0.35 : 0.22;
   const wireOpacity = isLight ? 0.6 : 0.75;
 
