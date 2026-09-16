@@ -30,6 +30,10 @@ export const portfolioService = {
           ? api.getFileUrl(data.resumeFileId, `${cleanBase}resumes/Akilesh_A_SDE_Resume.pdf`)
           : `${cleanBase}resumes/Akilesh_A_SDE_Resume.pdf`;
 
+        data.dataResumePath = data.dataResumeFileId
+          ? api.getFileUrl(data.dataResumeFileId, `${cleanBase}resumes/Akilesh_A_Data_Resume.pdf`)
+          : `${cleanBase}resumes/Akilesh_A_Data_Resume.pdf`;
+
         return data;
       }
     } catch {
@@ -40,6 +44,7 @@ export const portfolioService = {
       ...localProfile,
       profileImage: `${cleanBase}profile.jpg`,
       resumePath: `${cleanBase}resumes/Akilesh_A_SDE_Resume.pdf`,
+      dataResumePath: `${cleanBase}resumes/Akilesh_A_Data_Resume.pdf`,
     };
   },
 

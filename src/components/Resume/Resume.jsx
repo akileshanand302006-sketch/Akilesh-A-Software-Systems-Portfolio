@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import { Download, Eye, Sparkles, Code2, Database, FileText } from 'lucide-react';
+import { Download, Eye, Sparkles, Code2, Database } from 'lucide-react';
 import { analyticsService } from '../../services/analyticsService';
 import { createGlassSheen, createGlassRipple } from '../../animations';
 import './Resume.css';
+
 const BASE = import.meta.env.BASE_URL || '/';
 const cleanBase = BASE.endsWith('/') ? BASE : `${BASE}/`;
 
@@ -21,7 +22,7 @@ const resumes = [
       'Algorithmic Problem Solving (LeetCode)',
     ],
     pdfUrl: `${cleanBase}resumes/Akilesh_A_SDE_Resume.pdf`,
-    docxUrl: `${cleanBase}resumes/Akilesh_A_SDE_Resume.docx`,
+    downloadFilename: 'Akilesh-A-SDE-Resume.pdf',
   },
   {
     id: 'data',
@@ -37,7 +38,7 @@ const resumes = [
       'API Integration & Geospatial Discovery (RouteVeda)',
     ],
     pdfUrl: `${cleanBase}resumes/Akilesh_A_Data_Resume.pdf`,
-    docxUrl: `${cleanBase}resumes/Akilesh_A_Data_Resume.docx`,
+    downloadFilename: 'Akilesh-A-Data-Resume.pdf',
   },
 ];
 
@@ -102,14 +103,14 @@ export default function Resume() {
                   <ul className="rdc-hl-list">
                     {item.highlights.map((hl, i) => (
                       <li key={i}>
-                        <span className="rdc-bullet" style={{ color: item.color }}>✓</span>
+                        <span className="rdc-bullet" style={{ color: item.color }}>•</span>
                         <span>{hl}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Action Buttons */}
+                {/* Action Buttons: PDF Only */}
                 <div className="rdc-actions">
                   <a
                     href={item.pdfUrl}
@@ -120,29 +121,18 @@ export default function Resume() {
                     onClick={(e) => handleTrack('resume_view', item.id, e)}
                   >
                     <Eye size={16} />
-                    <span>View PDF</span>
+                    <span>View Resume</span>
                   </a>
 
                   <a
                     href={item.pdfUrl}
-                    download={`Akilesh_A_${item.id.toUpperCase()}_Resume.pdf`}
+                    download={item.downloadFilename}
                     className="rdc-btn rdc-btn-secondary"
                     aria-label={`Download ${item.title} PDF`}
                     onClick={(e) => handleTrack('resume_download', item.id, e)}
                   >
                     <Download size={16} />
-                    <span>Download PDF</span>
-                  </a>
-
-                  <a
-                    href={item.docxUrl}
-                    download={`Akilesh_A_${item.id.toUpperCase()}_Resume.docx`}
-                    className="rdc-btn rdc-btn-docx"
-                    aria-label={`Download ${item.title} Word DOCX`}
-                    onClick={(e) => handleTrack('resume_download', `${item.id}_docx`, e)}
-                  >
-                    <FileText size={16} className="rdc-docx-icon" />
-                    <span>Download Word Document (.docx)</span>
+                    <span>Download Resume</span>
                   </a>
                 </div>
               </motion.div>

@@ -241,51 +241,6 @@
   box-shadow: 0 6px 20px rgba(22, 119, 255, 0.20), inset 0 1px 0 #ffffff;
 }
 
-/* 3. Prominent Word DOCX Button */
-.rdc-btn-docx {
-  grid-column: span 2;
-  background: rgba(30, 58, 138, 0.25);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  color: #f8fafc !important;
-  font-weight: 600;
-  font-size: 0.86rem;
-  letter-spacing: 0.2px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-.rdc-docx-icon {
-  color: #38bdf8;
-  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5));
-}
-
-.rdc-btn-docx:hover {
-  background: rgba(37, 99, 235, 0.35);
-  border-color: #38bdf8;
-  box-shadow: 0 6px 24px rgba(56, 189, 248, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transform: translate3d(0, -2px, 0);
-  color: #ffffff !important;
-}
-
-[data-theme="light"] .rdc-btn-docx {
-  background: linear-gradient(135deg, rgba(238, 246, 255, 0.95), rgba(240, 247, 255, 0.85));
-  border: 1.5px solid rgba(22, 119, 255, 0.30);
-  color: #0b1736 !important;
-  box-shadow: 0 6px 18px rgba(35, 90, 160, 0.08), inset 0 1px 0 #ffffff;
-}
-
-[data-theme="light"] .rdc-docx-icon {
-  color: #1677ff;
-}
-
-[data-theme="light"] .rdc-btn-docx:hover {
-  background: #ffffff;
-  border-color: #1677ff;
-  box-shadow: 0 8px 24px rgba(22, 119, 255, 0.22), inset 0 1px 0 #ffffff;
-  color: #1677ff !important;
-}
-
 /* ── Responsive ── */
 @media (max-width: 860px) {
   .resume-grid {
@@ -303,7 +258,4 @@
     grid-template-columns: 1fr;
   }
 
-  .rdc-btn-docx {
-    grid-column: span 1;
   }
-}

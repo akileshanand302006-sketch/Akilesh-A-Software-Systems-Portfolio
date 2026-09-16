@@ -81,8 +81,8 @@ class ApiClient {
   /**
    * Returns the resume streaming URL.
    */
-  getResumeUrl(download = false) {
-    return `${this.baseUrl}/resume${download ? '?download=true' : ''}`;
+  getResumeUrl(download = false, type = 'sde') {
+    return `${this.baseUrl}/resume?type=${type}${download ? '&download=true' : ''}`;
   }
 }
 

@@ -5,6 +5,7 @@ import { upload } from '../middleware/upload.middleware.js';
 const router = express.Router();
 
 router.get('/resume', getResume);
+router.get('/resume/:type', getResume);
 router.get('/:id', getFileById);
 router.post('/upload', upload.single('file'), uploadFile);
 

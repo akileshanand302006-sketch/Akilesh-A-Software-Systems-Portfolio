@@ -15,17 +15,68 @@ export async function getFileById(req, res, next) {
 export async function getResume(req, res, next) {
   try {
     const download = req.query.download === 'true';
+    const type = (req.query.type || req.params.type || 'sde').toLowerCase();
+    const meta = req.query.meta === 'true' || req.query.info === 'true';
 
-    // Check if a resume is linked in the Profile model
+    // If metadata requested
+    if (meta) {
+      const sdeMeta = await FileMeta.findOne({
+        category: 'RESUME',
+        $or: [{ filename: /sde/i }, { originalName: /sde/i }]
+      }).sort({ createdAt: -1 }).lean();
+
+      const dataMeta = await FileMeta.findOne({
+        category: 'RESUME',
+        $or: [{ filename: /data/i }, { originalName: /data/i }]
+      }).sort({ createdAt: -1 }).lean();
+
+      return res.json({
+        success: true,
+        data: {
+          sde: sdeMeta ? {
+            fileId: sdeMeta.gridFSId || sdeMeta._id,
+            metaId: sdeMeta._id,
+            filename: sdeMeta.filename,
+            contentType: sdeMeta.contentType || 'application/pdf',
+          } : null,
+          data: dataMeta ? {
+            fileId: dataMeta.gridFSId || dataMeta._id,
+            metaId: dataMeta._id,
+            filename: dataMeta.filename,
+            contentType: dataMeta.contentType || 'application/pdf',
+          } : null,
+        }
+      });
+    }
+
+    // Serve Data Resume
+    if (type === 'data') {
+      const profile = await Profile.findOne().lean();
+      if (profile && profile.dataResumeFileId) {
+        return await streamFileFromGridFS(profile.dataResumeFileId, res, download);
+      }
+      const dataMeta = await FileMeta.findOne({
+        category: 'RESUME',
+        $or: [{ filename: /data/i }, { originalName: /data/i }]
+      }).sort({ createdAt: -1 }).lean();
+
+      if (dataMeta) {
+        return await streamFileFromGridFS(dataMeta._id, res, download);
+      }
+    }
+
+    // Serve SDE Resume (Default)
     const profile = await Profile.findOne().lean();
     if (profile && profile.resumeFileId) {
       return await streamFileFromGridFS(profile.resumeFileId, res, download);
     }
+    const sdeMeta = await FileMeta.findOne({
+      category: 'RESUME',
+      $or: [{ filename: /sde/i }, { originalName: /sde/i }]
+    }).sort({ createdAt: -1 }).lean();
 
-    // Fallback: search for latest uploaded RESUME in FileMeta
-    const resumeMeta = await FileMeta.findOne({ category: 'RESUME' }).sort({ createdAt: -1 }).lean();
-    if (resumeMeta) {
-      return await streamFileFromGridFS(resumeMeta._id, res, download);
+    if (sdeMeta) {
+      return await streamFileFromGridFS(sdeMeta._id, res, download);
     }
 
     res.status(404).json({ success: false, message: 'Resume not found' });
@@ -44,7 +95,7 @@ export async function uploadFile(req, res, next) {
 
     const fileMeta = await uploadBufferToGridFS({
       buffer: req.file.buffer,
-      filename: `${Date.now()}-${req.file.originalname.replace(/\s+/g, '_')}`,
+      filename: Date.now() + '-' + req.file.originalname.replace(/\s+/g, '_'),
       originalName: req.file.originalname,
       contentType: req.file.mimetype,
       category,

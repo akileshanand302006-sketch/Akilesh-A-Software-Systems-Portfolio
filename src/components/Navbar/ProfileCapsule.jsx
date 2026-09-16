@@ -238,7 +238,7 @@ export default function ProfileCapsule({ theme = 'dark', isMobile = false }) {
                 </div>
                 <div className="action-meta-box">
                   <span className="action-title">View Resume</span>
-                  <span className="action-desc">PDF & Word documents</span>
+                  <span className="action-desc">SDE & Data PDF versions</span>
                 </div>
               </button>
 

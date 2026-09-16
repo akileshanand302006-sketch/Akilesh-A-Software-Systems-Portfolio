@@ -25,6 +25,7 @@ const ProfileSchema = new mongoose.Schema(
     availability: { type: String, default: 'Open to Internship Opportunities (2026)' },
     profileImageId: { type: mongoose.Schema.Types.ObjectId, ref: 'FileMeta', default: null },
     resumeFileId: { type: mongoose.Schema.Types.ObjectId, ref: 'FileMeta', default: null },
+    dataResumeFileId: { type: mongoose.Schema.Types.ObjectId, ref: 'FileMeta', default: null },
     github: { type: String, default: '' },
     linkedin: { type: String, default: '' },
     leetcode: { type: String, default: '' },
