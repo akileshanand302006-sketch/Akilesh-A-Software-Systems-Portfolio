@@ -8,7 +8,7 @@ import './ProfileCapsule.css';
 
 const BASE = import.meta.env.BASE_URL || '/';
 const cleanBase = BASE.endsWith('/') ? BASE : `${BASE}/`;
-const defaultPhoto = `${cleanBase}profile.jpg`;
+const defaultPhoto = `${cleanBase}profile.png`;
 
 export default function ProfileCapsule({ theme = 'dark', isMobile = false }) {
   const [isOpen, setIsOpen] = useState(false);

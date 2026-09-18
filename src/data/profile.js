@@ -48,7 +48,7 @@ const profile = {
   location: 'Coimbatore, Tamil Nadu, India',
   availability: 'Open to Internship Opportunities (2026)',
 
-  profileImage: `${cleanBase}profile.jpg`,
+  profileImage: `${cleanBase}profile.png`,
   resumePath: `${cleanBase}resumes/Akilesh_A_SDE_Resume.pdf`,
 
   /* ── Social / Developer Links ── */

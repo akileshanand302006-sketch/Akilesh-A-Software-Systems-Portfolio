@@ -23,8 +23,8 @@ export const portfolioService = {
         const data = { ...res.data };
 
         data.profileImage = data.profileImageId
-          ? api.getFileUrl(data.profileImageId, `${cleanBase}profile.jpg`)
-          : `${cleanBase}profile.jpg`;
+          ? api.getFileUrl(data.profileImageId, `${cleanBase}profile.png`)
+          : `${cleanBase}profile.png`;
 
         data.resumePath = data.resumeFileId
           ? api.getFileUrl(data.resumeFileId, `${cleanBase}resumes/Akilesh_A_SDE_Resume.pdf`)
@@ -42,7 +42,7 @@ export const portfolioService = {
 
     return {
       ...localProfile,
-      profileImage: `${cleanBase}profile.jpg`,
+      profileImage: `${cleanBase}profile.png`,
       resumePath: `${cleanBase}resumes/Akilesh_A_SDE_Resume.pdf`,
       dataResumePath: `${cleanBase}resumes/Akilesh_A_Data_Resume.pdf`,
     };
