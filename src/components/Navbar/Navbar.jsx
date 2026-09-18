@@ -1,3 +1,4 @@
+import { fastSmoothScroll } from '../../utils/smoothScroll';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Mail } from 'lucide-react';
@@ -31,21 +32,25 @@ export default function Navbar({ theme, toggleTheme }) {
 
   // Coordinated Anime.js initial entrance on mount
   useEffect(() => {
-    animateNavbarEntrance(navRef.current);
-    return () => cleanupAnime(navRef.current);
-  }, []);
+    let ticking = false;
+    let lastY = window.scrollY;
 
-  useEffect(() => {
     const handleScroll = () => {
-      const currentY = window.scrollY;
-      setIsScrolled(currentY > 40);
-      setIsVisible(currentY < lastScrollY || currentY < 80);
-      setLastScrollY(currentY);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentY = window.scrollY;
+          setIsScrolled(currentY > 40);
+          setIsVisible(currentY < lastY || currentY < 80);
+          lastY = currentY;
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -57,11 +62,8 @@ export default function Navbar({ theme, toggleTheme }) {
     if (event && event.currentTarget) {
       createGlassRipple(event.currentTarget, event);
     }
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-      setMobileOpen(false);
-    }
+    fastSmoothScroll(id);
+    setMobileOpen(false);
   };
 
   return (

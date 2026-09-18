@@ -176,7 +176,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
         >
           <div className="section-label">Contact</div>
           <h2 className="section-title">Get In Touch</h2>
@@ -190,7 +190,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.35 }}
         >
           <AnimatePresence mode="wait">
             {/* SUCCESS STATE */}

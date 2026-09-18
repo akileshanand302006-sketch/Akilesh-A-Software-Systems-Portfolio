@@ -1,3 +1,4 @@
+import { fastSmoothScroll } from '../../utils/smoothScroll';
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Send, FolderOpen, Circle, GraduationCap, FileText } from 'lucide-react';
@@ -59,7 +60,7 @@ export default function Hero() {
     if (event && event.currentTarget) {
       createGlassRipple(event.currentTarget, event);
     }
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    fastSmoothScroll(id);
   };
 
   return (

@@ -28,7 +28,7 @@ export default function Projects() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
         >
           <div className="section-label">Projects</div>
           <h2 className="section-title">What I've Built</h2>

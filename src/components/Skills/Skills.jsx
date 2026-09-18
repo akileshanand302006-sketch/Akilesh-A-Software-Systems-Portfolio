@@ -21,7 +21,7 @@ export default function Skills() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
         >
           <div className="section-label">Skills & Tech Stack</div>
           <h2 className="section-title">Technologies I Build With</h2>
@@ -44,7 +44,7 @@ export default function Skills() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: catIndex * 0.08, duration: 0.5 }}
+                transition={{ delay: catIndex * 0.04, duration: 0.3 }}
                 style={{ '--category-color': category.color || 'var(--accent)' }}
               >
                 <div className="skill-category-header">
@@ -69,7 +69,7 @@ export default function Skills() {
                       initial={{ opacity: 0, scale: 0.9 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ delay: catIndex * 0.05 + i * 0.02, duration: 0.3 }}
+                      transition={{ delay: catIndex * 0.03 + i * 0.015, duration: 0.3 }}
                       whileHover={{ scale: 1.05, y: -2 }}
                     >
                       <span className="skill-dot" style={{ background: category.color || 'var(--accent)' }} />

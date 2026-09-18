@@ -15,7 +15,7 @@
 
 /* ── HTML ── */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* High performance programmatic scroll */
   -webkit-text-size-adjust: 100%;
   font-size: 16px;
 }

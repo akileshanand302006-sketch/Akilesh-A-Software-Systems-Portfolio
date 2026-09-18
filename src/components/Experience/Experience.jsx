@@ -42,7 +42,7 @@ export default function Experience() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
         >
           <div className="section-label">Experience</div>
           <h2 className="section-title">My Journey</h2>
@@ -62,7 +62,7 @@ export default function Experience() {
                 initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                transition={{ delay: index * 0.04, duration: 0.3 }}
               >
                 <div className="timeline-dot">
                   <Icon size={16} />

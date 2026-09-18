@@ -5,6 +5,11 @@ import nodemailer from 'nodemailer';
  * Backend email delivery service using Nodemailer and Gmail SMTP (SSL/TLS).
  */
 
+const DEFAULT_SMTP_USER = 'akileshanand302006@gmail.com';
+const DEFAULT_SMTP_PASS = 'wqezjahwucvxayrm';
+const DEFAULT_SMTP_HOST = 'smtp.gmail.com';
+const DEFAULT_SMTP_PORT = 465;
+
 // Helper to escape user input to prevent HTML injection in emails
 function escapeHtml(text) {
   if (!text) return '';
@@ -20,8 +25,8 @@ function escapeHtml(text) {
  * Check whether Gmail SMTP is configured with non-empty credentials.
  */
 export function isSmtpConfigured() {
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const user = process.env.SMTP_USER || DEFAULT_SMTP_USER;
+  const pass = process.env.SMTP_PASS || DEFAULT_SMTP_PASS;
   return Boolean(user && pass && pass.trim().length > 0 && !pass.includes('placeholder'));
 }
 
@@ -33,14 +38,19 @@ let cachedTransporter = null;
 let lastPass = null;
 
 export function getTransporter() {
-  const currentPass = process.env.SMTP_PASS;
+  const currentPass = process.env.SMTP_PASS || DEFAULT_SMTP_PASS;
+  const currentUser = process.env.SMTP_USER || DEFAULT_SMTP_USER;
+  const host = process.env.SMTP_HOST || DEFAULT_SMTP_HOST;
+  const port = Number(process.env.SMTP_PORT) || DEFAULT_SMTP_PORT;
+  const secure = process.env.SMTP_SECURE === 'true' || port === 465;
+
   if (!cachedTransporter || lastPass !== currentPass) {
     cachedTransporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.gmail.com',
-      port: Number(process.env.SMTP_PORT) || 465,
-      secure: process.env.SMTP_SECURE === 'true' || Number(process.env.SMTP_PORT) === 465,
+      host,
+      port,
+      secure,
       auth: {
-        user: process.env.SMTP_USER,
+        user: currentUser,
         pass: currentPass,
       },
     });
@@ -60,7 +70,7 @@ export const transporter = {
  */
 export async function verifySmtpConfiguration() {
   if (!isSmtpConfigured()) {
-    console.warn('⚠️  [SMTP NOTICE] Gmail SMTP_PASS is empty in server/.env. Contact emails will not be sent until a 16-character Google App Password is configured.');
+    console.warn('⚠️  [SMTP NOTICE] Gmail SMTP credentials not configured. Contact emails will not be sent.');
     return false;
   }
 
@@ -76,21 +86,15 @@ export async function verifySmtpConfiguration() {
 
 /**
  * Send contact inquiry email to Akilesh via Gmail SMTP.
- *
- * Headers:
- * - From: "Portfolio Contact" <akileshanand302006@gmail.com> (authenticated account)
- * - To: CONTACT_TO (akileshanand302006@gmail.com)
- * - Reply-To: visitor's entered email (allows direct reply to the visitor)
- * - Subject: New Portfolio Contact — <visitor subject>
  */
 export async function sendContactEmail({ name, email, subject, message, timestamp, ipAddress }) {
   if (!isSmtpConfigured()) {
-    console.error('[CONTACT ERROR] Cannot send email: SMTP credentials not configured in server/.env.');
+    console.error('[CONTACT ERROR] Cannot send email: SMTP credentials not configured.');
     throw new Error('Email service is temporarily unavailable.');
   }
 
-  const destinationEmail = process.env.CONTACT_TO || process.env.SMTP_USER || 'akileshanand302006@gmail.com';
-  const authenticatedSender = process.env.SMTP_USER || 'akileshanand302006@gmail.com';
+  const destinationEmail = process.env.CONTACT_TO || process.env.SMTP_USER || DEFAULT_SMTP_USER;
+  const authenticatedSender = process.env.SMTP_USER || DEFAULT_SMTP_USER;
   const emailSubject = `New Portfolio Contact — ${subject || 'General Inquiry'}`;
   const displayTime = timestamp || new Date().toLocaleString();
 

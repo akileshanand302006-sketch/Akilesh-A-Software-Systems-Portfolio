@@ -79,7 +79,7 @@ export default function LoadingScreen({ theme = 'dark', onComplete }) {
   // Smooth progress ramp (~1.25 seconds total initialization)
   useEffect(() => {
     const startTime = performance.now();
-    const duration = 1250; // 1.25s duration
+    const duration = 450; // 1.25s duration
 
     let frameId;
     const updateProgress = (currentTime) => {
@@ -98,7 +98,7 @@ export default function LoadingScreen({ theme = 'dark', onComplete }) {
             animateLoadingScreenExit(hudPanelRef.current, () => {
               setIsExiting(true);
             });
-          }, 180);
+          }, 60);
         }
       }
     };
@@ -149,9 +149,9 @@ export default function LoadingScreen({ theme = 'dark', onComplete }) {
             opacity: 0,
             scale: 1.02,
             filter: 'blur(6px)',
-            transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] }
+            transition: { duration: 0.28, ease: [0.16, 1, 0.3, 1] }
           }}
-          transition={{ duration: 0.35 }}
+          transition={{ duration: 0.2 }}
           role="status"
           aria-live="polite"
           aria-label="Akilesh A Software Systems Portfolio is initializing"

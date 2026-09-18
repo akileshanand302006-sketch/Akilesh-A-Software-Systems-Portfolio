@@ -58,7 +58,7 @@ export default function Resume() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
         >
           <div className="section-label">Curriculum Vitae</div>
           <h2 className="section-title">Resumes & Credentials</h2>
@@ -78,7 +78,7 @@ export default function Resume() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.12, duration: 0.5 }}
+                transition={{ delay: index * 0.04, duration: 0.3 }}
                 style={{ '--resume-accent': item.color }}
               >
                 {/* Header */}

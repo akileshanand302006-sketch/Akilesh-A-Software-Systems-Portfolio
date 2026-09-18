@@ -1,14 +1,13 @@
 /**
  * API Client for interacting with the portfolio backend.
- * Uses VITE_API_URL or defaults to localhost:5000/api.
+ * Uses local proxy in development and VITE_API_URL in production.
  */
 
-// In local dev without explicit backend URL, default to '/api' to use Vite proxy (proxying to localhost:5000)
+const isDev = import.meta.env.DEV;
 const rawBase = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || '';
-let defaultBase = rawBase ? rawBase.replace(/\/+$/, '') : '/api';
+let defaultBase = isDev ? '/api' : (rawBase ? rawBase.replace(/\/+$/, '') : '/api');
 
-// If a domain is provided without /api (e.g. https://my-backend.com), ensure /api is attached
-if (defaultBase.startsWith('http') && !defaultBase.endsWith('/api')) {
+if (!isDev && defaultBase.startsWith('http') && !defaultBase.endsWith('/api')) {
   defaultBase = `${defaultBase}/api`;
 }
 
@@ -18,7 +17,6 @@ class ApiClient {
   }
 
   async request(endpoint, options = {}) {
-    // Avoid /api/api/ duplication if both baseUrl ends in /api and endpoint starts with /api
     let cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
     if (this.baseUrl.endsWith('/api') && cleanEndpoint.startsWith('/api/')) {
       cleanEndpoint = cleanEndpoint.replace(/^\/api/, '');
@@ -36,9 +34,9 @@ class ApiClient {
       headers,
     };
 
-    // Add 8-second timeout controller
+    // 15-second timeout controller for smooth transactional email & Atlas queries
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
     config.signal = controller.signal;
 
     try {
@@ -70,17 +68,11 @@ class ApiClient {
     });
   }
 
-  /**
-   * Returns a streaming URL for a GridFS file ID or local fallback.
-   */
   getFileUrl(fileId, fallbackUrl = '') {
     if (!fileId) return fallbackUrl;
     return `${this.baseUrl}/files/${fileId}`;
   }
 
-  /**
-   * Returns the resume streaming URL.
-   */
   getResumeUrl(download = false, type = 'sde') {
     return `${this.baseUrl}/resume?type=${type}${download ? '&download=true' : ''}`;
   }

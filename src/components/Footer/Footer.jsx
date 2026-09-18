@@ -1,3 +1,4 @@
+import { fastSmoothScroll } from '../../utils/smoothScroll';
 import { ArrowUp, Phone, Mail, MapPin, Github, Linkedin, Code2, ExternalLink } from 'lucide-react';
 import profile from '../../data/profile';
 import './Footer.css';
@@ -17,7 +18,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    fastSmoothScroll(id);
   };
 
   const scrollToTop = () => {

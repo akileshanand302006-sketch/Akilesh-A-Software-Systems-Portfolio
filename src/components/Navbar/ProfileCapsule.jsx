@@ -1,3 +1,4 @@
+import { fastSmoothScroll } from '../../utils/smoothScroll';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, FileText, Send, Github, Linkedin, ExternalLink, Sparkles } from 'lucide-react';
@@ -120,7 +121,7 @@ export default function ProfileCapsule({ theme = 'dark', isMobile = false }) {
     setIsOpen(false);
     const el = document.getElementById(sectionId);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      fastSmoothScroll(el);
     }
   };
 

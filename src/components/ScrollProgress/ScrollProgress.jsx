@@ -8,7 +8,11 @@ export default function ScrollProgress() {
     <div className="scroll-progress-track" role="progressbar" aria-valuenow={Math.round(progress)} aria-valuemin={0} aria-valuemax={100}>
       <div
         className="scroll-progress-bar"
-        style={{ width: `${progress}%` }}
+        style={{
+          transform: `scaleX(${progress / 100})`,
+          transformOrigin: 'left',
+          willChange: 'transform'
+        }}
       />
     </div>
   );

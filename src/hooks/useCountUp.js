@@ -8,7 +8,7 @@ import { isReducedMotion } from '../animations';
  * - Safe in React StrictMode & does not cancel itself on state update.
  * - Respects prefers-reduced-motion.
  */
-export function useCountUp(target, duration = 1400) {
+export function useCountUp(target, duration = 600) {
   const numericTarget = Number(target) || 0;
   const isDirectDisplay = numericTarget === 2026 || isReducedMotion();
 

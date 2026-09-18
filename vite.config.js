@@ -3,12 +3,14 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const backendTarget = env.VITE_API_BASE_URL || env.VITE_BACKEND_URL || 'https://akilesh-portfolio-api.onrender.com'
+  // In development, proxy /api to the local backend on port 5000
+  const backendTarget = env.VITE_LOCAL_BACKEND_URL || 'http://localhost:5000'
 
   return {
     plugins: [react()],
     base: '/Akilesh-A-Software-Systems-Portfolio/',
     server: {
+      port: 5173,
       proxy: {
         '/api': {
           target: backendTarget,
@@ -18,7 +20,10 @@ export default defineConfig(({ mode }) => {
             proxy.on('error', (_err, _req, res) => {
               if (res && typeof res.writeHead === 'function' && !res.headersSent) {
                 res.writeHead(502, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ success: false, message: 'Backend service unavailable' }));
+                res.end(JSON.stringify({
+                  success: false,
+                  message: 'Local backend service is not running on port 5000. Please start the backend server.'
+                }));
               }
             });
           },
@@ -47,4 +52,3 @@ export default defineConfig(({ mode }) => {
     },
   }
 })
-

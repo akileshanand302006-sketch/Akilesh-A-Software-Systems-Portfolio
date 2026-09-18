@@ -36,7 +36,7 @@ function StatCard({ stat, index }) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.08, duration: 0.4 }}
+      transition={{ delay: index * 0.04, duration: 0.4 }}
     >
       <div className="stat-icon-wrap">
         <Icon size={22} />
@@ -58,7 +58,7 @@ export default function About() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
         >
           <div className="section-label">About Me</div>
           <h2 className="section-title">Who I Am</h2>
@@ -74,7 +74,7 @@ export default function About() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
           >
             {/* Education Spotlight Card */}
             <div className="about-education-spotlight">
@@ -128,7 +128,7 @@ export default function About() {
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: i * 0.05, duration: 0.35 }}
+                      transition={{ delay: i * 0.03, duration: 0.35 }}
                       whileHover={{ scale: 1.04, y: -2 }}
                     >
                       <span className="it-icon-wrap">
@@ -149,7 +149,7 @@ export default function About() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
           >
             {profile.stats.map((stat, i) => (
               <StatCard key={i} stat={stat} index={i} />

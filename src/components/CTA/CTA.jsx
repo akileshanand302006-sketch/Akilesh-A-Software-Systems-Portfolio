@@ -1,10 +1,11 @@
+import { fastSmoothScroll } from '../../utils/smoothScroll';
 import { motion } from 'framer-motion';
 import { FolderOpen, Send, FileText } from 'lucide-react';
 import './CTA.css';
 
 export default function CTA() {
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    fastSmoothScroll(id);
   };
 
   return (
@@ -15,7 +16,7 @@ export default function CTA() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
         >
           <h2 className="cta-title">
             Let's build something <span className="gradient-text">meaningful.</span>

@@ -19,7 +19,7 @@ export default function CodingProfiles() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
         >
           <div className="section-label">Profiles</div>
           <h2 className="section-title">Where I Code</h2>
@@ -43,7 +43,7 @@ export default function CodingProfiles() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.08, duration: 0.4 }}
+                transition={{ delay: index * 0.04, duration: 0.4 }}
                 style={{ '--profile-color': profile.color }}
               >
                 <div className="profile-icon-wrap" style={{ background: `${profile.color}15`, borderColor: `${profile.color}30` }}>
