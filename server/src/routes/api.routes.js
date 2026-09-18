@@ -17,7 +17,8 @@ const router = express.Router();
 router.get('/health', (req, res) => {
   res.json({
     success: true,
-    status: 'online',
+    status: 'ok',
+    emailProvider: 'resend',
     database: isDBConnected() ? 'connected' : 'fallback',
     timestamp: new Date().toISOString(),
   });

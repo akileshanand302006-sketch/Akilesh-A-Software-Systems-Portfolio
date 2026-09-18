@@ -1,11 +1,39 @@
-import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { Resend } from 'resend';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Ensure server/.env is loaded even if imported standalone
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config();
 
 /**
  * emailService.js
- * Production-ready transactional email service using Nodemailer + Gmail SMTP.
- * Secrets are loaded STRICTLY from environment variables (process.env).
- * No credentials or third-party providers (Resend, SendGrid, etc.) are used.
+ * Production-ready transactional email service using Resend REST API (HTTPS/443).
+ * Secrets are loaded STRICTLY from environment variables (process.env.RESEND_API_KEY).
+ * No credentials or third-party providers (Nodemailer, SendGrid, EmailJS, etc.) are used.
  */
+
+// Module-level Resend client instance
+let resend = null;
+if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.trim()) {
+  try {
+    resend = new Resend(process.env.RESEND_API_KEY.trim());
+  } catch {}
+}
+
+export function getResendClient() {
+  if (resend) return resend;
+  const key = process.env.RESEND_API_KEY;
+  if (key && key.trim()) {
+    resend = new Resend(key.trim());
+    return resend;
+  }
+  return null;
+}
 
 function escapeHtml(text) {
   if (!text) return '';
@@ -18,74 +46,61 @@ function escapeHtml(text) {
 }
 
 /**
- * Check whether Gmail SMTP is configured in environment variables.
+ * Check whether Resend API key is configured in environment variables.
+ * Never exposes the key value.
  */
-export function isSmtpConfigured() {
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-  return Boolean(user && user.trim() && pass && pass.trim());
+export function isResendConfigured() {
+  const key = process.env.RESEND_API_KEY;
+  return Boolean(key && typeof key === 'string' && key.trim().length > 0);
 }
 
 /**
- * Create Nodemailer Transporter using Gmail SMTP credentials from environment.
+ * Backwards-compatible check.
  */
-export function getTransporter() {
-  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
-  const port = Number(process.env.SMTP_PORT) || 465;
-  const secure = process.env.SMTP_SECURE === 'true' || port === 465;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-
-  return nodemailer.createTransport({
-    host,
-    port,
-    secure,
-    auth: {
-      user,
-      pass,
-    },
-  });
-}
-
-export const transporter = {
-  sendMail: (...args) => getTransporter().sendMail(...args),
-  verify: (...args) => getTransporter().verify(...args),
-};
+export const isSmtpConfigured = isResendConfigured;
 
 /**
- * Startup verification for Gmail SMTP connection.
+ * Startup diagnostic verification for Resend configuration.
+ * Safe logging: NEVER prints the key.
  */
-export async function verifySmtpConfiguration() {
-  if (!isSmtpConfigured()) {
-    console.warn('[SMTP NOTICE] Gmail SMTP credentials (SMTP_USER / SMTP_PASS) not configured in environment.');
-    return false;
+export function verifyEmailConfiguration() {
+  const configured = isResendConfigured();
+  if (configured) {
+    if (!resend) {
+      resend = new Resend(process.env.RESEND_API_KEY.trim());
+    }
+    console.log('[EMAIL] Resend provider configured: true');
+  } else {
+    console.warn('[EMAIL NOTICE] Resend API key (RESEND_API_KEY) not configured in environment.');
   }
-
-  try {
-    await getTransporter().verify();
-    console.log('[SMTP] Gmail SMTP connection verified successfully.');
-    return true;
-  } catch (error) {
-    console.error('[SMTP ERROR] Connection verification failed:', error.message);
-    return false;
-  }
+  return configured;
 }
 
+export const verifySmtpConfiguration = verifyEmailConfiguration;
+
 /**
- * Send contact inquiry email to Akilesh via Gmail SMTP.
- * Authenticated account: akileshanand302006@gmail.com (SMTP_USER)
- * Destination: akileshanand302006@gmail.com (CONTACT_TO / SMTP_USER)
- * Reply-To: visitor's entered email
+ * Send contact inquiry email to Akilesh via Resend REST API over HTTPS/443.
+ * 
+ * - From: Resend verified domain or onboarding sender (onboarding@resend.dev)
+ * - To: akileshanand302006@gmail.com
+ * - Reply-To: visitor's entered email
+ * - Transport: Resend REST API (port 443 HTTPS)
  */
 export async function sendContactEmail({ name, email, subject, message, timestamp, ipAddress }) {
-  if (!isSmtpConfigured()) {
-    console.error('[CONTACT ERROR] Cannot send email: SMTP_USER or SMTP_PASS not set in environment.');
+  if (!isResendConfigured()) {
+    console.error('[CONTACT ERROR] Cannot send email: RESEND_API_KEY not set in environment.');
     throw new Error('Email service is not configured on this server.');
   }
 
-  const authenticatedUser = process.env.SMTP_USER;
-  const destinationEmail = process.env.CONTACT_TO || authenticatedUser;
-  const emailSubject = 'New Portfolio Contact: ' + (subject || 'General Inquiry');
+  const client = getResendClient();
+  if (!client) {
+    console.error('[CONTACT ERROR] Failed to initialize Resend client with provided API key.');
+    throw new Error('Email service could not be initialized.');
+  }
+
+  const destinationEmail = process.env.CONTACT_TO || 'akileshanand302006@gmail.com';
+  const fromAddress = process.env.RESEND_FROM || 'Akilesh Portfolio <onboarding@resend.dev>';
+  const emailSubject = 'New Portfolio Contact — ' + (subject || 'General Inquiry');
   const displayTime = timestamp || new Date().toLocaleString();
 
   const textContent = [
@@ -99,7 +114,7 @@ export async function sendContactEmail({ name, email, subject, message, timestam
     message,
     '',
     '--------------------------------------------------',
-    'Received from: Akilesh A - Software Systems Portfolio',
+    'Received from: Akilesh A — Software Systems Portfolio',
     'Time: ' + displayTime,
     'IP: ' + (ipAddress || 'Not recorded')
   ].join('\n');
@@ -147,25 +162,32 @@ export async function sendContactEmail({ name, email, subject, message, timestam
     '      <div class="msg-box">' + safeMessage + '</div>',
     '    </div>',
     '    <div class="footer">',
-    '      Received from: Akilesh A - Software Systems Portfolio &bull; ' + displayTime,
+    '      Received from: Akilesh A — Software Systems Portfolio &bull; ' + displayTime,
     '    </div>',
     '  </div>',
     '</body>',
     '</html>'
   ].join('\n');
 
-  console.log('[CONTACT] Dispatching email to ' + destinationEmail + ' with Reply-To ' + email + ' via Gmail SMTP...');
+  console.log('[CONTACT] Sending via Resend API to ' + destinationEmail + ' with Reply-To ' + email + '...');
 
-  const mailOptions = {
-    from: '"Akilesh A Portfolio" <' + authenticatedUser + '>',
-    to: destinationEmail,
+  const { data, error } = await client.emails.send({
+    from: fromAddress,
+    to: [destinationEmail],
     replyTo: email,
     subject: emailSubject,
     text: textContent,
     html: htmlContent,
-  };
+  });
 
-  const info = await getTransporter().sendMail(mailOptions);
-  console.log('[CONTACT] Email delivered successfully via Gmail SMTP. MessageId:', info.messageId);
-  return info;
+  if (error) {
+    console.error('[CONTACT ERROR] Resend rejected message:', error.message || error);
+    throw new Error(error.message || 'Resend email delivery failed');
+  }
+
+  console.log('[CONTACT] Resend accepted message. ID:', data?.id);
+  return {
+    id: data?.id,
+    messageId: data?.id,
+  };
 }

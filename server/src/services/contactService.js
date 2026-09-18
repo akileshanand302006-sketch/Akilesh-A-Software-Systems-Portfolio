@@ -1,9 +1,9 @@
 import ContactMessage from '../models/ContactMessage.js';
-import { sendContactEmail, isSmtpConfigured } from './emailService.js';
+import { sendContactEmail, isResendConfigured } from './emailService.js';
 
 /**
  * Orchestrates contact email delivery and database persistence:
- * 1. Dispatches message to Akilesh via Gmail SMTP (Nodemailer)
+ * 1. Dispatches message to Akilesh via Resend REST API (HTTPS/443)
  * 2. Persists submission to MongoDB Atlas
  */
 export async function processContactMessage({
@@ -16,7 +16,7 @@ export async function processContactMessage({
 }) {
   console.log(`[CONTACT] Processing contact submission from ${name} (${email})`);
 
-  // Step 1: Deliver email via Gmail SMTP
+  // Step 1: Deliver email via Resend REST API
   let emailDeliveryResult = null;
   try {
     emailDeliveryResult = await sendContactEmail({
@@ -26,8 +26,8 @@ export async function processContactMessage({
       message,
       ipAddress,
     });
-  } catch (smtpError) {
-    console.error('[CONTACT] Gmail SMTP delivery failed:', smtpError.message);
+  } catch (deliveryError) {
+    console.error('[CONTACT ERROR] Resend email delivery failed:', deliveryError.message);
 
     // Save failed attempt in MongoDB for diagnostic auditing if possible
     try {
@@ -41,12 +41,12 @@ export async function processContactMessage({
         status: 'NEW',
         emailStatus: 'FAILED',
         ownerEmailStatus: 'FAILED',
-        errorMessage: smtpError.message,
+        errorMessage: deliveryError.message,
       });
-    } catch { }
+    } catch {}
 
     // Re-throw so the controller returns 500 and the frontend never displays false success
-    throw smtpError;
+    throw deliveryError;
   }
 
   // Step 2: Persist successful submission to MongoDB Atlas
@@ -73,6 +73,6 @@ export async function processContactMessage({
   return {
     id: contact?._id || 'delivered',
     emailStatus: 'SENT',
-    messageId: emailDeliveryResult?.messageId,
+    messageId: emailDeliveryResult?.id || emailDeliveryResult?.messageId,
   };
 }

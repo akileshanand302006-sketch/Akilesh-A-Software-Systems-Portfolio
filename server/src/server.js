@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { connectDB } from './config/database.js';
-import { verifySmtpConfiguration } from './services/emailService.js';
+import { verifyEmailConfiguration } from './services/emailService.js';
 import apiRoutes from './routes/api.routes.js';
 import { errorHandler, notFoundHandler } from './middleware/error.middleware.js';
 import { generalLimiter } from './middleware/rateLimiter.middleware.js';
@@ -26,7 +26,7 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 // Verify Gmail SMTP Configuration on startup
-verifySmtpConfiguration();
+verifyEmailConfiguration();
 
 // Security Headers
 app.use(

@@ -1,20 +1,21 @@
 import { processContactMessage } from '../services/contactService.js';
-import { isSmtpConfigured } from '../services/emailService.js';
+import { isResendConfigured } from '../services/emailService.js';
 
 /**
- * Health check endpoint indicating whether SMTP mail service is configured.
+ * Health check endpoint indicating whether Resend mail service is configured.
  * GET /api/contact/health
  */
 export function getContactHealth(req, res) {
   res.status(200).json({
     success: true,
-    emailConfigured: isSmtpConfigured(),
+    emailProvider: 'resend',
+    emailConfigured: isResendConfigured(),
   });
 }
 
 /**
  * Handle contact form submission.
- * Validates inputs, sends email via Gmail SMTP, and saves to MongoDB Atlas.
+ * Validates inputs, sends email via Resend REST API (HTTPS/443), and saves to MongoDB Atlas.
  * POST /api/contact
  */
 export async function submitContactMessage(req, res) {
@@ -85,12 +86,12 @@ export async function submitContactMessage(req, res) {
       },
     });
   } catch (error) {
-    // Technical logging on server (never exposing passwords or stack traces to client)
+    // Technical logging on server (never exposing passwords, API keys, or stack traces to client)
     console.error('[CONTACT CONTROLLER ERROR]', error.message);
 
     res.status(500).json({
       success: false,
-      message: 'Unable to send message right now. Please try again or email me directly.',
+      message: 'Unable to send your message right now. Please try again.',
     });
   }
 }

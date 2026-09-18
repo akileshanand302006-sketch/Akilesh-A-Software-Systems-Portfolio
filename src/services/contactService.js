@@ -3,7 +3,7 @@ import api from './api';
 export const contactService = {
   /**
    * Submit contact message to the Express backend.
-   * Dispatches real email via Nodemailer + Gmail SMTP and stores in MongoDB Atlas.
+   * Dispatches real email via Resend REST API (HTTPS/443) and stores in MongoDB Atlas.
    */
   async sendMessage({ name, email, subject, message }) {
     return await api.post('/contact', {
