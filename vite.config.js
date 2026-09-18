@@ -1,3 +1,12 @@
+import { execSync } from 'child_process';
+
+let commitSha = 'local';
+try {
+  commitSha = execSync('git rev-parse --short HEAD').toString().trim();
+} catch (e) {}
+
+const buildTime = new Date().toISOString();
+
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -8,6 +17,10 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
+    define: {
+      __BUILD_COMMIT__: JSON.stringify(commitSha),
+      __BUILD_TIME__: JSON.stringify(buildTime),
+    },
     base: '/Akilesh-A-Software-Systems-Portfolio/',
     server: {
       port: 5173,

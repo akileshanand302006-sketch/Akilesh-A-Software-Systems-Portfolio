@@ -27,6 +27,13 @@ import './styles/3d-scene.css';
 import './styles/responsive.css';
 import './App.css';
 
+if (typeof window !== 'undefined') {
+  const commit = typeof __BUILD_COMMIT__ !== 'undefined' ? __BUILD_COMMIT__ : 'dev';
+  const time = typeof __BUILD_TIME__ !== 'undefined' ? __BUILD_TIME__ : '';
+  window.__BUILD_VERSION__ = `${commit} (${time})`;
+  console.log(`[PORTFOLIO BUILD] ${commit} - ${time}`);
+}
+
 export default function App() {
   const { theme, toggleTheme } = useTheme();
   const [loaded, setLoaded] = useState(false);

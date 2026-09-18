@@ -1,17 +1,11 @@
 import nodemailer from 'nodemailer';
-import { Resend } from 'resend';
 
 /**
  * emailService.js
- * Multi-transport transactional email service supporting:
- * 1. Resend REST API (HTTPS port 443 - works on Render Free Tier)
- * 2. Nodemailer Gmail SMTP (IPv4 SSL/TLS on port 465/587)
+ * Production-ready transactional email service using Nodemailer + Gmail SMTP.
+ * Secrets are loaded STRICTLY from environment variables (process.env).
+ * No credentials or third-party providers (Resend, SendGrid, etc.) are used.
  */
-
-const DEFAULT_SMTP_USER = 'akileshanand302006@gmail.com';
-const DEFAULT_SMTP_PASS = 'wqezjahwucvxayrm';
-const DEFAULT_SMTP_HOST = 'smtp.gmail.com';
-const DEFAULT_SMTP_PORT = 465;
 
 function escapeHtml(text) {
   if (!text) return '';
@@ -23,66 +17,34 @@ function escapeHtml(text) {
     .replace(/'/g, '&#039;');
 }
 
-export function getEmailProvider() {
-  const resendKey = process.env.RESEND_API_KEY || process.env.EMAIL_API_KEY;
-  if (resendKey && resendKey.trim().length > 10 && !resendKey.includes('placeholder')) {
-    return { type: 'resend', client: new Resend(resendKey.trim()) };
-  }
-
-  const user = (process.env.SMTP_USER && process.env.SMTP_USER.trim()) || DEFAULT_SMTP_USER;
-  const pass = (process.env.SMTP_PASS && process.env.SMTP_PASS.trim()) || DEFAULT_SMTP_PASS;
-
-  if (user && pass && pass.length > 0 && !pass.includes('placeholder')) {
-    return { type: 'smtp' };
-  }
-
-  return null;
-}
-
+/**
+ * Check whether Gmail SMTP is configured in environment variables.
+ */
 export function isSmtpConfigured() {
-  return getEmailProvider() !== null;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  return Boolean(user && user.trim() && pass && pass.trim());
 }
 
-export function createTransporter(port = null, secure = null) {
-  const currentPass = (process.env.SMTP_PASS && process.env.SMTP_PASS.trim() && !process.env.SMTP_PASS.includes('placeholder')) 
-    ? process.env.SMTP_PASS.trim() 
-    : DEFAULT_SMTP_PASS;
-  const currentUser = (process.env.SMTP_USER && process.env.SMTP_USER.trim()) 
-    ? process.env.SMTP_USER.trim() 
-    : DEFAULT_SMTP_USER;
-  const host = process.env.SMTP_HOST || DEFAULT_SMTP_HOST;
-  
-  const targetPort = port !== null ? port : (Number(process.env.SMTP_PORT) || DEFAULT_SMTP_PORT);
-  const isSecure = secure !== null ? secure : (process.env.SMTP_SECURE === 'true' || targetPort === 465);
+/**
+ * Create Nodemailer Transporter using Gmail SMTP credentials from environment.
+ */
+export function getTransporter() {
+  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
+  const port = Number(process.env.SMTP_PORT) || 465;
+  const secure = process.env.SMTP_SECURE === 'true' || port === 465;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
 
   return nodemailer.createTransport({
     host,
-    port: targetPort,
-    secure: isSecure,
-    family: 4,
-    connectionTimeout: 15000,
-    greetingTimeout: 10000,
-    socketTimeout: 20000,
+    port,
+    secure,
     auth: {
-      user: currentUser,
-      pass: currentPass,
+      user,
+      pass,
     },
   });
-}
-
-let cachedTransporter = null;
-let lastPass = null;
-
-export function getTransporter() {
-  const currentPass = (process.env.SMTP_PASS && process.env.SMTP_PASS.trim() && !process.env.SMTP_PASS.includes('placeholder')) 
-    ? process.env.SMTP_PASS.trim() 
-    : DEFAULT_SMTP_PASS;
-
-  if (!cachedTransporter || lastPass !== currentPass) {
-    cachedTransporter = createTransporter(465, true);
-    lastPass = currentPass;
-  }
-  return cachedTransporter;
 }
 
 export const transporter = {
@@ -90,46 +52,39 @@ export const transporter = {
   verify: (...args) => getTransporter().verify(...args),
 };
 
+/**
+ * Startup verification for Gmail SMTP connection.
+ */
 export async function verifySmtpConfiguration() {
-  const provider = getEmailProvider();
-  if (!provider) {
-    console.warn('[SMTP NOTICE] No email provider configured.');
+  if (!isSmtpConfigured()) {
+    console.warn('[SMTP NOTICE] Gmail SMTP credentials (SMTP_USER / SMTP_PASS) not configured in environment.');
     return false;
   }
 
-  if (provider.type === 'resend') {
-    console.log('[EMAIL] Resend REST API provider configured (HTTPS port 443).');
-    return true;
-  }
-
   try {
-    const primary = getTransporter();
-    await primary.verify();
-    console.log('[SMTP] Gmail SMTP verified successfully on port 465 (IPv4).');
+    await getTransporter().verify();
+    console.log('[SMTP] Gmail SMTP connection verified successfully.');
     return true;
   } catch (error) {
-    try {
-      const fallback = createTransporter(587, false);
-      await fallback.verify();
-      console.log('[SMTP] Gmail SMTP verified successfully on fallback port 587 (IPv4).');
-      return true;
-    } catch (fallbackError) {
-      console.warn('[CONTACT NOTICE] SMTP verification notice (Render free tier blocks ports 465/587).');
-      return false;
-    }
+    console.error('[SMTP ERROR] Connection verification failed:', error.message);
+    return false;
   }
 }
 
+/**
+ * Send contact inquiry email to Akilesh via Gmail SMTP.
+ * Authenticated account: akileshanand302006@gmail.com (SMTP_USER)
+ * Destination: akileshanand302006@gmail.com (CONTACT_TO / SMTP_USER)
+ * Reply-To: visitor's entered email
+ */
 export async function sendContactEmail({ name, email, subject, message, timestamp, ipAddress }) {
-  const provider = getEmailProvider();
-  if (!provider) {
-    console.error('[CONTACT ERROR] Cannot send email: No email provider configured.');
-    throw new Error('Email service is temporarily unavailable.');
+  if (!isSmtpConfigured()) {
+    console.error('[CONTACT ERROR] Cannot send email: SMTP_USER or SMTP_PASS not set in environment.');
+    throw new Error('Email service is not configured on this server.');
   }
 
-  const destinationEmail = process.env.CONTACT_TO || process.env.SMTP_USER || DEFAULT_SMTP_USER;
-  const authenticatedSender = process.env.SMTP_USER || DEFAULT_SMTP_USER;
-  const fromAddress = process.env.EMAIL_FROM || 'Portfolio Contact <onboarding@resend.dev>';
+  const authenticatedUser = process.env.SMTP_USER;
+  const destinationEmail = process.env.CONTACT_TO || authenticatedUser;
   const emailSubject = 'New Portfolio Contact: ' + (subject || 'General Inquiry');
   const displayTime = timestamp || new Date().toLocaleString();
 
@@ -169,7 +124,7 @@ export async function sendContactEmail({ name, email, subject, message, timestam
     '    .val { color: #f1f5f9; font-size: 15px; margin-top: 3px; }',
     '    .msg-box { background: #1e293b; border-left: 3px solid #38bdf8; padding: 16px; border-radius: 6px; margin: 18px 0; color: #ffffff; font-size: 15px; line-height: 1.6; }',
     '    .footer { font-size: 12px; color: #64748b; border-top: 1px solid #1e293b; padding-top: 16px; margin-top: 24px; text-align: center; }',
-    '  </style>',
+  '  </style>',
     '</head>',
     '<body>',
     '  <div class="card">',
@@ -199,29 +154,10 @@ export async function sendContactEmail({ name, email, subject, message, timestam
     '</html>'
   ].join('\n');
 
-  if (provider.type === 'resend') {
-    console.log('[CONTACT] Dispatching email to ' + destinationEmail + ' via Resend REST API...');
-    const { data, error } = await provider.client.emails.send({
-      from: fromAddress,
-      to: [destinationEmail],
-      reply_to: email,
-      subject: emailSubject,
-      text: textContent,
-      html: htmlContent,
-    });
+  console.log('[CONTACT] Dispatching email to ' + destinationEmail + ' with Reply-To ' + email + ' via Gmail SMTP...');
 
-    if (error) {
-      console.error('[CONTACT ERROR] Resend delivery error:', error);
-      throw new Error(error.message || 'Resend failed to deliver message.');
-    }
-
-    console.log('[CONTACT] Email sent successfully via Resend. ID:', data && data.id);
-    return { messageId: data && data.id };
-  }
-
-  console.log('[CONTACT] Dispatching email to ' + destinationEmail + ' with Reply-To ' + email + ' via SMTP...');
   const mailOptions = {
-    from: '"Akilesh A Portfolio" <' + authenticatedSender + '>',
+    from: '"Akilesh A Portfolio" <' + authenticatedUser + '>',
     to: destinationEmail,
     replyTo: email,
     subject: emailSubject,
@@ -229,21 +165,7 @@ export async function sendContactEmail({ name, email, subject, message, timestam
     html: htmlContent,
   };
 
-  try {
-    const primaryTransporter = getTransporter();
-    const info = await primaryTransporter.sendMail(mailOptions);
-    console.log('[CONTACT] Email sent successfully via Gmail SMTP (Port 465). MessageId:', info.messageId);
-    return info;
-  } catch (primaryError) {
-    console.warn('[CONTACT WARNING] Port 465 send failed (' + primaryError.message + '), trying port 587...');
-    try {
-      const fallbackTransporter = createTransporter(587, false);
-      const info = await fallbackTransporter.sendMail(mailOptions);
-      console.log('[CONTACT] Email sent successfully via fallback port 587. MessageId:', info.messageId);
-      return info;
-    } catch (fallbackError) {
-      console.error('[CONTACT ERROR] Both SMTP attempts failed. Error:', fallbackError.message);
-      throw fallbackError;
-    }
-  }
+  const info = await getTransporter().sendMail(mailOptions);
+  console.log('[CONTACT] Email delivered successfully via Gmail SMTP. MessageId:', info.messageId);
+  return info;
 }

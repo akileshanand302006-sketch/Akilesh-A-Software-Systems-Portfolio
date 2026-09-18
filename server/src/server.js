@@ -1,7 +1,3 @@
-import dns from 'dns';
-// Force IPv4 DNS resolution for cloud hosting
-try { dns.setDefaultResultOrder('ipv4first'); } catch (e) {}
-
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';

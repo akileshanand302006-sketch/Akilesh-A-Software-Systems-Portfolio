@@ -122,6 +122,9 @@ export default function Footer() {
           <div className="footer-bottom">
             <p className="footer-copyright">
               © {currentYear} {profile.name}. Built with React, Three.js & Liquid Glass UI.
+              <span className="build-tag" style={{ marginLeft: '8px', opacity: 0.35, fontSize: '0.75rem', fontFamily: 'monospace' }}>
+                v{typeof __BUILD_COMMIT__ !== 'undefined' ? __BUILD_COMMIT__ : 'dev'}
+              </span>
             </p>
             
             <button
