@@ -1,8 +1,10 @@
 name: Deploy Portfolio to GitHub Pages
 
+# DISABLED: Frontend now deployed via Netlify (not GitHub Pages)
+# To re-enable, uncomment the push trigger below.
 on:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
   workflow_dispatch:
 
 permissions:

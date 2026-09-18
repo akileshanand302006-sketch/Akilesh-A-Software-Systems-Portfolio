@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
       __BUILD_COMMIT__: JSON.stringify(commitSha),
       __BUILD_TIME__: JSON.stringify(buildTime),
     },
-    base: '/Akilesh-A-Software-Systems-Portfolio/',
+    base: '/',
     server: {
       port: 5173,
       proxy: {
