@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from './services/api';
 import { useTheme } from './hooks/useTheme';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import BackgroundEffects from './components/BackgroundEffects/BackgroundEffects';
@@ -29,6 +30,11 @@ import './App.css';
 export default function App() {
   const { theme, toggleTheme } = useTheme();
   const [loaded, setLoaded] = useState(false);
+
+  // Warm up Render backend on page load to eliminate cold-start lag for contact form
+  useEffect(() => {
+    api.get('/health').catch(() => {});
+  }, []);
 
   return (
     <div className="portfolio-app" data-theme={theme}>

@@ -30,8 +30,19 @@ export default function Contact() {
   });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  const [isWakingUp, setIsWakingUp] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const lastSubmitTime = useRef(0);
+
+  useEffect(() => {
+    let timer;
+    if (status === 'sending') {
+      timer = setTimeout(() => setIsWakingUp(true), 4000);
+    } else {
+      setIsWakingUp(false);
+    }
+    return () => clearTimeout(timer);
+  }, [status]);
 
   // Trigger Anime.js success animation when status turns to 'success'
   useEffect(() => {
@@ -458,7 +469,7 @@ export default function Contact() {
                   {status === 'sending' ? (
                     <>
                       <Loader2 size={18} className="animate-spin" />
-                      <span>Sending...</span>
+                      <span>{isWakingUp ? 'Connecting to Mail Server...' : 'Sending...'}</span>
                     </>
                   ) : (
                     <>
