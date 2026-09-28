@@ -88,7 +88,6 @@
     React • Vite • Three.js • Anime.js • Framer Motion • Node.js • MongoDB Atlas • Netlify • Render • Resend
   </sub>
 </p>
----
 
 ## ✨ Overview
 
